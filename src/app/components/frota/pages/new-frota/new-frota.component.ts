@@ -1,0 +1,113 @@
+import { Component, OnInit } from '@angular/core';
+import { MensagensService } from 'src/app/services/mensagens.service';
+import { Router } from '@angular/router';
+import { Onibus } from 'src/app/Onibus';
+import { PaletaCores } from 'src/app/PaletaCores';
+import { OnibusService } from 'src/app/services/onibus.service';
+import { PaletaCoresService } from 'src/app/services/paleta-cores.service';
+import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
+import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
+
+
+@Component({
+  selector: 'app-new-frota',
+  templateUrl: './new-frota.component.html',
+  styleUrls: ['./new-frota.component.css']
+})
+export class NewFrotaComponent implements OnInit {
+
+  onibusForm!: FormGroup;
+  onibus!: Onibus;
+
+  paletaForm!: FormGroup;
+  paleta!: PaletaCores;
+  paletas!: PaletaCores[];
+
+  constructor(public messagesService: MensagensService, private router: Router,
+    private onibusService: OnibusService, private paletaService: PaletaCoresService, private compartilhamento: CompartilharListService) {
+
+  }
+  ngOnInit(): void {
+    this.messagesService.addMensagemInfo("Adicione as cores da frota, caso não tenha sua opção!");
+
+    this.onibusForm = new FormGroup({
+      marca: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      nameBus: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      dataFabricacao: new FormControl('', [Validators.required]),
+      renavam: new FormControl('', [Validators.required]),
+      placa: new FormControl('', [Validators.required]),
+      chassi: new FormControl('', [Validators.required]),
+      assentos: new FormControl('', [Validators.required]),
+      statusOnibus: new FormControl(0),
+      corBus: new FormControl('', [Validators.required])
+    });
+
+    this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens);
+
+    this.paletaForm = new FormGroup({
+      cor: new FormControl('', [Validators.required, Validators.minLength(3)])
+    });
+  }
+
+  //Get's da interface Onibus.
+  get dataFabricacao() {
+    return this.onibusForm.get('dataFabricacao')!;
+  }
+  get marca() {
+    return this.onibusForm.get('marca')!;
+  }
+  get nameBus() {
+    return this.onibusForm.get('nameBus')!;
+  }
+  get renavam() {
+    return this.onibusForm.get('renavam')!;
+  }
+  get placa() {
+    return this.onibusForm.get('placa')!;
+  }
+  get assentos() {
+    return this.onibusForm.get('assentos')!;
+  }
+  get chassi() {
+    return this.onibusForm.get('chassi')!;
+  }
+  get corBus() {
+    return this.onibusForm.get('corBus')!;
+  }
+
+  //Getters da interface paletaCores.
+  get cor() {
+    return this.paletaForm.get('cor')!;
+  }
+  submit() {
+    if (this.onibusForm.invalid) {
+      this.messagesService.addMensagemError("Informe os campos obrigatórios!");
+      return;
+    }
+    const data: Onibus = this.onibusForm.value;
+    this.onibusService.CreateOnibus(data).subscribe(() => {
+      this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtual(), true).subscribe((itens) => {
+        this.compartilhamento.setTotPagina(itens.qtPaginate);
+        this.compartilhamento.atualizarOnibus(itens.onibusList);
+      });;
+    });
+    this.messagesService.addMensagemSucesso("Registrado com sucesso!");
+    this.router.navigate(["/frota"]);
+  }
+
+  submitCor() {
+    if (this.paletaForm.invalid) {
+      return;
+    }
+    const data: PaletaCores = this.paletaForm.value;
+    this.paletaService.CreatePaleta(data).subscribe(() => {
+      this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens);
+    });
+  }
+
+  removeHandlerCor(paleta: PaletaCores) {
+    this.paletaService.DeletePaleta(paleta.id!).subscribe(() => {
+      this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens);
+    });
+  }
+}

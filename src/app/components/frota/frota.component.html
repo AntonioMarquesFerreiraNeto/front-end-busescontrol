@@ -1,0 +1,96 @@
+<div class="container-components">
+    <app-mensagens></app-mensagens>
+    <div class="header">
+        <h3 [class.red-color]="inativosSelect">
+            <i class="fa fa-bus"></i>
+            {{tituloPag}}
+        </h3>
+        <hr class="hr">
+        <div class="container-buttons">
+            <div>
+                <button class="btn button grenn" (click)="GetOnibusAtivos()">Ativos</button>
+                <button class="btn button red" (click)="GetOnibusInativos()">Inativos</button>
+            </div>
+            <div>
+                <a class="btn button blue" routerLink="/frota/newfrota"><i class="fa fa-plus"></i> Ônibus</a>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <div *ngIf="onibus.length else listnull">
+            <table class="table shadow-sm p-3 mb-5 bg-white rounded">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Cor</th>
+                        <th scope="col">Placa</th>
+                        <th scope="col">Ano de fab.</th>
+                        <th scope="col">Opção</th>
+                    </tr>
+                </thead>
+                <tr class="row-hover" *ngFor="let item of onibus">
+                    <td>{{item.id}}</td>
+                    <td>{{item.marca}}</td>
+                    <td>{{item.nameBus}}</td>
+                    <td>{{item.corBus}}</td>
+                    <td>{{FormatarPlaca(item.placa)}}</td>
+                    <td>{{item.dataFabricacao}}</td>
+                    <td *ngIf="item.statusOnibus == 0; else itemInativo">
+                        <a class="link" routerLink="/frota/edit/{{item.id}}"><i class="fa fa-edit"></i></a>
+                        <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link link-trash"><i
+                                class="fa fa-trash-alt"></i></a>
+                    </td>
+                    <ng-template #itemInativo>
+                        <td>
+                            <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link"><i class="fa fa-bus"></i></a>
+                        </td>
+                    </ng-template>
+                </tr>
+            </table>
+            <div class="pagination" *ngIf="!inativosSelect; else paginateInativos">
+                <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtual() == 1">
+                    <a class="page-link shadow-sm"  tabindex="-1" (click)="anteriorAtivosPaginate()"><i class="fa fa-arrow-left"></i></a>
+                </li>
+                <li class="page-item disabled">
+                    <p class="page-link shadow-sm">{{compartilhamento.getPaginaAtual()}}/{{compartilhamento.getTotPagina()}}</p>
+                </li>
+                <li class="page-item proximo" [class.disabled]="compartilhamento.getPaginaAtual() == compartilhamento.getTotPagina()">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="proximoAtivosPaginate()"><i class="fa fa-arrow-right"></i></a>
+                </li>
+            </div>
+            <ng-template #paginateInativos>
+                <div class="pagination">
+                    <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtual() == 1">
+                        <a class="page-link shadow-sm"  tabindex="-1" (click)="anteriorInativosPaginate()"><i class="fa fa-arrow-left"></i></a>
+                    </li>
+                    <li class="page-item disabled">
+                        <p class="page-link shadow-sm">{{compartilhamento.getPaginaAtual()}}/{{compartilhamento.getTotPagina()}}</p>
+                    </li>
+                    <li class="page-item proximo" [class.disabled]="compartilhamento.getPaginaAtual() == compartilhamento.getTotPagina()">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="proximoInativosPaginate()"><i class="fa fa-arrow-right"></i></a>
+                    </li>
+                </div>
+            </ng-template>
+        </div>
+        <ng-template #listnull>
+            <table class="table shadow-sm p-3 mb-5 bg-white rounded">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Placa</th>
+                        <th scope="col">Ano de fab.</th>
+                        <th scope="col">Qt. assentos</th>
+                        <th scope="col">Opção</th>
+                    </tr>
+                </thead>
+                <tr class="row-hover">
+                    <td colspan="7">Nenhum registro encontrado!</td>
+                </tr>
+            </table>
+        </ng-template>
+    </div>
+</div>

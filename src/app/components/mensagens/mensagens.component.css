@@ -1,0 +1,180 @@
+.position-relative {
+    position: relative;
+}
+
+.alert {
+    position: absolute;
+    z-index: 1;
+    min-width: 400px;
+    min-height: 60px;
+    top: -2.2em;
+    border-radius: 7px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+}
+
+
+.alert-danger {
+    background-color: #fe5757;
+}
+.alert-success{
+    background-color: rgb(0, 151, 0);
+}
+.alert-info{
+    color: blue;
+    background-color: rgb(195, 219, 255);
+}
+.alert p {
+    display: flex;
+    align-items: center;
+    margin: 0px;
+    font-size: 12pt;
+    padding: 0px;
+    color: #ffff;
+    font-weight: bold;
+}
+
+.fa-triangle-exclamation {
+    align-self: flex-start;
+    margin-right: 6px;
+}
+.fa-square-check{
+    font-size: 19pt;
+    align-self: center;
+    margin-right: 6px;
+}
+.fa-clipboard-question{
+    font-size: 19pt;
+    align-self: center;
+    margin-right: 6px;
+}
+
+i {
+    align-items: center;
+    font-weight: bold;
+    font-size: 17pt;
+}
+
+.close-error {
+    position: absolute;
+    top: -13px;
+    right: -13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(249, 69, 69);
+    border: none;
+    z-index: 0;
+    border-radius: 10px;
+    width: 39px;
+    height: 36px;
+    color: rgb(255, 255, 255);
+    transition: 0.5s;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.5);
+}
+
+.close-error:hover {
+    transform: translateY(-2px);
+    color: white;
+    background-color: darkred;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.7);
+}
+.close-sucess {
+    position: absolute;
+    top: -13px;
+    right: -13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(20, 171, 0);
+    z-index: 0;
+    border: none;
+    border-radius: 10px;
+    width: 39px;
+    height: 36px;
+    color: rgb(255, 255, 255);
+    transition: 0.5s;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.5);
+}
+
+.close-sucess:hover {
+    transform: translateY(-2px);
+    color: white;
+    background-color: rgb(1, 148, 79);
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.7);
+}
+
+.close-info {
+    position: absolute;
+    top: -13px;
+    right: -13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(110, 168, 255);
+    z-index: 0;
+    border: none;
+    border-radius: 10px;
+    width: 39px;
+    height: 36px;
+    color: rgb(255, 255, 255);
+    transition: 0.5s;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.5);
+}
+
+.close-info:hover {
+    transform: translateY(-2px);
+    color: white;
+    background-color: rgb(66, 142, 255);
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.7);
+}
+
+
+.error-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px; /* altura desejada da barra de erro */
+    border-radius: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+    background-color: red; /* cor da barra de erro */
+    animation: shrink 6s forwards; /* tempo de duração da animação */
+  }
+.sucess-bar{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px; /* altura desejada da barra de sucesso */
+    margin: auto;
+    border-radius: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+    background-color: rgb(24, 205, 0); /* cor da barra de sucesso */
+    animation: shrink 6s forwards; /* tempo de duração da animação */ 
+}
+.info-bar{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px; /* altura desejada da barra de sucesso */
+    margin: auto;
+    border-radius: 10px;
+    margin-left: 1px;
+    margin-right: 2px;
+    background-color: rgb(110, 168, 255); /* cor da barra de sucesso */
+    animation: shrink 6s forwards; /* tempo de duração da animação */ 
+}
+
+
+  @keyframes shrink {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 0%;
+    }
+  }
