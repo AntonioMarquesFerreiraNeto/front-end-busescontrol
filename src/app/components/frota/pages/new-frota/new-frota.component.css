@@ -1,5 +1,5 @@
 /*Desabilitando a borda de botões que usar esta classe*/
-.btn-link{
+.btn-link {
   border: none;
 }
 
@@ -26,10 +26,12 @@
 .container-form {
   margin-top: 10px;
 }
-.col-md-12{
+
+.col-md-12 {
   display: flex;
   align-items: center;
 }
+
 .container-opcoes {
   display: flex;
   box-sizing: border-box;
@@ -134,6 +136,7 @@
   overflow-y: auto;
   background-color: ghostwhite;
 }
+
 /* Barra de rolagem */
 .body-modal-alt::-webkit-scrollbar {
   width: 8px;
@@ -319,18 +322,38 @@
   color: rgb(255, 0, 0);
   right: 1.1em;
 }
-.errorMsg-modal div{
+
+.errorMsg-modal div {
   position: relative;
 }
-.errorMsg-modal{
+
+.errorMsg-modal {
   font-size: 10pt;
   position: absolute;
   bottom: -1.6em;
   color: rgb(255, 60, 0);
   right: 4.2em;
 }
+
 @media(max-width: 700px) {
   .button {
-    min-width: 110px;
+    min-width: 100px;
+  }
+
+  .container-opcoes {
+    justify-content: space-between;
+  }
+}
+
+@media(max-width: 500px) {
+  .button {
+    width: 100%;
+  }
+
+  .container-opcoes {
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-shrink: 1;
   }
 }

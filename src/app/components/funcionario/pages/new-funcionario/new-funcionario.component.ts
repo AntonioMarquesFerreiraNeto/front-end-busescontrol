@@ -1,0 +1,147 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, IterableDiffers, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Funcionario } from 'src/app/Funcionario';
+import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
+import { FuncionarioService } from 'src/app/services/funcionario.service';
+import { MensagensService } from 'src/app/services/mensagens.service';
+@Component({
+  selector: 'app-new-funcionario',
+  templateUrl: './new-funcionario.component.html',
+  styleUrls: ['./new-funcionario.component.css']
+})
+export class NewFuncionarioComponent implements OnInit {
+
+  funcionarioForm!: FormGroup;
+
+  constructor(private mensagemService: MensagensService, private funcionarioService: FuncionarioService, private router: Router, private compartilhamento: CompartilharListService) {
+
+  }
+
+  ngOnInit(): void {
+    this.funcionarioForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      dataNascimento: new FormControl('', [Validators.required]),
+      cpf: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required]),
+      telefone: new FormControl('', [Validators.required]),
+      cargo: new FormControl('', [Validators.required]),
+      cep: new FormControl('', [Validators.required]),
+      complementoResidencial: new FormControl('', [Validators.required]),
+      numeroResidencial: new FormControl('', [Validators.required]),
+      logradouro: new FormControl('', [Validators.required]),
+      ddd: new FormControl('', [Validators.required]),
+      bairro: new FormControl('', [Validators.required]),
+      cidade: new FormControl('', [Validators.required]),
+      estado: new FormControl('', [Validators.required])
+    });
+    this.mensagemService.addMensagemInfo("Atenção, motoristas não tem acesso ao sistema.");
+  }
+
+  get name() {
+    return this.funcionarioForm.get('name')!;
+  }
+  get dataNascimento() {
+    return this.funcionarioForm.get('dataNascimento')!;
+  }
+  get cpf() {
+    return this.funcionarioForm.get('cpf')!;
+  }
+  get email() {
+    return this.funcionarioForm.get('email')!;
+  }
+  get telefone() {
+    return this.funcionarioForm.get('telefone')!;
+  }
+  get cargo() {
+    return this.funcionarioForm.get('cargo')!;
+  }
+  get cep() {
+    return this.funcionarioForm.get('cep')!;
+  }
+  get complementoResidencial() {
+    return this.funcionarioForm.get('complementoResidencial')!;
+  }
+  get numeroResidencial() {
+    return this.funcionarioForm.get('numeroResidencial')!;
+  }
+  get logradouro() {
+    return this.funcionarioForm.get('logradouro')!;
+  }
+  get ddd() {
+    return this.funcionarioForm.get('ddd')!;
+  }
+  get bairro() {
+    return this.funcionarioForm.get('bairro')!;
+  }
+  get cidade() {
+    return this.funcionarioForm.get('cidade')!;
+  }
+  get estado() {
+    return this.funcionarioForm.get('estado')!;
+  }
+
+  buscarByCep() {
+    const cepValue = this.funcionarioForm.get('cep')?.value;
+    if (cepValue == '') {
+      this.mensagemService.addMensagemError("Por favor, informe o CEP!");
+      return;
+    }
+    this.compartilhamento.GetEnderecoByCep(cepValue).subscribe({
+      next: (item) => {
+        this.funcionarioForm.get('logradouro')?.setValue(item.logradouro);
+        this.funcionarioForm.get('estado')?.setValue(item.uf);
+        this.funcionarioForm.get('complementoResidencial')?.setValue(item.complemento);
+        this.funcionarioForm.get('cidade')?.setValue(item.localidade);
+        this.funcionarioForm.get('ddd')?.setValue(item.ddd);
+        this.funcionarioForm.get('bairro')?.setValue(item.bairro);
+        this.mensagemService.addMensagemSucesso("Endereço retornado com sucesso!");
+      },
+      error: () => {
+        this.mensagemService.addMensagemError("Por favor, informe um CEP válido!");
+      }
+    });
+  }
+  submit() {
+    if (this.funcionarioForm.invalid && !this.funcionarioForm.errors?.["serverError"]) {
+      this.mensagemService.addMensagemError("Por favor, preencha os campos obrigatórios!");
+      return;
+    }
+    const data: Funcionario = this.funcionarioForm.value;
+    data.cargo = Number(data.cargo);
+    this.funcionarioService.CreateFuncionario(data).subscribe({
+      next: () => {
+        this.funcionarioService.GetPaginateAtivos(this.compartilhamento.getPaginaAtualFuncionario(), true).subscribe((itens) => {
+          this.compartilhamento.setTotPaginaFuncionario(itens.qtPaginate);
+          this.compartilhamento.atualizarFuncionario(itens.funciList);
+          this.mensagemService.addMensagemSucesso("Registrado com sucesso!");
+          this.router.navigate(["/funcionario"]);
+        });
+      },
+      error: (error: HttpErrorResponse) => {
+        if(error.status === 0){
+          this.mensagemService.addMensagemError("Desculpe, ocorreu um erro ao processar a solicitação. Por favor, tente novamente mais tarde ou entre em contato com o suporte do sistema.");
+          return;
+        }
+        if (typeof error.error !== 'object') {
+          this.mensagemService.addMensagemError(error.error);
+          return;
+        }
+        const listaErros = error.error.errors;
+        const errosFormulario = [];
+        if (listaErros) {
+          Object.keys(listaErros).forEach((nameAtributo) => {
+            const formControl = this.funcionarioForm.get(this.lowerFirstCaracter(nameAtributo));
+            const erro = { atributo: nameAtributo, mensagem: listaErros[nameAtributo] };
+            errosFormulario.push(erro);
+            formControl?.setErrors({ serverError: listaErros[nameAtributo] });
+          });
+        }
+      }
+    });
+  }
+  lowerFirstCaracter(str: string): string {
+    return str.charAt(0).toLowerCase() + str.slice(1);
+  }
+}

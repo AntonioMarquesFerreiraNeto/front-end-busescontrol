@@ -6,6 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
 import { combineAll } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-gerirstatus-bus',
   templateUrl: './gerirstatus-bus.component.html',
@@ -33,37 +34,48 @@ export class GerirStatusBusComponent implements OnInit {
 
   ActionHandler(onibus: Onibus) {
     if (this.inativar! == true) {
-      this.onibusService.InativarOnibus(onibus.id!).subscribe(() => {
-        this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtual(), true).subscribe((itens) => {
-          if (!itens.onibusList.length && (this.compartilhamento.getPaginaAtual() - 1) !== 0) {
-            this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtual() - 1, true).subscribe((response) => {
-              this.compartilhamento.setPaginaAtual(this.compartilhamento.getPaginaAtual() - 1);
-              this.compartilhamento.setTotPagina(response.qtPaginate);
-              this.compartilhamento.atualizarOnibus(response.onibusList);
-            });
-          } else {
-            this.compartilhamento.atualizarOnibus(itens.onibusList);
-            this.compartilhamento.setTotPagina(itens.qtPaginate);
-          }
-        });
+      this.onibusService.InativarOnibus(onibus.id!).subscribe({
+        next: () => {
+          this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtualOnibus(), true).subscribe((itens) => {
+            if (!itens.onibusList.length && (this.compartilhamento.getPaginaAtualOnibus() - 1) !== 0) {
+              this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtualOnibus() - 1, true).subscribe((response) => {
+                this.compartilhamento.setPaginaAtualOnibus(this.compartilhamento.getPaginaAtualOnibus() - 1);
+                this.compartilhamento.setTotPaginaOnibus(response.qtPaginate);
+                this.compartilhamento.atualizarOnibus(response.onibusList);
+              });
+            } else {
+              this.compartilhamento.atualizarOnibus(itens.onibusList);
+              this.compartilhamento.setTotPaginaOnibus(itens.qtPaginate);
+            }
+          });
+          this.mensagemService.addMensagemSucesso("Inativado com sucesso!");
+        },
+        error: (error: HttpErrorResponse) => {
+          this.mensagemService.addMensagemError(error.error);
+        }
       });
-      this.mensagemService.addMensagemSucesso("Inativado com sucesso!");
-    } else {
-      this.onibusService.AtivarOnibus(onibus.id!).subscribe(() => {
-        this.onibusService.GetOnibusPaginateInativos(this.compartilhamento.getPaginaAtual(), true).subscribe((itens) => {
-          if (!itens.onibusList.length && (this.compartilhamento.getPaginaAtual() - 1) !== 0) {
-            this.onibusService.GetOnibusPaginateInativos(this.compartilhamento.getPaginaAtual() - 1, true).subscribe((response) => {
-              this.compartilhamento.setPaginaAtual(this.compartilhamento.getPaginaAtual() - 1);
-              this.compartilhamento.setTotPagina(response.qtPaginate);
-              this.compartilhamento.atualizarOnibus(response.onibusList);
-            });
-          } else {
-            this.compartilhamento.atualizarOnibus(itens.onibusList);
-            this.compartilhamento.setTotPagina(itens.qtPaginate);
-          }
-        });
+    }
+    else {
+      this.onibusService.AtivarOnibus(onibus.id!).subscribe({
+        next: () => {
+          this.onibusService.GetOnibusPaginateInativos(this.compartilhamento.getPaginaAtualOnibus(), true).subscribe((itens) => {
+            if (!itens.onibusList.length && (this.compartilhamento.getPaginaAtualOnibus() - 1) !== 0) {
+              this.onibusService.GetOnibusPaginateInativos(this.compartilhamento.getPaginaAtualOnibus() - 1, true).subscribe((response) => {
+                this.compartilhamento.setPaginaAtualOnibus(this.compartilhamento.getPaginaAtualOnibus() - 1);
+                this.compartilhamento.setTotPaginaOnibus(response.qtPaginate);
+                this.compartilhamento.atualizarOnibus(response.onibusList);
+              });
+            } else {
+              this.compartilhamento.atualizarOnibus(itens.onibusList);
+              this.compartilhamento.setTotPaginaOnibus(itens.qtPaginate);
+            }
+          });
+          this.mensagemService.addMensagemSucesso("Ativado com sucesso!");
+        }, 
+        error: (error: HttpErrorResponse) => {
+          this.mensagemService.addMensagemError(error.error);
+        }
       });
-      this.mensagemService.addMensagemSucesso("Ativado com sucesso!");
     }
     this.activeModal.dismiss();
   }

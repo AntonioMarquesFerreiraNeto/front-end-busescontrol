@@ -18,7 +18,7 @@ export class MensagensService {
     this.mensagem_error = msg;
     setTimeout(() =>
       this.closeMensagemError(),
-      4900);
+      5900);
   }
   closeMensagemError() {
     this.mensagem_error = '';
@@ -29,7 +29,7 @@ export class MensagensService {
     this.closeMensagemInfo();
     this.mensagem_sucesso = msg;
     setTimeout(() =>
-      this.closeMensagemSucesso(), 4900);
+      this.closeMensagemSucesso(), 5900);
   }
   closeMensagemSucesso() {
     this.mensagem_sucesso = '';
@@ -41,7 +41,7 @@ export class MensagensService {
     this.mensagem_info = msg;
     setTimeout(() =>
       this.closeMensagemInfo(),
-      4900);
+      5900);
   }
   closeMensagemInfo() {
     this.mensagem_info = '';

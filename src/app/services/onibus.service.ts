@@ -23,11 +23,11 @@ export class OnibusService {
     console.log("Deu tudo certo!");
     return this.http.post<Onibus>(this.apiUrl, onibus, httpOptions);
   }
-  GetOnibusPaginateAtivos(paginaAtual: number, statusOnibus: boolean): Observable<any> {
-    return this.http.get<OnibusPaginado>(`${this.apiUrl}/PaginateListAtivos/${paginaAtual}/${statusOnibus}`);
+  GetOnibusPaginateAtivos(paginaAtual: number, statusPaginacao: boolean): Observable<any> {
+    return this.http.get<OnibusPaginado>(`${this.apiUrl}/PaginateListAtivos/${paginaAtual}/${statusPaginacao}`);
   }
-  GetOnibusPaginateInativos(paginaAtual: number, statusOnibus: boolean): Observable<any> {
-    return this.http.get<OnibusPaginado>(`${this.apiUrl}/PaginateListInativos/${paginaAtual}/${statusOnibus}`);
+  GetOnibusPaginateInativos(paginaAtual: number, statusPaginacao: boolean): Observable<any> {
+    return this.http.get<OnibusPaginado>(`${this.apiUrl}/PaginateListInativos/${paginaAtual}/${statusPaginacao}`);
   }
   InativarOnibus(id: number) {
     return this.http.patch(`${this.apiUrl}/Inativar/${id}`, id);

@@ -128,8 +128,8 @@ input:focus {
 @media(max-width: 980px) {
   .container-components {
     width: 99%;
-    padding-left: 7px;
-    padding-right: 7px;
+    padding-left: 10px;
+    padding-right: 20px;
   }
 }
 
@@ -6458,7 +6458,7 @@ h5,
 
 .navbar {
   padding: 8px;
-  background-image: url(app/Imagens/newBackTable.jpg);
+  background-image: url('/assets/Imagens/newBackTable.jpg');
   border: none;
   border-radius: 0;
   margin-bottom: 40px;
@@ -6491,7 +6491,7 @@ h5,
 #sidebar {
   min-width: 270px;
   max-width: 270px;
-  background-image: url(app/Imagens/newBackTable.jpg);
+  background-image: url('/assets/Imagens/newBackTable.jpg');
   color: #fff;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;

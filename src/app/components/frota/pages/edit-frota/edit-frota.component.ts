@@ -3,10 +3,11 @@ import { Onibus } from 'src/app/Onibus';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OnibusService } from 'src/app/services/onibus.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
-import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
 import { PaletaCores } from 'src/app/PaletaCores';
 import { PaletaCoresService } from 'src/app/services/paleta-cores.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-frota',
@@ -26,20 +27,26 @@ export class EditFrotaComponent implements OnInit {
 
   ngOnInit(): void {
     const onibusId = Number(this.route.snapshot.paramMap.get("id"));
-    this.onibusService.GetOnibusById(onibusId).subscribe((item) => {
-      this.onibusListado = item;
-      this.onibusForm = new FormGroup({
-        id: new FormControl(onibusId),
-        marca: new FormControl(this.onibusListado ? this.onibusListado.marca : '', [Validators.required, Validators.minLength(3)]),
-        nameBus: new FormControl(this.onibusListado ? this.onibusListado.nameBus : '', [Validators.required, Validators.minLength(3)]),
-        dataFabricacao: new FormControl(this.onibusListado ? this.onibusListado.dataFabricacao : '', [Validators.required]),
-        corBus: new FormControl(this.onibusListado ? this.onibusListado.corBus : '', [Validators.required]),
-        renavam: new FormControl(this.onibusListado ? this.onibusListado.renavam : '', [Validators.required]),
-        placa: new FormControl(this.onibusListado ? this.onibusListado.placa : '', [Validators.required]),
-        chassi: new FormControl(this.onibusListado ? this.onibusListado.chassi : '', [Validators.required]),
-        assentos: new FormControl(this.onibusListado ? this.onibusListado.assentos : '', [Validators.required]),
-        statusOnibus: new FormControl(0)
-      });
+    this.onibusService.GetOnibusById(onibusId).subscribe({
+      next: (item) => {
+        this.onibusListado = item;
+        this.onibusForm = new FormGroup({
+          id: new FormControl(onibusId),
+          marca: new FormControl(this.onibusListado ? this.onibusListado.marca : '', [Validators.required]),
+          nameBus: new FormControl(this.onibusListado ? this.onibusListado.nameBus : '', [Validators.required]),
+          dataFabricacao: new FormControl(this.onibusListado ? this.onibusListado.dataFabricacao : '', [Validators.required]),
+          corBus: new FormControl(this.onibusListado ? this.onibusListado.corBus : ''),
+          renavam: new FormControl(this.onibusListado ? this.onibusListado.renavam : '', [Validators.required]),
+          placa: new FormControl(this.onibusListado ? this.onibusListado.placa : '', [Validators.required]),
+          chassi: new FormControl(this.onibusListado ? this.onibusListado.chassi : '', [Validators.required]),
+          assentos: new FormControl(this.onibusListado ? this.onibusListado.assentos : '', [Validators.required]),
+          statusOnibus: new FormControl(0)
+        });
+      },
+      error: (error) => {
+        this.mensagemService.addMensagemError(error.error);
+        this.router.navigate(["/frota"]);
+      }
     });
     this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens);
     this.paletaForm = new FormGroup({
@@ -80,33 +87,64 @@ export class EditFrotaComponent implements OnInit {
 
   submitEdit() {
     if (this.onibusForm.invalid) {
-      console.log(this.onibusForm.errors);
+      this.mensagemService.addMensagemError("Por favor, preencha os campos obrigatórios.");
       return;
     }
     this.onibusListado = this.onibusForm.value;
 
-    this.onibusService.UpdateOnibus(this.onibusListado).subscribe(() => {
-      this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtual(), true).subscribe((itens) => {
-        this.compartilhamento.atualizarOnibus(itens.onibusList);
-      });
+    this.onibusService.UpdateOnibus(this.onibusListado).subscribe({
+      next: () => {
+        this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtualOnibus(), true).subscribe((list) => {
+          this.compartilhamento.atualizarOnibus(list);
+          this.mensagemService.addMensagemSucesso("Atualizado com sucesso!");
+          this.router.navigate(["/frota"]);
+        });
+      },
+      error: (error: HttpErrorResponse) => {
+        if (typeof error.error != 'object') {
+          this.mensagemService.addMensagemError(error.error);
+        }
+        const listaErros = error.error.errors;
+        const errosFormulario = [];
+        if(listaErros){
+          Object.keys(listaErros).forEach((nameAtributo) => {
+            const formControl = this.onibusForm.get(this.lowerFirstCaracter(nameAtributo));
+            const erro = { atributo: nameAtributo, mensagem: listaErros[nameAtributo] };
+            errosFormulario.push(erro);
+            formControl?.setErrors({ serverError: listaErros[nameAtributo] });
+          });
+        }
+      }
     });
-    this.mensagemService.addMensagemSucesso("Atualizado com sucesso!");
-    this.router.navigate(["/frota"]);
   }
 
-  removeHandlerCor(paleta: PaletaCores) {
-    this.paletaService.DeletePaleta(paleta.id!).subscribe(() => {
-      this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens)
-    });
+  lowerFirstCaracter(str: string): string {
+    return str.charAt(0).toLowerCase() + str.slice(1);
   }
-
   submitCor() {
     if (this.paletaForm.invalid) {
       return;
     }
     const data: PaletaCores = this.paletaForm.value;
-    this.paletaService.CreatePaleta(data).subscribe(() => {
-      this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens)
+    this.paletaService.CreatePaleta(data).subscribe({
+      next: () => {
+        this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens);
+      },
+      error: (error: HttpErrorResponse) => {
+        const formControl = this.paletaForm.get('cor');
+        formControl?.setErrors({ serverError: error.error });
+      }
+    });
+  }
+
+  removeHandlerCor(paleta: PaletaCores) {
+    this.paletaService.DeletePaleta(paleta.id!).subscribe({
+      next: () => {
+        this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens);
+      },
+      error: (error: HttpErrorResponse) => {
+        window.alert(error.error);
+      }
     });
   }
 }

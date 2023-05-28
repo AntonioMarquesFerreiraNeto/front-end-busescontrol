@@ -1,3 +1,8 @@
+/*Tirando a sombra do modal*/
+.modal-overlay {
+  display: none !important;
+}
+
 .header .red-color {
   color: red;
 }
@@ -94,7 +99,7 @@
 .table thead {
   color: white;
   height: 40px;
-  background-image: url(Imagens/newBackTable.jpg);
+  background-image: url('/assets/Imagens/newBackTable.jpg');
 }
 
 .table th {
@@ -117,7 +122,9 @@
   font-size: 10pt;
   text-align: center;
 }
-
+td{
+  overflow-wrap: break-word
+}
 .pagination {
   margin-top: -44px;
   display: flex;
@@ -252,14 +259,25 @@
 }
 
 
-
-@media(max-width: 700px) {
-  .button {
-    min-width: 100px;
-  }
+@media(max-width: 700px){
   .pagination li {
     text-align: center;
     width: 90%;
   }
-
+  .table{
+    width: 100%;
+  }
+  .table td {
+    font-size: 8pt;
+  }
+  .table th{
+    font-size: 7pt;
+  }
+  .link{
+    font-size: 8pt;
+  }
+  .button{
+    font-size: 6pt;
+    min-width: 80px;
+  }
 }

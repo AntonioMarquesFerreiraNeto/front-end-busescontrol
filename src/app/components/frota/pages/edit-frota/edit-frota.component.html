@@ -1,7 +1,7 @@
 <div class="container-components" *ngIf="onibusListado && onibusListado.statusOnibus === 0">
   <app-mensagens></app-mensagens>
   <div class="header">
-    <h3><i class="fa fa-bus"></i> Atualizar Ônibus</h3>
+    <h3><i class="fa fa-bus"></i> Atualizar ônibus</h3>
     <hr class="hr">
   </div>
   <div class="container-form">
@@ -17,6 +17,7 @@
             maxlength="40" formControlName="marca" required>
           <div class="i" *ngIf="marca.invalid && formDir.submitted">
             <small class="errorMsg" *ngIf="marca.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg" *ngIf="marca.errors?.['serverError']">{{marca.errors?.['serverError'][0]}}</small>
           </div>
         </div>
         <div class="col-md-6 input-group form-group form-it">
@@ -29,6 +30,7 @@
             maxlength="40" formControlName="nameBus">
           <div class="i" *ngIf="nameBus.invalid && formDir.submitted">
             <small class="errorMsg" *ngIf="nameBus.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg" *ngIf="nameBus.errors?.['serverError']">{{nameBus.errors?.['serverError'][0]}}</small>
           </div>
         </div>
         <div class="col-md-6 input-group form-group form-it">
@@ -42,6 +44,7 @@
             onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
           <div class="i" *ngIf="dataFabricacao.invalid && formDir.submitted">
             <small class="errorMsg" *ngIf="dataFabricacao.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg" *ngIf="dataFabricacao.errors?.['serverError']">{{dataFabricacao.errors?.['serverError'][0]}}</small>
           </div>
         </div>
         <div class="col-md-6 input-group form-group form-it">
@@ -58,6 +61,7 @@
           </select>
           <i class="i" *ngIf="corBus.invalid && formDir.submitted">
             <small class="errorMsg" *ngIf="corBus.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg" *ngIf="corBus.errors?.['serverError']">{{corBus.errors?.['serverError'][0]}}</small>
           </i>
         </div>
         <div class="col-md-6 input-group form-group form-it">
@@ -72,6 +76,7 @@
             formControlName="renavam">
           <div class="i" *ngIf="renavam.invalid && formDir.submitted">
             <small class="errorMsg" *ngIf="renavam.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg" *ngIf="renavam.errors?.['serverError']">{{renavam.errors?.['serverError'][0]}}</small>
           </div>
         </div>
         <div class="col-md-6 input-group form-group form-it">
@@ -80,20 +85,21 @@
               <i class="fas fa-bus"></i>
             </span>
           </div>
-          <input type="text" class="form-control" id="inputPlaca" placeholder="Informe a placa do ônibus." maxlength="7"
-            oninput="this.value = this.value.toUpperCase()" formControlName="placa">
+          <input type="text" class="form-control" id="inputPlaca" placeholder="Informe a placa do ônibus." maxlength="7" formControlName="placa">
           <div class="i" *ngIf="placa.invalid && formDir.submitted">
             <small class="errorMsg" *ngIf="placa.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg" *ngIf="placa.errors?.['serverError']">{{placa.errors?.['serverError'][0]}}</small>
           </div>
         </div>
         <div class="col-md-6 input-group form-group form-it">
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-bus"></i></span>
           </div>
-          <input type="tel" class="form-control" id="inputChassi" placeholder="Informe o número de chassi do ônibus."
+          <input type="text" class="form-control" id="inputChassi" placeholder="Informe o número de chassi do ônibus."
             maxlength="17" formControlName="chassi">
           <div class="i" *ngIf="chassi.invalid && formDir.submitted">
             <small class="errorMsg" *ngIf="chassi.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg" *ngIf="chassi.errors?.['serverError']">{{chassi.errors?.['serverError'][0]}}</small>
           </div>
         </div>
         <div class="col-md-6 input-group form-group form-it">
@@ -107,7 +113,7 @@
             onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
           <div class="i" *ngIf="assentos.invalid && formDir.submitted">
             <small class="errorMsg" *ngIf="assentos.errors?.['required']">Campo obrigatório!</small>
-
+            <small class="errorMsg" *ngIf="assentos.errors?.['serverError']">{{assentos.errors?.['serverError'][0]}}</small>
           </div>
         </div>
       </div>
@@ -194,6 +200,7 @@
                   <div class="i" *ngIf="cor.invalid && formDir2.submitted">
                     <small class="errorMsg-modal" *ngIf="cor.errors?.['required']">Campo obrigatório!</small>
                     <small class="errorMsg-modal" *ngIf="cor.errors?.['minlength']">Campo inválido!</small>
+                    <small class="errorMsg-modal" *ngIf="cor.errors?.['serverError']">{{cor.errors?.['serverError']}}</small>
                   </div>
                   <button type="submit" class="btn btn-cor grenn"><i class="fa fa-plus"></i></button>
                 </div>
@@ -205,7 +212,8 @@
                   <tbody *ngFor="let item of paletas">
                     <tr>
                       <td><strong>Cor:</strong> {{item.cor}}</td>
-                      <td><button class="btn-link link link-trash" (click)="removeHandlerCor(item)"><i class="fa fa-trash-alt"></i></button></td>
+                      <td><button class="btn-link link link-trash" (click)="removeHandlerCor(item)"><i
+                            class="fa fa-trash-alt"></i></button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -229,13 +237,3 @@
     </div>
   </div>
 </div>
-<ng-template #redirect>
-  <div class="container-components">
-    <div class="container-objeto">
-      <div class="objeto-nulo alert-danger">
-        <span class="fa fa-triangle-exclamation"></span>
-        <p>Desculpe, ônibus não encontrado!</p>
-      </div>
-    </div>
-  </div>
-</ng-template>

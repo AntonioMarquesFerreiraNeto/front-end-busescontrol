@@ -18,57 +18,63 @@
     </div>
     <div class="table-container">
         <div *ngIf="onibus.length else listnull">
-            <table class="table shadow-sm p-3 mb-5 bg-white rounded">
+            <table class="table shadow-sm p-3 mb-5 bg-white rounded" #tabela>
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Marca</th>
-                        <th scope="col">Modelo</th>
-                        <th scope="col">Cor</th>
-                        <th scope="col">Placa</th>
-                        <th scope="col">Ano de fab.</th>
+                        <th scope="col">Mar&shy;ca</th>
+                        <th scope="col">Mod&shy;elo</th>
+                        <th scope="col" *ngIf="!larguraMinima">Cor</th>
+                        <th scope="col">Pla&shy;ca</th>
+                        <th scope="col" *ngIf="!larguraMinima">Ano de fab.</th>
                         <th scope="col">Opção</th>
                     </tr>
                 </thead>
-                <tr class="row-hover" *ngFor="let item of onibus">
-                    <td>{{item.id}}</td>
-                    <td>{{item.marca}}</td>
-                    <td>{{item.nameBus}}</td>
-                    <td>{{item.corBus}}</td>
-                    <td>{{FormatarPlaca(item.placa)}}</td>
-                    <td>{{item.dataFabricacao}}</td>
-                    <td *ngIf="item.statusOnibus == 0; else itemInativo">
-                        <a class="link" routerLink="/frota/edit/{{item.id}}"><i class="fa fa-edit"></i></a>
-                        <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link link-trash"><i
-                                class="fa fa-trash-alt"></i></a>
-                    </td>
-                    <ng-template #itemInativo>
-                        <td>
-                            <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link"><i class="fa fa-bus"></i></a>
+                <tbody>
+                    <tr class="row-hover" *ngFor="let item of onibus">
+                        <td>{{item.id}}</td>
+                        <td>{{item.marca}}</td>
+                        <td>{{item.nameBus}}</td>
+                        <td *ngIf="!larguraMinima">{{item.corBus}}</td>
+                        <td>{{FormatarPlaca(item.placa)}}</td>
+                        <td *ngIf="!larguraMinima">{{item.dataFabricacao}}</td>
+                        <td *ngIf="item.statusOnibus == 0; else itemInativo">
+                            <a class="link" routerLink="/frota/edit/{{item.id}}"><i class="fa fa-edit"></i></a>
+                            <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link link-trash"><i class="fa fa-trash-alt"></i></a>
                         </td>
-                    </ng-template>
-                </tr>
+                        <ng-template #itemInativo>
+                            <td>
+                                <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link"><i class="fa fa-bus"></i></a>
+                            </td>
+                        </ng-template>
+                    </tr>
+                </tbody>
             </table>
             <div class="pagination" *ngIf="!inativosSelect; else paginateInativos">
-                <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtual() == 1">
-                    <a class="page-link shadow-sm"  tabindex="-1" (click)="anteriorAtivosPaginate()"><i class="fa fa-arrow-left"></i></a>
+                <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualOnibus() == 1">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorAtivosPaginate()"><i class="fa fa-arrow-left"></i></a>
                 </li>
                 <li class="page-item disabled">
-                    <p class="page-link shadow-sm">{{compartilhamento.getPaginaAtual()}}/{{compartilhamento.getTotPagina()}}</p>
+                    <p class="page-link shadow-sm">
+                        {{compartilhamento.getPaginaAtualOnibus()}}/{{compartilhamento.getTotPaginaOnibus()}}</p>
                 </li>
-                <li class="page-item proximo" [class.disabled]="compartilhamento.getPaginaAtual() == compartilhamento.getTotPagina()">
+                <li class="page-item proximo"
+                    [class.disabled]="compartilhamento.getPaginaAtualOnibus() == compartilhamento.getTotPaginaOnibus()">
                     <a class="page-link shadow-sm" tabindex="-1" (click)="proximoAtivosPaginate()"><i class="fa fa-arrow-right"></i></a>
                 </li>
             </div>
             <ng-template #paginateInativos>
                 <div class="pagination">
-                    <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtual() == 1">
-                        <a class="page-link shadow-sm"  tabindex="-1" (click)="anteriorInativosPaginate()"><i class="fa fa-arrow-left"></i></a>
+                    <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualOnibus() == 1">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorInativosPaginate()"><i class="fa fa-arrow-left"></i></a>
                     </li>
                     <li class="page-item disabled">
-                        <p class="page-link shadow-sm">{{compartilhamento.getPaginaAtual()}}/{{compartilhamento.getTotPagina()}}</p>
+                        <p class="page-link shadow-sm">
+                            {{compartilhamento.getPaginaAtualOnibus()}}/{{compartilhamento.getTotPaginaOnibus()}}
+                        </p>
                     </li>
-                    <li class="page-item proximo" [class.disabled]="compartilhamento.getPaginaAtual() == compartilhamento.getTotPagina()">
+                    <li class="page-item proximo"
+                        [class.disabled]="compartilhamento.getPaginaAtualOnibus() == compartilhamento.getTotPaginaOnibus()">
                         <a class="page-link shadow-sm" tabindex="-1" (click)="proximoInativosPaginate()"><i class="fa fa-arrow-right"></i></a>
                     </li>
                 </div>
@@ -88,7 +94,7 @@
                     </tr>
                 </thead>
                 <tr class="row-hover">
-                    <td colspan="7">Nenhum registro encontrado!</td>
+                    <td colspan="7">{{mensagem}}</td>
                 </tr>
             </table>
         </ng-template>

@@ -7,6 +7,7 @@ import { OnibusService } from 'src/app/services/onibus.service';
 import { PaletaCoresService } from 'src/app/services/paleta-cores.service';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -31,8 +32,8 @@ export class NewFrotaComponent implements OnInit {
     this.messagesService.addMensagemInfo("Adicione as cores da frota, caso não tenha sua opção!");
 
     this.onibusForm = new FormGroup({
-      marca: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      nameBus: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      marca: new FormControl('', [Validators.required]),
+      nameBus: new FormControl('', [Validators.required]),
       dataFabricacao: new FormControl('', [Validators.required]),
       renavam: new FormControl('', [Validators.required]),
       placa: new FormControl('', [Validators.required]),
@@ -81,18 +82,41 @@ export class NewFrotaComponent implements OnInit {
   }
   submit() {
     if (this.onibusForm.invalid) {
-      this.messagesService.addMensagemError("Informe os campos obrigatórios!");
+      this.messagesService.addMensagemError("Por favor, preencha os campos obrigatórios.");
       return;
     }
     const data: Onibus = this.onibusForm.value;
-    this.onibusService.CreateOnibus(data).subscribe(() => {
-      this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtual(), true).subscribe((itens) => {
-        this.compartilhamento.setTotPagina(itens.qtPaginate);
-        this.compartilhamento.atualizarOnibus(itens.onibusList);
-      });;
+    this.onibusService.CreateOnibus(data).subscribe({
+      next: () => {
+        this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtualOnibus(), true).subscribe((itens) => {
+          this.compartilhamento.setTotPaginaOnibus(itens.qtPaginate);
+          this.compartilhamento.atualizarOnibus(itens.onibusList);
+        });
+        this.messagesService.addMensagemSucesso("Registrado com sucesso!");
+        this.router.navigate(["/frota"]);
+      },
+      error: (error: HttpErrorResponse) => {
+        if (error.status === 0) {
+          this.messagesService.addMensagemError("Desculpe, ocorreu um erro ao processar a solicitação. Por favor, tente novamente mais tarde ou entre em contato com o suporte do sistema.");
+        }
+        if (typeof error.error != 'object') {
+          this.messagesService.addMensagemError(error.error);
+        }
+        const listaErros = error.error.errors;
+        const errosFormulario = [];
+        if(listaErros){
+          Object.keys(listaErros).forEach((nameAtributo) => {
+            const formControl = this.onibusForm.get(this.lowerFirstCaracter(nameAtributo));
+            const erro = { atributo: nameAtributo, mensagem: listaErros[nameAtributo] };
+            errosFormulario.push(erro);
+            formControl?.setErrors({ serverError: listaErros[nameAtributo] });
+          });
+        }
+      }
     });
-    this.messagesService.addMensagemSucesso("Registrado com sucesso!");
-    this.router.navigate(["/frota"]);
+  }
+  lowerFirstCaracter(str: string): string {
+    return str.charAt(0).toLowerCase() + str.slice(1);
   }
 
   submitCor() {
@@ -100,14 +124,25 @@ export class NewFrotaComponent implements OnInit {
       return;
     }
     const data: PaletaCores = this.paletaForm.value;
-    this.paletaService.CreatePaleta(data).subscribe(() => {
-      this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens);
+    this.paletaService.CreatePaleta(data).subscribe({
+      next: () => {
+        this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens);
+      },
+      error: (error: HttpErrorResponse) => {
+        const formControl = this.paletaForm.get('cor');
+        formControl?.setErrors({ serverError: error.error });
+      }
     });
   }
 
   removeHandlerCor(paleta: PaletaCores) {
-    this.paletaService.DeletePaleta(paleta.id!).subscribe(() => {
-      this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens);
+    this.paletaService.DeletePaleta(paleta.id!).subscribe({
+      next: () => {
+        this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens);
+      },
+      error: (error: HttpErrorResponse) => {
+        window.alert(error.error);
+      }
     });
   }
 }
