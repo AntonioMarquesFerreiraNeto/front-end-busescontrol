@@ -21,6 +21,14 @@ import { NewFuncionarioComponent } from './components/funcionario/pages/new-func
 import { EditFuncionarioComponent } from './components/funcionario/pages/edit-funcionario/edit-funcionario.component';
 import { GerirFuncionarioComponent } from './components/funcionario/pages/gerir-funcionario/gerir-funcionario.component';
 import { GerirUsuarioComponent } from './components/funcionario/pages/gerir-usuario/gerir-usuario.component';
+import { NewClienteComponent } from './components/cliente/pages/new-cliente/new-cliente.component';
+import { EditClienteComponent } from './components/cliente/pages/edit-cliente/edit-cliente.component';
+import { GerirClienteComponent } from './components/cliente/pages/gerir-cliente/gerir-cliente.component';
+import { ClienteJuridicoComponent } from './components/cliente/cliente-juridico/cliente-juridico.component';
+import { NewClientepjComponent } from './components/cliente/cliente-juridico/pages/new-clientepj/new-clientepj.component';
+import { EditClientepjComponent } from './components/cliente/cliente-juridico/pages/edit-clientepj/edit-clientepj.component';
+import { GerirClientepjComponent } from './components/cliente/cliente-juridico/pages/gerir-clientepj/gerir-clientepj.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +47,15 @@ import { GerirUsuarioComponent } from './components/funcionario/pages/gerir-usua
     NewFuncionarioComponent,
     EditFuncionarioComponent,
     GerirFuncionarioComponent,
-    GerirUsuarioComponent
+    GerirUsuarioComponent,
+    NewClienteComponent,
+    EditClienteComponent,
+    GerirClienteComponent,
+    ClienteJuridicoComponent,
+    NewClientepjComponent,
+    EditClientepjComponent,
+    GerirClientepjComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

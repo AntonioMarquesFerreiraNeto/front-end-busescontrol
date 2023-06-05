@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
 import { FuncionarioService } from 'src/app/services/funcionario.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
-import { Funcionario } from 'src/app/Funcionario';
+import { Funcionario } from 'src/app/interfaces/Funcionario';
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 @Component({
@@ -32,8 +32,16 @@ export class GerirFuncionarioComponent implements OnInit {
         this.funcionarioService.InativarFuncionario(this.funcionario.id!).subscribe({
           next: () => {
             this.funcionarioService.GetPaginateAtivos(this.compartilharService.getPaginaAtualFuncionario(), true).subscribe((itens) => {
-              this.compartilharService.atualizarFuncionario(itens.funciList);
-              this.compartilharService.setTotPaginaFuncionario(itens.qtPaginate);
+              if (!itens.funciList.length && (this.compartilharService.getPaginaAtualFuncionario() - 1) != 0) {
+                this.funcionarioService.GetPaginateAtivos(this.compartilharService.getPaginaAtualFuncionario() - 1, true).subscribe((itens) => {
+                  this.compartilharService.setPaginaAtualFuncionario(this.compartilharService.getPaginaAtualFuncionario() - 1);
+                  this.compartilharService.atualizarFuncionario(itens.funciList);
+                  this.compartilharService.setTotPaginaFuncionario(itens.qtPaginate);
+                });
+              } else {
+                this.compartilharService.atualizarFuncionario(itens.funciList);
+                this.compartilharService.setTotPaginaFuncionario(itens.qtPaginate);
+              }
               this.mensagemService.addMensagemSucesso("Inativado com sucesso!");
             });
           },
@@ -45,8 +53,16 @@ export class GerirFuncionarioComponent implements OnInit {
         this.funcionarioService.AtivarFuncionario(this.funcionario.id!).subscribe({
           next: () => {
             this.funcionarioService.GetPaginateInativos(this.compartilharService.getPaginaAtualFuncionario(), true).subscribe((itens) => {
-              this.compartilharService.atualizarFuncionario(itens.funciList);
-              this.compartilharService.setTotPaginaFuncionario(itens.qtPaginate);
+              if (!itens.funciList.length && (this.compartilharService.getPaginaAtualFuncionario() - 1) != 0) {
+                this.funcionarioService.GetPaginateInativos(this.compartilharService.getPaginaAtualFuncionario() -1, true).subscribe((itens) => {
+                  this.compartilharService.setPaginaAtualFuncionario(this.compartilharService.getPaginaAtualFuncionario() - 1);
+                  this.compartilharService.atualizarFuncionario(itens.funciList);
+                  this.compartilharService.setTotPaginaFuncionario(itens.qtPaginate);
+                });
+              } else {
+                this.compartilharService.atualizarFuncionario(itens.funciList);
+                this.compartilharService.setTotPaginaFuncionario(itens.qtPaginate);
+              }
               this.mensagemService.addMensagemSucesso("Ativado com sucesso!");
             });
           },

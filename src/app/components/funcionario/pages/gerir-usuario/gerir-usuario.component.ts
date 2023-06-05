@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Funcionario } from 'src/app/Funcionario';
+import { Funcionario } from 'src/app/interfaces/Funcionario';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { FuncionarioService } from 'src/app/services/funcionario.service';

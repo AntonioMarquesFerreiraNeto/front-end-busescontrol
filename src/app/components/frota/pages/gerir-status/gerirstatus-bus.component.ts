@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, IterableDiffers } from '@angular/core';
 import { Router } from '@angular/router';
-import { Onibus } from 'src/app/Onibus';
+import { Onibus } from 'src/app/interfaces/Onibus'; 
 import { OnibusService } from 'src/app/services/onibus.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { MensagensService } from 'src/app/services/mensagens.service';

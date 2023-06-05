@@ -1,11 +1,11 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Onibus } from 'src/app/Onibus';
+import { Onibus } from 'src/app/interfaces/Onibus';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OnibusService } from 'src/app/services/onibus.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
-import { PaletaCores } from 'src/app/PaletaCores';
+import { PaletaCores } from 'src/app/interfaces/PaletaCores';
 import { PaletaCoresService } from 'src/app/services/paleta-cores.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -87,7 +87,7 @@ export class EditFrotaComponent implements OnInit {
 
   submitEdit() {
     if (this.onibusForm.invalid) {
-      this.mensagemService.addMensagemError("Por favor, preencha os campos obrigatórios.");
+      this.mensagemService.addMensagemError("Ops, consulte os campos para saber o problema!");
       return;
     }
     this.onibusListado = this.onibusForm.value;

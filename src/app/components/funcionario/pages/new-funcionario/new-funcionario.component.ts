@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, IterableDiffers, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Funcionario } from 'src/app/Funcionario';
+import { Funcionario } from 'src/app/interfaces/Funcionario'; 
 import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
 import { FuncionarioService } from 'src/app/services/funcionario.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
@@ -105,7 +105,7 @@ export class NewFuncionarioComponent implements OnInit {
   }
   submit() {
     if (this.funcionarioForm.invalid && !this.funcionarioForm.errors?.["serverError"]) {
-      this.mensagemService.addMensagemError("Por favor, preencha os campos obrigatórios!");
+      this.mensagemService.addMensagemError("Ops, consulte os campos para saber o problema!");
       return;
     }
     const data: Funcionario = this.funcionarioForm.value;

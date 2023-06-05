@@ -1,11 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { combineAll } from 'rxjs';
-import { Funcionario } from 'src/app/Funcionario';
+import { Funcionario } from 'src/app/interfaces/Funcionario';
 import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
 import { FuncionarioService } from 'src/app/services/funcionario.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GerirFuncionarioComponent } from './pages/gerir-funcionario/gerir-funcionario.component';
 import { GerirUsuarioComponent } from './pages/gerir-usuario/gerir-usuario.component';
 
@@ -130,6 +130,7 @@ export class FuncionarioComponent implements OnInit {
     const modalRef = this.modalService.open(GerirUsuarioComponent, modalOptions);
     modalRef.componentInstance.usuario = funcionario;
   }
+  
   larguraMinima = false;
   @HostListener('window:resize', ['$event'])
   validaResolucao() {

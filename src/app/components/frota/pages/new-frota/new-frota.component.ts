@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { Router } from '@angular/router';
-import { Onibus } from 'src/app/Onibus';
-import { PaletaCores } from 'src/app/PaletaCores';
+import { Onibus } from 'src/app/interfaces/Onibus';
+import { PaletaCores } from 'src/app/interfaces/PaletaCores'; 
 import { OnibusService } from 'src/app/services/onibus.service';
 import { PaletaCoresService } from 'src/app/services/paleta-cores.service';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
@@ -82,7 +82,7 @@ export class NewFrotaComponent implements OnInit {
   }
   submit() {
     if (this.onibusForm.invalid) {
-      this.messagesService.addMensagemError("Por favor, preencha os campos obrigatórios.");
+      this.messagesService.addMensagemError("Ops, consulte os campos para saber o problema!");
       return;
     }
     const data: Onibus = this.onibusForm.value;
@@ -98,9 +98,11 @@ export class NewFrotaComponent implements OnInit {
       error: (error: HttpErrorResponse) => {
         if (error.status === 0) {
           this.messagesService.addMensagemError("Desculpe, ocorreu um erro ao processar a solicitação. Por favor, tente novamente mais tarde ou entre em contato com o suporte do sistema.");
+          return;
         }
         if (typeof error.error != 'object') {
           this.messagesService.addMensagemError(error.error);
+          return;
         }
         const listaErros = error.error.errors;
         const errosFormulario = [];

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-import { Onibus } from '../Onibus';
+import { Onibus } from '../interfaces/Onibus'; 
 
 const httpOptions = {
   headers: new HttpHeaders({

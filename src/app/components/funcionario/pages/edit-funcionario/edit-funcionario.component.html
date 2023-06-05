@@ -1,7 +1,7 @@
 <div class="container-components">
     <app-mensagens></app-mensagens>
     <div class="header">
-        <h3><i class="fa fa-user-gear"></i> Editar funcionário</h3>
+        <h3><i class="fa fa-user-gear"></i> Atualizar funcionário</h3>
         <hr class="hr">
     </div>
     <div class="container-form">
@@ -14,8 +14,8 @@
                         </span>
                     </div>
                     <select class="form-control" formControlName="cargo" id="cargo">
+                        <option value="">Selecione o cargo do funcionário</option>
                         <optgroup>
-                            <option value="">Selecione o cargo do funcionário</option>
                             <option value="0">Motorista</option>
                             <option value="1">Assistente</option>
                             <option value="2">Administrador</option>
@@ -30,7 +30,7 @@
                 <div class="col-md-6 input-group form-group form-it">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-user-tie"></i>
                         </span>
                     </div>
                     <input type="text" class="form-control" placeholder="Informe o nome do funcionário." maxlength="40"
@@ -44,7 +44,7 @@
                 <div class="col-md-6 input-group form-group form-it">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <i class="fas fa-calendar"></i>
+                            <i class="fas fa-calendar-days"></i>
                         </span>
                     </div>
                     <input type="date" class="form-control" placeholder="Informe a data de nascimento."
@@ -99,10 +99,17 @@
                             *ngIf="telefone.errors?.['serverError']">{{telefone.errors?.['serverError'][0]}}</small>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="header-endereco">
+                        <h3>Endereço<hr id="hr-ende"></h3>
+                    </div>
+                </div>
                 <div class="col-md-6 input-group form-group form-it">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <i class="fa fa-home"></i>
+                            <i class="fa fa-map-location-dot"></i>
                         </span>
                     </div>
                     <input type="text" class="form-control" maxlength="8" placeholder="Informe o CEP."
@@ -118,7 +125,7 @@
                 <div class="col-md-6 input-group form-group form-it">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <i class="fa fa-home"></i>
+                            <i class="fa fa-map-location-dot"></i>
                         </span>
                     </div>
                     <input type="text" class="form-control" maxlength="50" placeholder="Complemento residencial."
@@ -133,7 +140,7 @@
                 <div class="col-md-4 input-group form-group form-it">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <i class="fa fa-home"></i>
+                            <i class="fa fa-map-location-dot"></i>
                         </span>
                     </div>
                     <input type="text" class="form-control" maxlength="10" placeholder="Número residencial."
@@ -149,7 +156,7 @@
                 <div class="col-md-4 input-group form-group form-it">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <i class="fa fa-home"></i>
+                            <i class="fa fa-map-location-dot"></i>
                         </span>
                     </div>
                     <input type="text" class="form-control" maxlength="50" placeholder="Informe o logradouro."
@@ -163,7 +170,7 @@
                 <div class="col-md-4 input-group form-group form-it">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <i class="fa fa-home"></i>
+                            <i class="fa fa-map-location-dot"></i>
                         </span>
                     </div>
                     <input type="text" class="form-control" maxlength="2" placeholder="Informe o DDD."
@@ -178,7 +185,7 @@
                 <div class="col-md-4 input-group form-group form-it">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <i class="fa fa-home"></i>
+                            <i class="fa fa-map-location-dot"></i>
                         </span>
                     </div>
                     <input type="text" class="form-control" maxlength="50" placeholder="Informe o bairro."
@@ -192,7 +199,7 @@
                 <div class="col-md-4 input-group form-group form-it">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <i class="fa fa-home"></i>
+                            <i class="fa fa-map-location-dot"></i>
                         </span>
                     </div>
                     <input type="text" class="form-control" maxlength="20" placeholder="Informe a cidade."
@@ -206,7 +213,7 @@
                 <div class="col-md-4 input-group form-group form-it">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <i class="fa fa-home"></i>
+                            <i class="fa fa-map-location-dot"></i>
                         </span>
                     </div>
                     <input type="text" class="form-control" maxlength="20" placeholder="Informe o estado."

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
-import { Funcionario } from '../Funcionario';
+import { Funcionario } from '../interfaces/Funcionario'; 
 import { CompartilharListService } from './compartilhar-list.service';
 
 const httpOptions = {

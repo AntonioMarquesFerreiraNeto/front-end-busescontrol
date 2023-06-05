@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
-import { Onibus } from 'src/app/Onibus';
+import { Onibus } from 'src/app/interfaces/Onibus'; 
 import { OnibusService } from 'src/app/services/onibus.service';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { GerirStatusBusComponent } from './pages/gerir-status/gerirstatus-bus.component';
