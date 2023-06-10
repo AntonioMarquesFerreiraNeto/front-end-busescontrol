@@ -1,4 +1,129 @@
 <div class="container-components">
     <app-mensagens></app-mensagens>
-    <p>contrato works!</p>
+    <div class="header">
+        <h3 [class.red-color]="inativosSelect">
+            <i class="fa fa-file-contract"></i> {{tituloPag}}
+        </h3>
+        <hr class="hr">
+    </div>
+    <div class="container-buttons">
+        <div>
+            <button class="btn button grenn" (click)="GetContratosAtivos()">Ativos</button>
+            <button class="btn button red" (click)="GetContratosInativos()">Inativos</button>
+        </div>
+        <div>
+            <a class="btn button grenn" routerLink="/contrato" data-target="#gerarRelatorio" data-toggle="modal"><i class="fa fa-print"></i>Gerar docs</a>
+            <a class="btn button blue" routerLink="/contrato/newcontrato"><i class="fa fa-plus"></i> Contrato</a>
+        </div>
+    </div>
+    <div class="table-container">
+        <div *ngIf="contratoList.length else listnull">
+            <table class="table shadow-sm p-3 mb-5 bg-white rounded" #tabela>
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Clientes</th>
+                        <th scope="col" *ngIf="!larguraMinima">Quant. clien&shy;tes</th>
+                        <th scope="col" *ngIf="!larguraMinima">Vencimento</th>
+                        <th scope="col">Valor total</th>
+                        <th scope="col" *ngIf="!larguraMinima">Pagamento</th>
+                        <th scope="col">Aprovação</th>
+                        <th scope="col" *ngIf="!larguraMinima">Andamento</th>
+                        <th scope="col">Opção</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-hover" *ngFor="let item of contratoList">
+                        <td>ID</td>
+                        <td>CLIENTES</td>
+                        <td *ngIf="!larguraMinima">Quantidade de clientes</td>
+                        <td *ngIf="!larguraMinima">Data de vencimento</td>
+                        <td>Valor total</td>
+                        <td *ngIf="!larguraMinima">Tipo de pagamento</td>
+                        <td>Aprovação</td>
+                        <td *ngIf="!larguraMinima">Andamento</td>
+                        <td *ngIf="item.statusContrato == 0; else itemInativo">
+                            <a class="link" routerLink="/contrato/edit/{{item.id}}"><i class="fa fa-edit"></i></a>
+                            <a routerLink="/frota" class="link link-trash"><i class="fa fa-trash-alt"></i></a>
+                        </td>
+                        <ng-template #itemInativo>
+                            <td>
+                                <a routerLink="/contrato"  class="link"><i class="fa fa-file-contract"></i></a>
+                            </td>
+                        </ng-template>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination" *ngIf="!inativosSelect; else paginateInativos">
+                <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualContrato() == 1">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorAtivosPaginate()"><i class="fa fa-arrow-left"></i></a>
+                </li>
+                <li class="page-item disabled">
+                    <p class="page-link shadow-sm">
+                        {{compartilhamento.getPaginaAtualContrato()}}/{{compartilhamento.getTotPaginaContrato()}}</p>
+                </li>
+                <li class="page-item proximo"
+                    [class.disabled]="compartilhamento.getPaginaAtualContrato() == compartilhamento.getTotPaginaContrato()">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="proximoAtivosPaginate()"><i class="fa fa-arrow-right"></i></a>
+                </li>
+            </div>
+            <ng-template #paginateInativos>
+                <div class="pagination">
+                    <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualContrato() == 1">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorInativosPaginate()"><i class="fa fa-arrow-left"></i></a>
+                    </li>
+                    <li class="page-item disabled">
+                        <p class="page-link shadow-sm">
+                            {{compartilhamento.getPaginaAtualContrato()}}/{{compartilhamento.getTotPaginaContrato()}}
+                        </p>
+                    </li>
+                    <li class="page-item proximo"
+                        [class.disabled]="compartilhamento.getPaginaAtualContrato() == compartilhamento.getTotPaginaContrato()">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="proximoInativosPaginate()"><i class="fa fa-arrow-right"></i></a>
+                    </li>
+                </div>
+            </ng-template>
+        </div>
+        <ng-template #listnull>
+            <table class="table shadow-sm p-3 mb-5 bg-white rounded">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Clientes</th>
+                        <th scope="col" *ngIf="!larguraMinima">Quant. clien&shy;tes</th>
+                        <th scope="col" *ngIf="!larguraMinima">Vencimento</th>
+                        <th scope="col">Valor total</th>
+                        <th scope="col" *ngIf="!larguraMinima">Pagamento</th>
+                        <th scope="col">Aprovação</th>
+                        <th scope="col" *ngIf="!larguraMinima">Andamento</th>
+                        <th scope="col">Opção</th>
+                    </tr>
+                </thead>
+                <tr class="row-hover">
+                    <td colspan="9">{{mensagem}}</td>
+                </tr>
+            </table>
+        </ng-template>
+    </div>
+    <div id="gerarRelatorio" class="modal fade">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title"><i class="fa fa-bus"></i> Gerar relatórios</h4>
+              <button type="button" class="close-mod" data-dismiss="modal" aria-label="Close">
+                <i class="fa fa-close"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Baixe os dados em planilhas Excel ou emita relatórios em PDF para potencializar seu negócio.
+              </p>
+            </div>
+            <div class="modal-footer">
+              <a class="btn button blue" routerLink="/contrato"><i class="fa fa-file-export"></i> PDF</a>
+              <a class="btn button grenn" routerLink="/contrato"><i class="fa fa-file-excel"></i> Excel</a>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 declare var $: any;
 @Component({
   selector: 'app-root',
@@ -7,6 +8,10 @@ declare var $: any;
 })
 export class AppComponent implements AfterViewInit {
   title = 'busescontrol-frontend';
+
+  constructor(private router: Router){
+   
+  }
 
   //Para encolher/diminuir/aumentar o menu lateral do sistema.
   ngAfterViewInit() {

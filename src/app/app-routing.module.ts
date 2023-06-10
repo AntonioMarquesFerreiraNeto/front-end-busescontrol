@@ -14,11 +14,13 @@ import { ClienteJuridicoComponent } from './components/cliente/cliente-juridico/
 import { EditClientepjComponent } from './components/cliente/cliente-juridico/pages/edit-clientepj/edit-clientepj.component';
 import { HomeComponent } from './components/home/home.component';
 import { ContratoComponent } from './components/contrato/contrato.component';
+import { NewContratoComponent } from './components/contrato/pages/new-contrato/new-contrato.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  //Defino path do component Home como '' para iniciar o sistema na página home.
+  { path: '', component: HomeComponent },
 
+  //Outras rotas.
   { path: 'frota', component: FrotaComponent },
   { path: 'frota/newfrota', component: NewFrotaComponent },
   { path: 'frota/edit/:id', component: EditFrotaComponent },
@@ -31,8 +33,9 @@ const routes: Routes = [
   { path: 'cliente-juridico', component: ClienteJuridicoComponent },
   { path: 'cliente-juridico/newcliente', component: NewClientepjComponent },
   { path: 'cliente-juridico/editcliente/:id', component: EditClientepjComponent },
-  { path: 'home', component: HomeComponent},
-  { path: 'contrato', component: ContratoComponent}
+  { path: 'home', component: HomeComponent },
+  { path: 'contrato', component: ContratoComponent },
+  { path: 'contrato/newcontrato', component: NewContratoComponent }
 ];
 
 @NgModule({

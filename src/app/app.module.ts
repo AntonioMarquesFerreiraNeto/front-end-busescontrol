@@ -29,6 +29,10 @@ import { NewClientepjComponent } from './components/cliente/cliente-juridico/pag
 import { EditClientepjComponent } from './components/cliente/cliente-juridico/pages/edit-clientepj/edit-clientepj.component';
 import { GerirClientepjComponent } from './components/cliente/cliente-juridico/pages/gerir-clientepj/gerir-clientepj.component';
 import { HomeComponent } from './components/home/home.component';
+import { NewContratoComponent } from './components/contrato/pages/new-contrato/new-contrato.component';
+import { EditContratoComponent } from './components/contrato/pages/edit-contrato/edit-contrato.component';
+import { GerirContratoComponent } from './components/contrato/pages/gerir-contrato/gerir-contrato.component';
+import { AprovacaoContratoComponent } from './components/contrato/pages/aprovacao-contrato/aprovacao-contrato.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +59,11 @@ import { HomeComponent } from './components/home/home.component';
     NewClientepjComponent,
     EditClientepjComponent,
     GerirClientepjComponent,
-    HomeComponent
+    HomeComponent,
+    NewContratoComponent,
+    EditContratoComponent,
+    GerirContratoComponent,
+    AprovacaoContratoComponent
   ],
   imports: [
     BrowserModule,

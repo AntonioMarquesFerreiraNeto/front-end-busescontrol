@@ -6309,6 +6309,7 @@ button.bg-dark:focus {
 
   thead {
     display: table-header-group;
+    height: 20px;
   }
 
   tr,

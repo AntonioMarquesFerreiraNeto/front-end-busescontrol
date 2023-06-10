@@ -1,0 +1,222 @@
+<div class="container-components">
+    <app-mensagens></app-mensagens>
+    <div class="header">
+        <h3><i class="fa-solid fa-file-circle-plus"></i> Novo contrato</h3>
+        <hr class="hr">
+    </div>
+    <div class="container-form">
+        <form id="form-bus" (ngSubmit)="submit()" [formGroup]="contratoForm" #formDir="ngForm">
+            <div class="row">
+                <div class="col-md-4 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-bus"></i>
+                        </span>
+                    </div>
+                    <select id="cor" class="form-control campUser" formControlName="onibusId">
+                        <option value="">Selecione o ônibus da locação.</option>
+                        <optgroup>
+                            <option *ngFor="let item of onibusList" value="{{item.nameBus}}">{{item.placa}}</option>
+                        </optgroup>
+                    </select>
+                    <i class="i" *ngIf="onibusId.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="onibusId.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="onibusId.errors?.['serverError']">{{onibusId.errors?.['serverError'][0]}}</small>
+                    </i>
+                </div>
+                <div class="col-md-4 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-user-gear"></i>
+                        </span>
+                    </div>
+                    <select id="cor" class="form-control campUser" formControlName="motoristaId">
+                        <option value="">Selecione o motorista da locação.</option>
+                        <optgroup>
+                            <option *ngFor="let item of motoristaList" value="{{item.name}}">{{item.cpf}}</option>
+                        </optgroup>
+                    </select>
+                    <i class="i" *ngIf="motoristaId.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="motoristaId.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="motoristaId.errors?.['serverError']">{{motoristaId.errors?.['serverError'][0]}}</small>
+                    </i>
+                </div>
+                <div class="col-md-4 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-brazilian-real-sign"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Informe o valor monetário da locação."
+                        maxlength="10" formControlName="valorMonetario">
+                    <div class="i" *ngIf="valorMonetario.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="valorMonetario.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="valorMonetario.errors?.['serverError']">{{valorMonetario.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-4 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-file-signature" style="margin-left: 2px;"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Informe a quantidade de parcelas de pagamento."
+                        maxlength="2" formControlName="dataFabricacao"
+                        onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+                    <div class="i" *ngIf="qtParcelas.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="qtParcelas.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="qtParcelas.errors?.['serverError']">{{qtParcelas.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-4 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-calendar-days" style="margin-left: 2px;"></i>
+                        </span>
+                    </div>
+                    <input type="date" placeholder="Informe a data de emissão." class="form-control"
+                        formControlName="dataEmissao">
+                    <div class="i" *ngIf="dataEmissao.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="dataEmissao.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="dataEmissao.errors?.['serverError']">{{dataEmissao.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-4 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-calendar-days" style="margin-left: 2px;"></i>
+                        </span>
+                    </div>
+                    <input type="date" placeholder="Informe a data de vencimento." class="form-control"
+                        formControlName="dataVencimento">
+                    <div class="i" *ngIf="dataVencimento.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="dataVencimento.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="dataVencimento.errors?.['serverError']">{{dataVencimento.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-12 input-group form-group form-it">
+                    <div class="input-group-prepend form-textarea">
+                        <span class="input-group-text">
+                            <i class="fas fa-calendar-days" style="margin-left: 2px;"></i>
+                        </span>
+                    </div>
+                    <textarea type="text" class="form-control form-textarea" rows="4" style="resize: none"
+                        placeholder="Informe detalhadamente a rota da alocação." maxlength="355"
+                        formControlName="detalhadamento"></textarea>
+                    <div class="i" *ngIf="detalhadamento.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="detalhadamento.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="detalhadamento.errors?.['serverError']">{{detalhadamento.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-12 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-bus"></i>
+                        </span>
+                    </div>
+                    <select id="cor" class="form-control campUser" formControlName="onibusId">
+                        <option value="">Selecione os clientes contratantes.</option>
+                        <optgroup>
+                            <option *ngFor="let item of clienteFisicoList" value="{{item.name}}">{{item.cpf}}</option>
+                            <option *ngFor="let item of clienteJuridicoList" value="{{item.razaoSocial}}">{{item.cnpj}}
+                            </option>
+                        </optgroup>
+                    </select>
+                    <button type="submit" class="btn btn-cor grenn"><i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="table-scroll">
+                <table class="table" *ngIf="clientesContratoList.length > 0; else clientesnull">
+                    <tbody>
+                        <tr class="row-hover" *ngFor="let item of clientesContratoList">
+                            <td>{{item.pessoaFisica!.name}}</td>
+                            <td>{{item.pessoaFisica!.cpf}}</td>
+                            <td>
+                                <button class="btn-link link link-trash">
+                                    <i class="fa fa-trash-alt"></i>
+                                </button>
+                                <button class="btn-link link">
+                                    <i class="fa-solid fa-book-open-reader"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ng-template #clientesnull>
+                    <table class="table">     
+                        <thead>
+                            <th scope="col">Nome/Rasão social</th>
+                            <th scope="col">CPF/CNPJ</th>
+                            <th scope="col" style="padding-right: 20px;">Opções</th>
+                        </thead>
+                        <tr>
+                            <td colspan="3" style="text-align: center; padding: 15px;">Selecione o cliente para registrar o contrato.</td>
+                        </tr>
+                    </table>
+                </ng-template>
+            </div>
+            <div class="container-opcoes">
+                <div></div>
+                <div>
+                    <a href="#" class="btn button red" data-target="#ConfirmSair" data-toggle="modal">
+                        Voltar
+                    </a>
+                    <button id="salvar" class="btn button blue" type="submit">
+                        Salvar
+                    </button>
+                </div>
+            </div>
+            <div id="janelaModalConfirm" class="modal fade" role="dialog" data-dismiss="modal">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><i class="fa fa-bus"></i> Confirmação</h4>
+                            <button type="button" class="close-mod" data-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                Deseja realmente salvar os dados?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn button blue" value="Confirmar">
+                            <button type="button" class="btn button red" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id="ConfirmSair" class="modal fade">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><i class="fa fa-bus"></i> Confirmação</h4>
+                        <button type="button" class="close-mod" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-close"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Deseja realmente sair? Caso tenha alterações não registradas, elas serão
+                            perdidas!
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <a id="enviar" type="submit" routerLink="/contrato" class="btn button blue"
+                            data-dismiss="modal">Confirmar</a>
+                        <button type="button" class="btn button red" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
