@@ -1,3 +1,48 @@
+/* Estilos para os botões de rádio */
+.display-button{
+    margin-top: -7px;
+    display: flex;
+    justify-content: flex-end;
+}
+#op1{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+#op2{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.btn-group .btn {
+    border: none;
+    border-radius: 0px;
+    font-size: 9pt;
+    padding: 6px 10px;
+    min-width: 120px;
+    box-shadow: 0 0 10px #04040442;
+}
+
+/* Estilo para os botões marcados */
+.btn-group .btn-check:checked+.btn {
+    background: linear-gradient(#0909b0cf, #4646ab);
+    /* Cor de fundo para o botão marcado */
+    color: #fff;
+    /* Cor do texto para o botão marcado */
+}
+
+/* Estilo para os rótulos dos botões marcados */
+.btn-group .btn-check:checked+.btn::before {
+    border-color: #007bff;
+    /* Cor do indicador do botão marcado */
+}
+
+/* Estilo para desabilitar o estilo padrão do botão de rádio */
+.btn-group .btn-check {
+    display: none;
+    /* Esconde o botão de rádio padrão */
+}
+
+
+
 /*Desabilitando a borda de botões que usar esta classe*/
 .btn-link {
     border: none;
@@ -67,45 +112,13 @@
     color: white;
 }
 
-.red {
-    background-color: darkred;
-}
-
-.red:hover {
-    background-color: #5f1401;
-}
-
-.blue {
-    background-color: darkblue;
-}
-
-.blue:hover {
-    background-color: rgb(0, 0, 98);
-}
-
-.cores {
-    background-color: rgb(118, 0, 236);
-}
-
-.cores:hover {
-    background-color: rgb(57, 0, 114);
-}
-
-.grenn {
-    background-color: rgb(10, 135, 10);
-}
-
-.grenn:hover {
-    background-color: rgb(7, 83, 7);
-}
-
 .link {
-    font-size: 11pt;
-    margin: 0 13px;
+    font-size: 12pt;
+    margin: 0 6px;
 }
 
 .link-trash {
-    font-size: 10pt;
+    font-size: 11pt;
     color: red;
     transition: .4s;
 }
@@ -290,7 +303,7 @@
     margin-top: 0;
     color: white;
     padding: 1px 0 !important;
-    background-color: #718ee5;
+    background: linear-gradient(#00008bcf, #4646ab);
     /* Defina aqui a altura desejada em pixels */
 }
 
@@ -335,7 +348,7 @@ td {
 }
 
 .table-scroll {
-    margin-top: -10px;
+    margin-top: -5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 15px;
     max-height: 175px;

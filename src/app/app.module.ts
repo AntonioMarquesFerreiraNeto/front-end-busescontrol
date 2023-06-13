@@ -33,6 +33,7 @@ import { NewContratoComponent } from './components/contrato/pages/new-contrato/n
 import { EditContratoComponent } from './components/contrato/pages/edit-contrato/edit-contrato.component';
 import { GerirContratoComponent } from './components/contrato/pages/gerir-contrato/gerir-contrato.component';
 import { AprovacaoContratoComponent } from './components/contrato/pages/aprovacao-contrato/aprovacao-contrato.component';
+import { ConsultClienteComponent } from './components/contrato/pages/consult-cliente/consult-cliente.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AprovacaoContratoComponent } from './components/contrato/pages/aprovaca
     NewContratoComponent,
     EditContratoComponent,
     GerirContratoComponent,
-    AprovacaoContratoComponent
+    AprovacaoContratoComponent,
+    ConsultClienteComponent
   ],
   imports: [
     BrowserModule,

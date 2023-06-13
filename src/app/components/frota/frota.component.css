@@ -15,7 +15,7 @@
 .header h3 {
   font-size: 1.3em;
   font-weight: normal;
-  color: #2b2b2bba;
+  color: rgb(0, 58, 171);
 }
 
 .hr {
@@ -61,30 +61,6 @@
   color: white;
 }
 
-.red {
-  background-color: darkred;
-}
-
-.red:hover {
-  background-color: #5f1401;
-}
-
-.blue {
-  background-color: darkblue;
-}
-
-.blue:hover {
-  background-color: rgb(0, 0, 98);
-}
-
-.grenn {
-  background-color: rgb(10, 135, 10);
-}
-
-.grenn:hover {
-  background-color: rgb(7, 83, 7);
-}
-
 .table-container {
   margin: 0;
   margin-top: 20px;
@@ -94,12 +70,12 @@
 .table {
   margin: 0;
   width: 100%;
+  box-shadow: 0 0 10px rgba(177, 176, 176, 0.5);
 }
 
 .table thead {
   color: white;
   height: 40px;
-  background-image: url('/assets/Imagens/newBackTable.jpg');
 }
 
 .table th {
@@ -126,7 +102,7 @@ td{
   overflow-wrap: break-word
 }
 .pagination {
-  margin-top: -44px;
+  margin-top: 5px;
   display: flex;
   justify-content: center;
   align-content: center;

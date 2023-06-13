@@ -1,21 +1,30 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
-.form-it .i small {
-    color: rgb(255, 124, 0);
+i {
+    font-size: 15pt;
 }
 
+  
 .header {
     margin: 0;
     padding: 0;
-}
-
-.header h3 {
+  }
+  
+  .header h3 {
     font-size: 1.3em;
     font-weight: normal;
     color: #2b2b2bba;
-    margin-bottom: -10px;
-}
+  }
+  
+  .hr {
+    margin: 0;
+    height: 2px;
+    background-color: #2b2b2bba;;
+    border-radius: 5px;
+    border: none;
+    padding: 0;
+  }
 
 body {
     margin: 0;
@@ -28,7 +37,7 @@ body {
 }
 
 .row {
-    margin-top: -10px;
+    margin-top: 10px;
 }
 
 .upercase {
@@ -37,14 +46,15 @@ body {
 }
 
 .altura-minima-container {
-    min-height: 230px;
+    min-height: 210px;
 }
 
 .card {
     margin: auto;
     background-color: transparent;
     margin-bottom: 15px;
-    border-radius: 0px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(177, 176, 176, 0.5);
 }
 
 .card-title {

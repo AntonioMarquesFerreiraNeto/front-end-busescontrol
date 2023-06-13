@@ -2,7 +2,7 @@
     <app-mensagens></app-mensagens>
     <div class="header">
         <h3 [class.red-color]="inativosSelect">
-            <i class="fa fa-file-contract"></i> {{tituloPag}}
+            <i class="fa-solid fa-clipboard-list fa-shake" style="font-size: 16pt;"></i> {{tituloPag}}
         </h3>
         <hr class="hr">
     </div>
@@ -18,7 +18,7 @@
     </div>
     <div class="table-container">
         <div *ngIf="contratoList.length else listnull">
-            <table class="table shadow-sm p-3 mb-5 bg-white rounded" #tabela>
+            <table class="table" #tabela>
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
@@ -85,7 +85,7 @@
             </ng-template>
         </div>
         <ng-template #listnull>
-            <table class="table shadow-sm p-3 mb-5 bg-white rounded">
+            <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
@@ -109,7 +109,7 @@
         <div class="modal-dialog modal-md">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title"><i class="fa fa-bus"></i> Gerar relatórios</h4>
+              <h4 class="modal-title"><i class="fa fa-bus fa-bounce"></i> Gerar relatórios</h4>
               <button type="button" class="close-mod" data-dismiss="modal" aria-label="Close">
                 <i class="fa fa-close"></i>
               </button>

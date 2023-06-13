@@ -18,7 +18,7 @@
     </div>
     <div class="table-container">
         <div *ngIf="onibus.length else listnull">
-            <table class="table shadow-sm p-3 mb-5 bg-white rounded" #tabela>
+            <table class="table" #tabela>
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
@@ -81,7 +81,7 @@
             </ng-template>
         </div>
         <ng-template #listnull>
-            <table class="table shadow-sm p-3 mb-5 bg-white rounded">
+            <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">Id</th>

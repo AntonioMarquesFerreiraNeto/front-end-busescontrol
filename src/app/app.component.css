@@ -1,0 +1,15 @@
+.user-btn {
+    margin-right: 7px;
+    font-size: 9pt;
+    font-weight: bold;
+    background: linear-gradient(#313131, #313131);
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(4, 4, 4, 0.546);
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+.user-btn:hover{
+    color: rgb(255, 255, 255);
+    background: linear-gradient(#000000cf, #080808f5);
+}

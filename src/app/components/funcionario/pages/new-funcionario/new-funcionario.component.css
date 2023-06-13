@@ -65,38 +65,6 @@
     color: white;
   }
   
-  .red {
-    background-color: darkred;
-  }
-  
-  .red:hover {
-    background-color: #5f1401;
-  }
-  
-  .blue {
-    background-color: darkblue;
-  }
-  
-  .blue:hover {
-    background-color: rgb(0, 0, 98);
-  }
-  
-  .cores {
-    background-color: rgb(118, 0, 236);
-  }
-  
-  .cores:hover {
-    background-color: rgb(57, 0, 114);
-  }
-  
-  .grenn {
-    background-color: rgb(10, 135, 10);
-  }
-  
-  .grenn:hover {
-    background-color: rgb(7, 83, 7);
-  }
-  
   .link {
     font-size: 12pt;
     margin: 0 13px;

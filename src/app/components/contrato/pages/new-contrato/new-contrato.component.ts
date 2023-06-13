@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClienteFisico } from 'src/app/interfaces/ClienteFisico';
 import { ClienteJuridico } from 'src/app/interfaces/ClienteJuridico';
 import { ClientesContrato } from 'src/app/interfaces/ClientesContrato';
+import { Contrato } from 'src/app/interfaces/Contrato';
 import { Funcionario } from 'src/app/interfaces/Funcionario';
 import { Onibus } from 'src/app/interfaces/Onibus';
+import { ContratoService } from 'src/app/services/contrato.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConsultClienteComponent } from '../consult-cliente/consult-cliente.component';
 
 @Component({
   selector: 'app-new-contrato',
@@ -15,54 +19,180 @@ import { MensagensService } from 'src/app/services/mensagens.service';
 })
 export class NewContratoComponent implements OnInit {
   contratoForm!: FormGroup;
+  selectCliente!: FormGroup;
+  pagamentAvista = true;
   motoristaList: Funcionario[] = [];
   onibusList: Onibus[] = [];
   clienteFisicoList: ClienteFisico[] = [];
   clienteJuridicoList: ClienteJuridico[] = [];
+  clienteContrato?: ClientesContrato;
   clientesContratoList: ClientesContrato[] = [];
 
-  constructor(private router: Router, private mensagemService: MensagensService){
-
+  constructor(private router: Router, private mensagemService: MensagensService, private contratoService: ContratoService, private modal: NgbModal) {
+    mensagemService.addMensagemInfo("Nº de parcelas não pode ultrapassar a quantidade de meses do contrato.");
   }
 
   ngOnInit(): void {
     this.contratoForm = new FormGroup({
+      pagament: new FormControl(1, [Validators.required]),
       motoristaId: new FormControl('', [Validators.required]),
       onibusId: new FormControl('', [Validators.required]),
       valorMonetario: new FormControl('', [Validators.required]),
       dataEmissao: new FormControl('', [Validators.required]),
       dataVencimento: new FormControl('', [Validators.required]),
-      qtParcelas: new FormControl('', [Validators.required]),
-      detalhadamento:  new FormControl('', [Validators.required]),
-      clientesContrato: new FormControl('', [Validators.required])
+      qtParcelas: new FormControl(''),
+      detalhadamento: new FormControl('', [Validators.required])
     });
+    this.selectCliente = new FormGroup({
+      clienteId: new FormControl('', [Validators.required]),
+    });
+
+    this.contratoService.getMotoritasList().subscribe((x) => this.motoristaList = x);
+    this.contratoService.getOnibusList().subscribe((x) => this.onibusList = x);
+    this.contratoService.getClientesPfList().subscribe((x) => this.clienteFisicoList = x);
+    this.contratoService.getClientesPjList().subscribe((x) => this.clienteJuridicoList = x);
   }
-  get motoristaId(){
+  get motoristaId() {
     return this.contratoForm.get('motoristaId')!;
   }
-  get onibusId(){
+  get onibusId() {
     return this.contratoForm.get('onibusId')!;
   }
-  get valorMonetario(){
+  get valorMonetario() {
     return this.contratoForm.get('valorMonetario')!;
   }
-  get dataEmissao(){
+  get dataEmissao() {
     return this.contratoForm.get('dataEmissao')!;
   }
-  get dataVencimento(){
+  get dataVencimento() {
     return this.contratoForm.get('dataVencimento')!;
   }
-  get qtParcelas(){
+  get qtParcelas() {
     return this.contratoForm.get('qtParcelas')!;
   }
-  get detalhadamento(){
+  get detalhadamento() {
     return this.contratoForm.get('detalhadamento')!;
   }
-  get clientesContrato(){
+  get clientesContrato() {
     return this.contratoForm.get('valorMonetario')!;
   }
+  get pagament(){
+    return this.contratoForm.get('pagament')!;
+  }
+  get clienteId() {
+    return this.selectCliente.get('clienteId')!;
+  }
 
-  submit(){
+  submit() {
+    if(this.contratoForm.invalid){
+      this.mensagemService.addMensagemError("Ops, consulte os campos para saber o problema!");
+      console.log(this.contratoForm.get('pagament')?.value);
+      return;
+    }
+    if(this.clientesContratoList.length < 1 || !this.clientesContratoList){
+      this.mensagemService.addMensagemError("Não foi selecionado nenhum cliente!");
+      return;
+    }
+    const contrato : Contrato = this.contratoForm.value;
+    if(this.pagamentAvista){
+      contrato.qtParcelas = 1;
+    }
+    else if(contrato.qtParcelas < 2){
+      this.mensagemService.addMensagemError("Quantidade de parcelas inválida!");
+      return;
+    }
+  }
 
+  selecionarCliente() {
+    if (this.selectCliente.valid) {
+      const id = Number(this.selectCliente.get('clienteId')?.value);
+      const clienteExistente = this.clientesContratoList.some(x => x.pessoaFisicaId === id || x.pessoaJuridicaId === id);
+
+      if (clienteExistente) {
+        this.mensagemService.addMensagemError("Cliente já selecionado.");
+        return;
+      }
+
+      const clienteFisico = this.clienteFisicoList.find(x => x.id === id);
+      if (clienteFisico) {
+        const clientesContrato: ClientesContrato = {
+          pessoaFisica: clienteFisico,
+          pessoaFisicaId: clienteFisico.id
+        };
+        this.clientesContratoList.push(clientesContrato);
+      } else {
+        const clienteJuridico = this.clienteJuridicoList.find(x => x.id === id);
+        if (clienteJuridico) {
+          const clientesContrato: ClientesContrato = {
+            pessoaJuridica: clienteJuridico,
+            pessoaJuridicaId: clienteJuridico.id
+          };
+          this.clientesContratoList.push(clientesContrato);
+        }
+      }
+    }
+  }
+  deleteClienteFisico(id: number) {
+    this.clientesContratoList = this.clientesContratoList.filter((x) => x.pessoaFisicaId != id);
+  }
+  deleteClienteJuridico(id: number) {
+    console.log(id);
+    this.clientesContratoList = this.clientesContratoList.filter((x) => x.pessoaJuridicaId != id);
+  }
+
+  alternarOpcao() {
+    if(this.pagamentAvista){  
+      this.pagamentAvista = false;
+    }
+    else{
+      this.pagamentAvista = true;
+    }
+  }
+
+  mascaraMoeda(event: any): void {
+    const campo = event.target as HTMLInputElement;
+    const tecla = event.key;
+    const valor = campo.value.replace(/[^\d]+/gi, '').split('').reverse().join('');
+    const mascara = '##.###.###,##'.split('').reverse();
+    let resultado = '';
+    for (let x = 0, y = 0; x < mascara.length && y < valor.length;) {
+      if (mascara[x] !== '#') {
+        resultado += mascara[x];
+        x++;
+      } else {
+        resultado += valor[y];
+        y++;
+        x++;
+      }
+    }
+    campo.value = resultado.split('').reverse().join('');
+  }
+  FormatarPlaca(placa: string): string {
+    const numeros = placa.substring(0, 3);
+    const letras = placa.substring(3);
+    return `${numeros}-${letras}`;
+  }
+  FormatarCpf(cpf: string) {
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  }
+  FormatarCnpj(cnpj: string) {
+    return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+
+    "33.423.130/0001-96"
+  }
+
+  ConsultarClienteFisico(clienteFisico: ClienteFisico){
+    const styleModal = {
+      size: 'lg'
+    }
+    const modalRef = this.modal.open(ConsultClienteComponent, styleModal);
+    modalRef.componentInstance.clienteFisico = clienteFisico;
+  }
+  ConsultarClienteJuridico(cliente: ClienteJuridico){
+    const styleModal ={
+      size: 'lg'
+    }
+    const modalRef = this.modal.open(ConsultClienteComponent, styleModal);
+    modalRef.componentInstance.clienteJuridico = cliente;
   }
 }
