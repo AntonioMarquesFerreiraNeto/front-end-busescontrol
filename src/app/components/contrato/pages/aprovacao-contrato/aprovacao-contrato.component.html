@@ -1,1 +1,26 @@
-<p>aprovacao-contrato works!</p>
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-bus fa-bounce"></i> Aprovação de contratos</h4>
+    <button type="button" class="close-mod" (click)="modal.dismiss()">
+        <i class="fa fa-close"></i>
+    </button>
+</div>
+<div class="modal-body with-shadow">
+    <p *ngIf="contrato.aprovacao == 0; else contratonegado">
+        Deseja aprovar ou revogar o contrato? Escolha sua opção.
+    </p>
+    <ng-template #contratonegado>
+        <p>
+            Deseja realmente aprovar este contrato?
+        </p>
+    </ng-template>
+</div>
+<div class="modal-footer" *ngIf="contrato.aprovacao == 0; else aprovacao">
+    <button id="enviar" type="submit" class="btn button grenn" (click)="AprovarContrato()">Aprovar</button>
+    <button type="button" class="btn button red" (click)="RevogarContrato()">Revogar</button>
+</div>
+<ng-template #aprovacao>
+    <div class="modal-footer">
+        <button id="enviar" type="submit" class="btn button grenn" (click)="AprovarContrato()">Aprovar</button>
+        <button type="button" class="btn button red" (click)="modal.dismiss()">Fechar</button>
+    </div>
+</ng-template>

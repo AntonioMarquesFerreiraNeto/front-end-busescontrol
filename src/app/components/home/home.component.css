@@ -14,13 +14,13 @@ i {
   .header h3 {
     font-size: 1.3em;
     font-weight: normal;
-    color: #2b2b2bba;
+    color: #2b2b2bba !important;
   }
   
   .hr {
     margin: 0;
     height: 2px;
-    background-color: #2b2b2bba;;
+    background-color: #2b2b2bba !important;
     border-radius: 5px;
     border: none;
     padding: 0;

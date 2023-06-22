@@ -23,7 +23,7 @@
 
 /* Estilo para os botões marcados */
 .btn-group .btn-check:checked+.btn {
-    background: linear-gradient(#0909b0cf, #4646ab);
+    background: linear-gradient(#0909b0cf, #343491);
     /* Cor de fundo para o botão marcado */
     color: #fff;
     /* Cor do texto para o botão marcado */
@@ -295,7 +295,7 @@
 .table {
     margin: 0;
     width: 100%;
-    box-shadow: 1px 1px 3px black;
+    border-radius: 5px !important;
 }
 
 .table thead {

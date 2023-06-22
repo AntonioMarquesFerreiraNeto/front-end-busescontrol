@@ -12,7 +12,7 @@ export interface Contrato {
     valorParcelaContratoPorCliente?: number;
     dataEmissao: string;
     dataVencimento: string;
-    detalhadamento: string;
+    detalhamento: string;
     qtParcelas: number;
     pagament?: number;
     statusContrato?: number;
@@ -20,7 +20,7 @@ export interface Contrato {
     andamento?: number;
 
     //Objetos relacionais no back-end.
-    motorista: Funcionario;
-    onibus: Onibus;
-    clientesContrato: ClientesContrato[];
+    motorista?: Funcionario;
+    onibus?: Onibus;
+    clientesContrato?: ClientesContrato[];
 }

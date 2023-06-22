@@ -9,10 +9,10 @@
             <div class="row">
                 <div class="col-md-12 display-button">
                     <div class="btn-group">
-                        <input formControlName="pagament" type="radio" class="btn-check" name="options" id="option1" autocomplete="off" [value]="1"/>
+                        <input formControlName="pagament" type="radio" class="btn-check" name="pagament" id="option1" autocomplete="off" [value]="1"/>
                         <label class="btn btn-secondary" for="option1" id="op1" (click)="alternarOpcao() ">À vista</label>
 
-                        <input formControlName="pagament" type="radio" class="btn-check" name="options" id="option2" autocomplete="off" [value]="2"/>
+                        <input formControlName="pagament" type="radio" class="btn-check" name="pagament" id="option2" autocomplete="off" [value]="0"/>
                         <label class="btn btn-secondary" for="option2" id="op2" (click)="alternarOpcao() ">Parcelado</label>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                         </span>
                     </div>
                     <input type="text" class="form-control" placeholder="Informe o valor monetário da locação."
-                        maxlength="10" formControlName="valorMonetario" (keyup)="mascaraMoeda($event)">
+                        formControlName="valorMonetario" (input)="mascaraMoeda($event)">
                     <div class="i" *ngIf="valorMonetario.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="valorMonetario.errors?.['required']">Campo obrigatório!</small>
                         <small class="errorMsg"
@@ -114,16 +114,16 @@
                 <div class="col-md-12 input-group form-group form-it">
                     <div class="input-group-prepend form-textarea">
                         <span class="input-group-text">
-                            <i class="fas fa-calendar-days" style="margin-left: 2px;"></i>
+                            <i class="fa fa-road" style="margin-left: 2px;"></i>
                         </span>
                     </div>
                     <textarea type="text" class="form-control form-textarea" rows="4" style="resize: none"
                         placeholder="Informe o detalhadamente a rota da locação." maxlength="355"
-                        formControlName="detalhadamento"></textarea>
-                    <div class="i" *ngIf="detalhadamento.invalid && formDir.submitted">
-                        <small class="errorMsg" *ngIf="detalhadamento.errors?.['required']">Campo obrigatório!</small>
+                        formControlName="detalhamento"></textarea>
+                    <div class="i" *ngIf="detalhamento.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="detalhamento.errors?.['required']">Campo obrigatório!</small>
                         <small class="errorMsg"
-                            *ngIf="detalhadamento.errors?.['serverError']">{{detalhadamento.errors?.['serverError'][0]}}</small>
+                            *ngIf="detalhamento.errors?.['serverError']">{{detalhamento.errors?.['serverError'][0]}}</small>
                     </div>
                 </div>
                 <form (ngSubmit)="selecionarCliente()" [formGroup]="selectCliente" #formDir2="ngForm"

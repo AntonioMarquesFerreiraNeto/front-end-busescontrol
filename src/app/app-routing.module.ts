@@ -15,6 +15,7 @@ import { EditClientepjComponent } from './components/cliente/cliente-juridico/pa
 import { HomeComponent } from './components/home/home.component';
 import { ContratoComponent } from './components/contrato/contrato.component';
 import { NewContratoComponent } from './components/contrato/pages/new-contrato/new-contrato.component';
+import { FornecedorComponent } from './components/fornecedor/fornecedor.component';
 
 const routes: Routes = [
   //Defino path do component Home como '' para iniciar o sistema na página home.
@@ -24,16 +25,22 @@ const routes: Routes = [
   { path: 'frota', component: FrotaComponent },
   { path: 'frota/newfrota', component: NewFrotaComponent },
   { path: 'frota/edit/:id', component: EditFrotaComponent },
+
   { path: 'funcionario', component: FuncionarioComponent },
   { path: 'funcionario/newfuncionario', component: NewFuncionarioComponent },
   { path: 'funcionario/editfuncionario/:id', component: EditFuncionarioComponent },
+
   { path: 'cliente', component: ClienteComponent },
   { path: 'cliente/newcliente', component: NewClienteComponent },
   { path: 'cliente/editcliente/:id', component: EditClienteComponent },
   { path: 'cliente-juridico', component: ClienteJuridicoComponent },
   { path: 'cliente-juridico/newcliente', component: NewClientepjComponent },
   { path: 'cliente-juridico/editcliente/:id', component: EditClientepjComponent },
+
+  {path: 'fornecedor', component: FornecedorComponent},
+
   { path: 'home', component: HomeComponent },
+
   { path: 'contrato', component: ContratoComponent },
   { path: 'contrato/newcontrato', component: NewContratoComponent }
 ];

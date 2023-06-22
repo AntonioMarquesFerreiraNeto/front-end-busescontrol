@@ -11,6 +11,7 @@ import { ContratoService } from 'src/app/services/contrato.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConsultClienteComponent } from '../consult-cliente/consult-cliente.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-new-contrato',
@@ -29,7 +30,7 @@ export class NewContratoComponent implements OnInit {
   clientesContratoList: ClientesContrato[] = [];
 
   constructor(private router: Router, private mensagemService: MensagensService, private contratoService: ContratoService, private modal: NgbModal) {
-    mensagemService.addMensagemInfo("Nº de parcelas não pode ultrapassar a quantidade de meses do contrato.");
+
   }
 
   ngOnInit(): void {
@@ -41,8 +42,9 @@ export class NewContratoComponent implements OnInit {
       dataEmissao: new FormControl('', [Validators.required]),
       dataVencimento: new FormControl('', [Validators.required]),
       qtParcelas: new FormControl(''),
-      detalhadamento: new FormControl('', [Validators.required])
+      detalhamento: new FormControl('', [Validators.required])
     });
+
     this.selectCliente = new FormGroup({
       clienteId: new FormControl('', [Validators.required]),
     });
@@ -70,13 +72,13 @@ export class NewContratoComponent implements OnInit {
   get qtParcelas() {
     return this.contratoForm.get('qtParcelas')!;
   }
-  get detalhadamento() {
-    return this.contratoForm.get('detalhadamento')!;
+  get detalhamento() {
+    return this.contratoForm.get('detalhamento')!;
   }
   get clientesContrato() {
     return this.contratoForm.get('valorMonetario')!;
   }
-  get pagament(){
+  get pagament() {
     return this.contratoForm.get('pagament')!;
   }
   get clienteId() {
@@ -84,23 +86,55 @@ export class NewContratoComponent implements OnInit {
   }
 
   submit() {
-    if(this.contratoForm.invalid){
+    if (this.contratoForm.invalid) {
       this.mensagemService.addMensagemError("Ops, consulte os campos para saber o problema!");
       console.log(this.contratoForm.get('pagament')?.value);
       return;
     }
-    if(this.clientesContratoList.length < 1 || !this.clientesContratoList){
+    if (this.clientesContratoList.length < 1 || !this.clientesContratoList) {
       this.mensagemService.addMensagemError("Não foi selecionado nenhum cliente!");
       return;
     }
-    const contrato : Contrato = this.contratoForm.value;
-    if(this.pagamentAvista){
+
+    const contrato: Contrato = this.contratoForm.value;
+    if (this.pagamentAvista) {
       contrato.qtParcelas = 1;
     }
-    else if(contrato.qtParcelas < 2){
+    else if (contrato.qtParcelas < 2) {
       this.mensagemService.addMensagemError("Quantidade de parcelas inválida!");
       return;
     }
+
+    contrato.pagament = Number(contrato.pagament);
+    contrato.valorMonetario = this.contratoForm.value.valorMonetario.replace(".", "").replace(",", ".");
+
+    this.contratoService.AdicionarContrato(contrato, this.clientesContratoList).subscribe({
+      next: () => {
+        this.mensagemService.addMensagemSucesso("Contrato registrado com sucesso!");
+        this.router.navigate(["contrato/"]);
+      },
+      error: (error: HttpErrorResponse) => {
+        if (typeof error.error !== 'object') {
+          this.mensagemService.addMensagemError(error.error);
+          return;
+        }
+        const listErros = error.error.errors;
+        const erros = [];
+        if (listErros) {
+          Object.keys(listErros).forEach((itemErro) => {
+            const formControl = this.contratoForm.get(this.lowerFirstCaracter(itemErro));
+            const erro = { atributo: itemErro, mensagem: listErros[itemErro] };
+            console.log(erro);
+            erros.push(erro);
+            formControl?.setErrors({ serverError: listErros[itemErro] });
+          });
+        }
+      }
+    })
+  }
+  lowerFirstCaracter(str: string): string {
+    const [_, secondWord] = str.split('.');
+    return secondWord.charAt(0).toLowerCase() + secondWord.slice(1);
   }
 
   selecionarCliente() {
@@ -141,10 +175,10 @@ export class NewContratoComponent implements OnInit {
   }
 
   alternarOpcao() {
-    if(this.pagamentAvista){  
+    if (this.pagamentAvista) {
       this.pagamentAvista = false;
     }
-    else{
+    else {
       this.pagamentAvista = true;
     }
   }
@@ -181,15 +215,15 @@ export class NewContratoComponent implements OnInit {
     "33.423.130/0001-96"
   }
 
-  ConsultarClienteFisico(clienteFisico: ClienteFisico){
+  ConsultarClienteFisico(clienteFisico: ClienteFisico) {
     const styleModal = {
       size: 'lg'
     }
     const modalRef = this.modal.open(ConsultClienteComponent, styleModal);
     modalRef.componentInstance.clienteFisico = clienteFisico;
   }
-  ConsultarClienteJuridico(cliente: ClienteJuridico){
-    const styleModal ={
+  ConsultarClienteJuridico(cliente: ClienteJuridico) {
+    const styleModal = {
       size: 'lg'
     }
     const modalRef = this.modal.open(ConsultClienteComponent, styleModal);

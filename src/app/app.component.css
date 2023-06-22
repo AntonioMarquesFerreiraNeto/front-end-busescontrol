@@ -6,10 +6,10 @@
     padding: 10px 15px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(4, 4, 4, 0.546);
-    transition: 0.3s;
+    transition: 1s !important;
     text-transform: uppercase;
 }
 .user-btn:hover{
     color: rgb(255, 255, 255);
-    background: linear-gradient(#000000cf, #080808f5);
+    background: linear-gradient(#1a1a1acf, #0e0e0ef5);
 }

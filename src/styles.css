@@ -1,8 +1,39 @@
+.header h3 {
+  color: #4646ab;
+}
+
+.hr {
+  margin: 0;
+  height: 2px;
+  background: linear-gradient(#00008bcf, #4646ab);
+  border-radius: 5px;
+  border: none;
+  padding: 0;
+}
+
+table {
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f8ecff51 !important;
+}
+
+td {
+  color: #303030;
+}
+
 .table thead {
   background: linear-gradient(#00008bcf, #4646ab);
 }
 
-.row-hover:hover{
+i {
+  transition: 0.212s;
+}
+
+i:hover {
+  transform: scale(1.12);
+}
+
+.row-hover:hover {
   background-color: #f1f0f0b8 !important;
 }
 
@@ -11,7 +42,7 @@
 }
 
 .blue:hover {
-  background: linear-gradient(#000057cf, #00008bf5) !important;
+  background: linear-gradient(#000057cf, #000068f5) !important;
 }
 
 .cores {
@@ -39,9 +70,43 @@
   background-color: rgb(7, 83, 7) !important;
 }
 
+.link-verde {
+  color: rgb(0, 218, 36);
+}
+
+.link-verde:hover {
+  color: darkgreen;
+}
+
+.link-roxo {
+  color: rgb(185, 0, 210);
+}
+
+.link-roxo:hover {
+  color: darkmagenta;
+}
+
+.link-orange {
+  color: rgb(255, 119, 0);
+}
+
+.link-orange:hover {
+  color: rgb(189, 88, 0);
+}
+
+.link-green {
+  color: rgb(3, 230, 204);
+}
+
+.link-green:hover {
+  color: darkgreen;
+}
+.disabled{
+  color: gray !important;
+}
 /* Barra de rolagem */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 3px;
 }
 
 ::-webkit-scrollbar-track {
@@ -49,7 +114,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #a0cdfed6;
+  background: linear-gradient(#4646ab88, #4646abae);
   border-radius: 20px;
 }
 
@@ -91,6 +156,7 @@ a {
 
 .nav-item a:hover {
   color: #00ffff;
+  transform: translateY(-2px)
 }
 
 #sidebarCollapse {
@@ -114,8 +180,13 @@ a {
   color: #00ffff;
 }
 
+.linha span {
+  transition: 0.212s;
+}
+
 .linha:hover span {
   color: #00ffff;
+  transform: scale(1.14);
 }
 
 #selectPag {
