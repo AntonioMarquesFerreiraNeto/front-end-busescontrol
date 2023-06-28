@@ -86,6 +86,7 @@ export class NewFrotaComponent implements OnInit {
       return;
     }
     const data: Onibus = this.onibusForm.value;
+    data.placa = data.placa.replace("-", "");
     this.onibusService.CreateOnibus(data).subscribe({
       next: () => {
         this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtualOnibus(), true).subscribe((itens) => {

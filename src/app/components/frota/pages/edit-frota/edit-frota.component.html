@@ -85,7 +85,7 @@
               <i class="fas fa-bus"></i>
             </span>
           </div>
-          <input type="text" class="form-control" id="inputPlaca" placeholder="Informe a placa do ônibus." maxlength="7" formControlName="placa">
+          <input type="text" class="form-control" id="inputPlaca" placeholder="Informe a placa do ônibus." maxlength="8" formControlName="placa" mask="AAA-0000">
           <div class="i" *ngIf="placa.invalid && formDir.submitted">
             <small class="errorMsg" *ngIf="placa.errors?.['required']">Campo obrigatório!</small>
             <small class="errorMsg" *ngIf="placa.errors?.['serverError']">{{placa.errors?.['serverError'][0]}}</small>

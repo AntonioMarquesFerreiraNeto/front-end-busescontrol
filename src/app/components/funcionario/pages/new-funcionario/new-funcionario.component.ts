@@ -109,7 +109,10 @@ export class NewFuncionarioComponent implements OnInit {
       return;
     }
     const data: Funcionario = this.funcionarioForm.value;
+    data.cpf = data.cpf.replace(/\D/g, '');
     data.cargo = Number(data.cargo);
+    data.telefone = data.telefone.replace('-', '');
+
     this.funcionarioService.CreateFuncionario(data).subscribe({
       next: () => {
         this.funcionarioService.GetPaginateAtivos(this.compartilhamento.getPaginaAtualFuncionario(), true).subscribe((itens) => {

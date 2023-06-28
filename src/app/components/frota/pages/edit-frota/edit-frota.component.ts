@@ -91,7 +91,7 @@ export class EditFrotaComponent implements OnInit {
       return;
     }
     this.onibusListado = this.onibusForm.value;
-
+    this.onibusListado.placa = this.onibusListado.placa.replace("-", "");
     this.onibusService.UpdateOnibus(this.onibusListado).subscribe({
       next: () => {
         this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtualOnibus(), true).subscribe((list) => {

@@ -47,6 +47,19 @@ export class ContratoService {
   GetContratosAtivos(paginaAtual: number, status: boolean): Observable<Response>{
     return this.http.get<Response>(`${this.apiURLContrato}/GetContratosAtivos/${paginaAtual}/${status}`);
   }
+  GetContratosInativos(paginaAtual: number, status: boolean): Observable<Response>{
+    return this.http.get<Response>(`${this.apiURLContrato}/GetContratosInativos/${paginaAtual}/${status}`);
+  }
+
+  AprovarContrato(id: number): Observable<any>{
+    return this.http.patch<Contrato>(`${this.apiURLContrato}/Aprovar/${id}`, id);
+  }
+  RevogarContrato(id: number): Observable<any>{
+    return this.http.patch<Contrato>(`${this.apiURLContrato}/Revogar/${id}`, id);
+  }
+  InativarContrato(id: number): Observable<any>{
+    return this.http.patch<Contrato>(`${this.apiURLContrato}/Inativar/${id}`, id);
+  }
 }
 interface Response{
   contractList: Contrato[];

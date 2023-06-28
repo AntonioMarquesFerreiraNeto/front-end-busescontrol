@@ -106,7 +106,6 @@ export class NewContratoComponent implements OnInit {
     }
 
     contrato.pagament = Number(contrato.pagament);
-    contrato.valorMonetario = this.contratoForm.value.valorMonetario.replace(".", "").replace(",", ".");
 
     this.contratoService.AdicionarContrato(contrato, this.clientesContratoList).subscribe({
       next: () => {
@@ -183,24 +182,6 @@ export class NewContratoComponent implements OnInit {
     }
   }
 
-  mascaraMoeda(event: any): void {
-    const campo = event.target as HTMLInputElement;
-    const tecla = event.key;
-    const valor = campo.value.replace(/[^\d]+/gi, '').split('').reverse().join('');
-    const mascara = '##.###.###,##'.split('').reverse();
-    let resultado = '';
-    for (let x = 0, y = 0; x < mascara.length && y < valor.length;) {
-      if (mascara[x] !== '#') {
-        resultado += mascara[x];
-        x++;
-      } else {
-        resultado += valor[y];
-        y++;
-        x++;
-      }
-    }
-    campo.value = resultado.split('').reverse().join('');
-  }
   FormatarPlaca(placa: string): string {
     const numeros = placa.substring(0, 3);
     const letras = placa.substring(3);

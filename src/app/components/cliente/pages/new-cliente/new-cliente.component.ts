@@ -96,6 +96,8 @@ export class NewClienteComponent implements OnInit {
       return;
     }
     const cliente: ClienteFisico = this.clienteForm.value;
+    cliente.cpf = cliente.cpf.replace(/\D/g, '');
+    cliente.telefone = cliente.telefone.replace('-', '');
     if (cliente.idVinculacaoContratual) cliente.idVinculacaoContratual = Number(cliente.idVinculacaoContratual);
     else cliente.idVinculacaoContratual = undefined;
     this.clienteService.CreateCliente(cliente).subscribe({

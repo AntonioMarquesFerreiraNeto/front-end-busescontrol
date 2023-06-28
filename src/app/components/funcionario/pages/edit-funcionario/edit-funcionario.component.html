@@ -61,8 +61,8 @@
                             <i class="fas fa-address-card"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Informe o CPF do funcionário." maxlength="11"
-                        formControlName="cpf" id="cpf"
+                    <input type="text" class="form-control" placeholder="Informe o CPF do funcionário." maxlength="14"
+                        formControlName="cpf" id="cpf" mask="000.000.000-00"
                         onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
                     <div class="i" *ngIf="cpf.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="cpf.errors?.['required']">Campo obrigatório!</small>
@@ -91,7 +91,7 @@
                         </span>
                     </div>
                     <input type="text" class="form-control" placeholder="Informe o telefone do funcionário."
-                        maxlength="9" formControlName="telefone" id="telefone"
+                        maxlength="10" formControlName="telefone" id="telefone" mask="00000-0000"
                         onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
                     <div class="i" *ngIf="telefone.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="telefone.errors?.['required']">Campo obrigatório!</small>

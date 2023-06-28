@@ -100,7 +100,10 @@ export class EditFuncionarioComponent implements OnInit {
       return;
     }
     const data : Funcionario = this.funcionarioForm.value;
+    data.cpf = data.cpf.replace(/\D/g, '');
+    data.telefone = data.telefone.replace('-', '');
     data.cargo = Number(data.cargo);
+
     this.funcionarioService.UpdateFuncionario(data).subscribe({
       next: () =>{
         this.funcionarioService.GetPaginateAtivos(this.compartilhamento.getPaginaAtualFuncionario(), true).subscribe((itens) =>{

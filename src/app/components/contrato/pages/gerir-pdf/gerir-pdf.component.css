@@ -1,4 +1,3 @@
-
 .modal-header {
     margin: 0;
     padding: 20px 0;
@@ -7,6 +6,7 @@
     align-content: flex-end;
     display: flex;
   }
+  
   .modal-title {
     margin-left: 10px;
     margin-top: 10px;
@@ -16,23 +16,10 @@
     text-align: center;
   }
   
-  .modal-body{
-    max-height: 368.3px;
-    overflow-y: auto;
-  }
-  span{
-    color: rgb(17, 105, 164);
-  }
   .modal-body p {
     color: #4e4f6a;
     font-size: 12pt;
     text-align: justify;
-  }
-  
-  .position{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
   }
   
   /* Botão de fechar */
@@ -63,8 +50,9 @@
   }
   
   .modal-footer {
+    min-height: 60px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-bottom: 0px;
     padding: 15px;
   }
@@ -96,10 +84,59 @@
     background-color: rgb(40, 40, 40);
     text-decoration: none;
     color: white;
-  }  
+  }
+  
+  .table-container {
+    margin: 0;
+    margin-top: 20px;
+    padding: 0;
+  }
+  
+  .table {
+    margin: 0;
+    width: 100%;
+    border-radius: 2px !important;
+  }
+  
+  .body-modal-alt {
+    margin-bottom: 10px;
+    max-height: 268.3px;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(177, 176, 176, 0.5) !important;
+  }
+  .table thead {
+    color: white;
+    height: 40px;
+  }
+  
+  .table th {
+    font-size: 9pt;
+    text-align: center;
+  }
+  
+  .table tr {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .table .row-hover:hover {
+    background-color: #f7f7f7f7;
+  }
+  
+  .table td {
+    margin: 0;
+    padding: 15px 3px;
+    font-size: 10pt;
+    text-align: center;
+  }
+  .link{
+    font-size: 12pt;
+    margin: 10px;
+    text-align: center;
+  }
+
   @media(max-width: 700px) {
     .button {
       min-width: 110px;
     }
   }
-  

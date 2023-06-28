@@ -41,8 +41,8 @@
                             <i class="fas fa-address-card"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Informe o CNPJ do cliente." maxlength="14"
-                        formControlName="cnpj" id="cnpj"
+                    <input type="text" class="form-control" placeholder="Informe o CNPJ do cliente." maxlength="18"
+                        formControlName="cnpj" id="cnpj" mask="00.000.000/0000-00"
                         onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
                     <div class="i" *ngIf="cnpj.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="cnpj.errors?.['required']">Campo obrigatório!</small>
@@ -100,7 +100,7 @@
                         </span>
                     </div>
                     <input type="text" class="form-control" placeholder="Informe o telefone do cliente."
-                        maxlength="9" formControlName="telefone" id="telefone"
+                        maxlength="10" formControlName="telefone" id="telefone" mask="00000-0000"
                         onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
                     <div class="i" *ngIf="telefone.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="telefone.errors?.['required']">Campo obrigatório!</small>

@@ -101,7 +101,11 @@ export class EditClientepjComponent implements OnInit {
       this.mensagemService.addMensagemError("Ops, consulte os campos para saber o problema!");
       return;
     }
+
     const data: ClienteJuridico = this.clienteForm.value;
+    data.cnpj = data.cnpj.replace(/\D/g, '');
+    data.telefone = data.telefone.replace('-', '');
+    
     this.clienteService.UpdateClientePJ(data).subscribe({
       next: () => {
         this.mensagemService.addMensagemSucesso("Atualizado com sucesso!");

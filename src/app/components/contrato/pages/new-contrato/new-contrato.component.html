@@ -61,7 +61,7 @@
                         </span>
                     </div>
                     <input type="text" class="form-control" placeholder="Informe o valor monetário da locação."
-                        formControlName="valorMonetario" (input)="mascaraMoeda($event)">
+                        formControlName="valorMonetario" mask="separator.2" thousandSeparator="." decimalMarker=",">
                     <div class="i" *ngIf="valorMonetario.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="valorMonetario.errors?.['required']">Campo obrigatório!</small>
                         <small class="errorMsg"

@@ -15,6 +15,13 @@
     text-align: center;
   }
   
+  .modal-body{
+    max-height: 368.3px;
+    overflow-y: auto;
+  }
+  span{
+    color: rgb(17, 105, 164);
+  }
   .modal-body p {
     color: #4e4f6a;
     font-size: 12pt;
@@ -56,7 +63,7 @@
   
   .modal-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-bottom: 0px;
     padding: 15px;
   }

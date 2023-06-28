@@ -23,7 +23,7 @@
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Clientes</th>
-                        <th scope="col" *ngIf="!larguraMinima">Quant. clien&shy;tes</th>
+                        <th scope="col" *ngIf="!larguraMinima">Qt. clien&shy;tes</th>
                         <th scope="col" *ngIf="!larguraMinima">Vencimento</th>
                         <th scope="col">Valor total</th>
                         <th scope="col" *ngIf="!larguraMinima">Pagamento</th>
@@ -35,7 +35,7 @@
                 <tbody>
                     <tr class="row-hover" *ngFor="let item of contratoList">
                         <td>{{item.id!}}</td>
-                        <td>CLIENTES</td>
+                        <td><a routerLink="/contrato" class="link" (click)="consultClientes(item)"><i class="fa fa-users"></i></a></td>
                         <td *ngIf="!larguraMinima">{{item.clientesContrato!.length}}</td>
                         <td *ngIf="!larguraMinima">{{returnDataFormatada(item.dataVencimento)}}</td>
                         <td>{{returnDinheiro(item.valorMonetario)}}</td>
@@ -45,8 +45,8 @@
                         <td *ngIf="item.statusContrato == 0; else itemInativo">
                             <a *ngIf="item.andamento != 2; else encerradoedit"  class="link" routerLink="/contrato/edit/{{item.id}}"><i class="fa fa-edit"></i></a>
                             <ng-template #encerradoedit> <a class="link disabled"><i class="fa fa-edit"></i></a></ng-template>
-                            <a routerLink="/contrato" class="link link-trash"><i class="fa fa-trash-alt"></i></a>
-                            <a routerLink="/contrato" class="link link-roxo"  *ngIf="item.andamento === 1"><i class="fa fa-print"></i></a>
+                            <a routerLink="/contrato" class="link link-trash" (click)="gerirContrato(item)"><i class="fa fa-trash-alt"></i></a>
+                            <a routerLink="/contrato" class="link link-roxo"  *ngIf="item.andamento === 1" (click)="impressoes(item)"><i class="fa fa-print"></i></a>
                             <a *ngIf="item.andamento == 2" class="link disabled"><i class="fa fa-print"></i></a>
 
                             <a routerLink="/contrato" class="link link-green" *ngIf="item.aprovacao === 0" (click)="aprovacaoContrato(item)"><i class="fa fa-sliders"></i></a>
@@ -54,7 +54,7 @@
                         </td>
                         <ng-template #itemInativo>
                             <td>
-                                <a routerLink="/contrato"  class="link"><i class="fa fa-file-contract"></i></a>
+                                <a routerLink="/contrato"  class="link"><i class="fa fa-search"></i></a>
                             </td>
                         </ng-template>
                     </tr>

@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule, DatePipe } from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskModule } from 'ngx-mask';
+
 
 import { AppComponent } from './app.component';
 import { FrotaComponent } from './components/frota/frota.component';
@@ -34,6 +36,8 @@ import { EditContratoComponent } from './components/contrato/pages/edit-contrato
 import { GerirContratoComponent } from './components/contrato/pages/gerir-contrato/gerir-contrato.component';
 import { AprovacaoContratoComponent } from './components/contrato/pages/aprovacao-contrato/aprovacao-contrato.component';
 import { ConsultClienteComponent } from './components/contrato/pages/consult-cliente/consult-cliente.component';
+import { ViewClientescontratoComponent } from './components/contrato/pages/view-clientescontrato/view-clientescontrato.component';
+import { GerirPdfComponent } from './components/contrato/pages/gerir-pdf/gerir-pdf.component';
 
 @NgModule({
   declarations: [
@@ -65,14 +69,19 @@ import { ConsultClienteComponent } from './components/contrato/pages/consult-cli
     EditContratoComponent,
     GerirContratoComponent,
     AprovacaoContratoComponent,
-    ConsultClienteComponent
+    ConsultClienteComponent,
+    ViewClientescontratoComponent,
+    GerirPdfComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot(
+      { dropSpecialCharacters: true }
+    )
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
