@@ -14,9 +14,11 @@ import { MensagensService } from 'src/app/services/mensagens.service';
 })
 export class GerirContratoComponent implements OnInit {
   @Input() contrato!: Contrato;
-  textStatus!: string;
+  tituloPag!: string;
+  textoDescricao!: string;
   ngOnInit(): void {
-    this.textStatus = (this.contrato.statusContrato == 0) ? "Inativar" : "Ativar";
+    this.tituloPag = (this.contrato.statusContrato == 0) ? "Confirmação" : "Consulta";
+    this.textoDescricao = (this.contrato.statusContrato == 0) ? "Deseja realmente inativar este contrato?" : `Consulta de contrato Nº ${this.contrato.id}: `;
   }
   constructor(public modal: NgbActiveModal, private datePipe: DatePipe, private contratoService: ContratoService,
     private mensagemService: MensagensService, private compartilhamento: CompartilharListService) {

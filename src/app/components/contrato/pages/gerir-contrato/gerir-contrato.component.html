@@ -1,12 +1,12 @@
 <div class="modal-header">
-    <h4 class="modal-title"><i class="fa fa-bus fa-bounce"></i> Confirmação</h4>
+    <h4 class="modal-title"><i class="fa fa-bus fa-bounce"></i> {{tituloPag}}</h4>
     <button type="button" class="close-mod" (click)="modal.dismiss()">
       <i class="fa fa-close"></i>
     </button>
   </div>
   <div class="modal-body">
     <p>
-      <strong>Deseja realmente {{textStatus}} este contrato?</strong>
+      <strong>{{textoDescricao}}</strong>
     </p>
     <div class="position">
       <p>
@@ -25,7 +25,13 @@
        </p>
     </div>
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer" *ngIf="contrato.statusContrato == 0 else contratoInativo">
     <button id="enviar" type="submit" class="btn button blue" (click)="ActionModal()">Confirmar</button>
     <button type="button" class="btn button red" (click)="modal.dismiss()">Fechar</button>
   </div>
+  <ng-template #contratoInativo>
+    <div class="modal-footer">
+      <div></div>
+      <button type="button" class="btn button red" (click)="modal.dismiss()">Fechar</button>
+    </div>
+  </ng-template>

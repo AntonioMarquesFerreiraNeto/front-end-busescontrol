@@ -26,42 +26,76 @@ export class ContratoService {
   apiURLContrato = "https://localhost:7182/api/Contrato";
   constructor(private http: HttpClient) { }
 
+  //Métodos auxiliares.
   getMotoritasList(): Observable<Funcionario[]> {
     return this.http.get<Funcionario[]>(`${this.apiURL}/Funcionario/MotoristasVinculacao`);
   }
-  getOnibusList(): Observable<Onibus[]>{
+  getOnibusList(): Observable<Onibus[]> {
     return this.http.get<Onibus[]>(`${this.apiURL}/Onibus/OnibusVinculacao`);
   }
-  getClientesPfList(): Observable<ClienteFisico[]>{
+  getClientesPfList(): Observable<ClienteFisico[]> {
     return this.http.get<ClienteFisico[]>(`${this.apiURL}/Cliente/ClientesAutorizados`);
   }
-  getClientesPjList(): Observable<ClienteJuridico[]>{
+  getClientesPjList(): Observable<ClienteJuridico[]> {
     return this.http.get<ClienteJuridico[]>(`${this.apiURL}/ClienteJuridico/ClientesAutorizados`);
   }
-
-  AdicionarContrato(contrato: Contrato, lista: ClientesContrato[]) : Observable<any>{
-    const data = {contrato, lista}
+  
+  //Métodos de contrato. 
+  AdicionarContrato(contrato: Contrato, lista: ClientesContrato[]): Observable<any> {
+    const data = { contrato, lista }
     return this.http.post<Contrato>(this.apiURLContrato, data, httpOptions);
   }
 
-  GetContratosAtivos(paginaAtual: number, status: boolean): Observable<Response>{
+  UpdateContrato(contrato: Contrato, lista: ClientesContrato[]) : Observable<Contrato>{
+    const data = { contrato, lista }
+    return this.http.put<Contrato>(`${this.apiURLContrato}`, data, httpOptions);
+  }
+
+  GetContratosAtivos(paginaAtual: number, status: boolean): Observable<Response> {
     return this.http.get<Response>(`${this.apiURLContrato}/GetContratosAtivos/${paginaAtual}/${status}`);
   }
-  GetContratosInativos(paginaAtual: number, status: boolean): Observable<Response>{
+
+  GetContratosInativos(paginaAtual: number, status: boolean): Observable<Response> {
     return this.http.get<Response>(`${this.apiURLContrato}/GetContratosInativos/${paginaAtual}/${status}`);
   }
 
-  AprovarContrato(id: number): Observable<any>{
+  GetContratoById(id: number): Observable<Contrato>{
+    return this.http.get<Contrato>(`${this.apiURLContrato}/${id}`);
+  }
+
+  AprovarContrato(id: number): Observable<any> {
     return this.http.patch<Contrato>(`${this.apiURLContrato}/Aprovar/${id}`, id);
   }
-  RevogarContrato(id: number): Observable<any>{
+
+  RevogarContrato(id: number): Observable<any> {
     return this.http.patch<Contrato>(`${this.apiURLContrato}/Revogar/${id}`, id);
   }
-  InativarContrato(id: number): Observable<any>{
+
+  InativarContrato(id: number): Observable<any> {
     return this.http.patch<Contrato>(`${this.apiURLContrato}/Inativar/${id}`, id);
   }
+
+  downloadFileExcel(): void {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  
+    this.http.get(`${this.apiURLContrato}/RelatorioExcel`, {
+      headers: headers,
+      responseType: 'blob' // Indica que a resposta será um objeto blob
+    }).subscribe((data: Blob) => {
+      const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Buses control - Contratos ativos.xlsx';
+      link.click();
+      window.URL.revokeObjectURL(url);
+    });
+  }
+
 }
-interface Response{
+interface Response {
   contractList: Contrato[];
   qtPaginas: number;
 }

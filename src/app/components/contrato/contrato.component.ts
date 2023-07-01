@@ -113,6 +113,11 @@ export class ContratoComponent implements OnInit {
     });
   }
 
+  RelatorioExcel(){
+    this.contratoService.downloadFileExcel();
+    
+  }
+
   returnDataFormatada(data: string) {
     const value = this.datePipe.transform(data, "dd/MM/yyyy");
     return value
@@ -185,8 +190,15 @@ export class ContratoComponent implements OnInit {
     modalRef.componentInstance.contrato = item;
   }
   gerirContrato(item: Contrato) {
-    const modalOptions = {
-      size: "md"
+    var modalOptions;
+    if(item.statusContrato == 0){
+      modalOptions = {
+        size: "md"
+      }
+    } else{
+      modalOptions = {
+        size: "lg"
+      }
     }
     const modalRef = this.modal.open(GerirContratoComponent, modalOptions);
     modalRef.componentInstance.contrato = item;

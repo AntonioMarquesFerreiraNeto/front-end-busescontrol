@@ -43,7 +43,7 @@
                         <td>{{returnAprovacao(item.aprovacao!)}}</td>
                         <td *ngIf="!larguraMinima">{{returnAndamento(item.andamento!)}}</td>
                         <td *ngIf="item.statusContrato == 0; else itemInativo">
-                            <a *ngIf="item.andamento != 2; else encerradoedit"  class="link" routerLink="/contrato/edit/{{item.id}}"><i class="fa fa-edit"></i></a>
+                            <a *ngIf="item.aprovacao != 2; else encerradoedit"  class="link" routerLink="/contrato/edit/{{item.id}}"><i class="fa fa-edit"></i></a>
                             <ng-template #encerradoedit> <a class="link disabled"><i class="fa fa-edit"></i></a></ng-template>
                             <a routerLink="/contrato" class="link link-trash" (click)="gerirContrato(item)"><i class="fa fa-trash-alt"></i></a>
                             <a routerLink="/contrato" class="link link-roxo"  *ngIf="item.andamento === 1" (click)="impressoes(item)"><i class="fa fa-print"></i></a>
@@ -54,7 +54,7 @@
                         </td>
                         <ng-template #itemInativo>
                             <td>
-                                <a routerLink="/contrato"  class="link"><i class="fa fa-search"></i></a>
+                                <a routerLink="/contrato"  class="link" (click)="gerirContrato(item)"><i class="fa fa-search"></i></a>
                             </td>
                         </ng-template>
                     </tr>
@@ -127,7 +127,7 @@
             </div>
             <div class="modal-footer">
               <a class="btn button blue" routerLink="/contrato"><i class="fa fa-file-export"></i> PDF</a>
-              <a class="btn button grenn" routerLink="/contrato"><i class="fa fa-file-excel"></i> Excel</a>
+              <a class="btn button grenn" routerLink="/contrato" (click)="RelatorioExcel()"><i class="fa fa-file-excel"></i> Excel</a>
             </div>
           </div>
         </div>
