@@ -14,7 +14,10 @@ i {
   .header h3 {
     font-size: 1.3em;
     font-weight: normal;
-    color: #2b2b2bba !important;
+    color: rgb(1, 1, 106) !important;
+  }
+  .header i{
+    color: rgb(1, 1, 106) !important;
   }
   
   .hr {

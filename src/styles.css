@@ -2,6 +2,31 @@
   color: #4646ab;
 }
 
+.pesquisa-container{
+  margin: 0px;
+  margin-bottom: 1px;
+  display: flex;
+  align-items: flex-end;
+  align-content: flex-end;
+  justify-content: flex-end;
+}
+.pesquisa-container .form-control {
+  font-size: 10pt;
+  max-width: 300px;
+  border-radius: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  height: 35px !important;
+}
+
+.pesquisa-container .input-group-prepend span {
+  font-size: 10pt;
+  border-radius: 0px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  height: 35px !important;
+}
+
 .hr {
   margin: 0;
   height: 2px;
@@ -24,7 +49,9 @@ td {
 .table thead {
   background: linear-gradient(#00008bcf, #4646ab);
 }
-
+.op-table{
+  text-align: right !important;
+}
 i {
   transition: 0.212s;
 }

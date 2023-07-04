@@ -140,31 +140,6 @@
   background-color: #555;
 }
 
-.listCores {
-  padding: 13px;
-  width: 100%;
-  margin: auto;
-  border-radius: 5px;
-  background-color: #a0cdfed6;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
-}
-
-.listCores tr {
-  display: flex;
-  justify-content: space-between;
-  border: none;
-  background-color: white;
-  border: 3px solid #F8F8FF;
-  margin: 2px;
-  padding: 13px;
-}
-
-.listCores td {
-  border: none;
-  margin: 2px;
-  padding: 10px;
-}
-
 .form-control {
   height: 40px;
   margin-top: 4px;
@@ -302,6 +277,29 @@
   bottom: -1.6em;
   color: rgb(255, 60, 0);
   right: 4.2em;
+}
+
+.table {
+  margin: 0;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(177, 176, 176, 0.5);
+}
+
+.table thead {
+  color: white;
+  height: 40px;
+}
+
+.table th {
+  font-size: 9pt;
+  text-align: left;
+}
+
+.table .row-hover:hover {
+  background-color: #f7f7f7f7;
+}
+td{
+  overflow-wrap: break-word
 }
 
 @media(max-width: 700px) {

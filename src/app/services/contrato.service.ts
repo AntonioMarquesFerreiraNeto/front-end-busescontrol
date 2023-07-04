@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { APIURLS } from '../interfaces/APIURLS';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { Funcionario } from '../interfaces/Funcionario';
@@ -10,6 +10,8 @@ import { ClienteJuridico } from '../interfaces/ClienteJuridico';
 import { Contrato } from '../interfaces/Contrato';
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { ClientesContrato } from '../interfaces/ClientesContrato';
+import { MensagensComponent } from '../components/mensagens/mensagens.component';
+import { MensagensService } from './mensagens.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -24,7 +26,7 @@ export class ContratoService {
 
   apiURL = "https://localhost:7182/api";
   apiURLContrato = "https://localhost:7182/api/Contrato";
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private mensagemService: MensagensService) { }
 
   //Métodos auxiliares.
   getMotoritasList(): Observable<Funcionario[]> {
@@ -75,22 +77,28 @@ export class ContratoService {
     return this.http.patch<Contrato>(`${this.apiURLContrato}/Inativar/${id}`, id);
   }
 
-  downloadFileExcel(): void {
+  downloadFileExcel(ativosSelect: boolean): void {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
   
-    this.http.get(`${this.apiURLContrato}/RelatorioExcel`, {
+    this.http.get(`${this.apiURLContrato}/RelatorioExcel/${ativosSelect}`, {
       headers: headers,
       responseType: 'blob' // Indica que a resposta será um objeto blob
-    }).subscribe((data: Blob) => {
-      const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'Buses control - Contratos ativos.xlsx';
-      link.click();
-      window.URL.revokeObjectURL(url);
+    }).subscribe({
+      next: (data: Blob) =>{
+        const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        const nameFile = (ativosSelect) ? "Contratos ativos" : "Contratos inativos";
+        link.download = `Buses control - ${nameFile}.xlsx`;
+       link.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: () =>{
+        this.mensagemService.addMensagemError("Nenhum registro encontrado!");
+      }
     });
   }
 

@@ -208,21 +208,35 @@
             </form>
             <div class="row">
               <div class="col-md-12 input-group form-group form-it">
-                <table class="listCores" *ngIf="paletas; else paletasnull">
-                  <tbody *ngFor="let item of paletas">
+                <table class="table" *ngIf="paletas; else paletasnull">
+                  <thead>
                     <tr>
-                      <td><strong>Cor:</strong> {{item.cor}}</td>
-                      <td><button class="btn-link link link-trash" (click)="removeHandlerCor(item)"><i
+                      <th scope="col">Cor</th>
+                      <th scope="col" class="op-table">Opção</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let item of paletas">
+                    <tr class="row-hover">
+                      <td>{{item.cor}}</td>
+                      <td class="op-table"><button class="btn-link link link-trash" (click)="removeHandlerCor(item)"><i
                             class="fa fa-trash-alt"></i></button></td>
                     </tr>
                   </tbody>
                 </table>
                 <ng-template #paletasnull>
-                  <table class="listCores">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Cor</th>
+                        <th scope="col" class="op-table">Opção</th>
+                      </tr>
+                    </thead>
                     <tbody>
-                      <td style="text-align: center; color: white">
-                        Nenhuma cor registrada!
-                      </td>
+                      <tr style="background-color: white;">
+                        <td style="text-align: center; color: black;" colspan="2">
+                          Nenhuma cor registrada!
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </ng-template>

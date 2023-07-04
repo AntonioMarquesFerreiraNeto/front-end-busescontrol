@@ -298,6 +298,29 @@
   right: 4.2em;
 }
 
+.table {
+  margin: 0;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(177, 176, 176, 0.5);
+}
+
+.table thead {
+  color: white;
+  height: 40px;
+}
+
+.table th {
+  font-size: 9pt;
+  text-align: left;
+}
+
+.table .row-hover:hover {
+  background-color: #f7f7f7f7;
+}
+td{
+  overflow-wrap: break-word
+}
+
 @media(max-width: 700px) {
   .button {
     min-width: 110px;

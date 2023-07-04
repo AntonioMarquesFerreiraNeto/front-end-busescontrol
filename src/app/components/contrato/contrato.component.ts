@@ -114,8 +114,7 @@ export class ContratoComponent implements OnInit {
   }
 
   RelatorioExcel(){
-    this.contratoService.downloadFileExcel();
-    
+    this.contratoService.downloadFileExcel(!this.inativosSelect);
   }
 
   returnDataFormatada(data: string) {

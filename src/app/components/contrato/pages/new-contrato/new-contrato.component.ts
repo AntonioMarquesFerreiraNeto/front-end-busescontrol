@@ -12,6 +12,7 @@ import { MensagensService } from 'src/app/services/mensagens.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConsultClienteComponent } from '../consult-cliente/consult-cliente.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-new-contrato',
@@ -29,17 +30,17 @@ export class NewContratoComponent implements OnInit {
   clienteContrato?: ClientesContrato;
   clientesContratoList: ClientesContrato[] = [];
 
-  constructor(private router: Router, private mensagemService: MensagensService, private contratoService: ContratoService, private modal: NgbModal) {
+  constructor(private router: Router, private mensagemService: MensagensService, private contratoService: ContratoService, private modal: NgbModal, private datePipe : DatePipe) {
 
   }
-
   ngOnInit(): void {
+    console.log(this.returnDataAtual());
     this.contratoForm = new FormGroup({
       pagament: new FormControl(1, [Validators.required]),
       motoristaId: new FormControl('', [Validators.required]),
       onibusId: new FormControl('', [Validators.required]),
       valorMonetario: new FormControl('', [Validators.required]),
-      dataEmissao: new FormControl('', [Validators.required]),
+      dataEmissao: new FormControl(this.returnDataAtual(), [Validators.required]),
       dataVencimento: new FormControl('', [Validators.required]),
       qtParcelas: new FormControl(''),
       detalhamento: new FormControl('', [Validators.required])
@@ -84,7 +85,14 @@ export class NewContratoComponent implements OnInit {
   get clienteId() {
     return this.selectCliente.get('clienteId')!;
   }
-
+  returnDataAtual(){
+    const data: Date = new Date();
+    const ano = data.getFullYear();
+    const dia = data.getDate();
+    const mes: number = data.getMonth() + 1;
+    const dataAtual = `${dia}/${mes}/${ano}`;
+    return this.datePipe.transform(dataAtual, "yyyy-dd-MM");
+  }
   submit() {
     if (this.contratoForm.invalid) {
       this.mensagemService.addMensagemError("Ops, consulte os campos para saber o problema!");

@@ -90,7 +90,7 @@
                         </span>
                     </div>
                     <input type="date" placeholder="Informe a data de emissão." class="form-control"
-                        formControlName="dataEmissao">
+                        formControlName="dataEmissao" readonly>
                     <div class="i" *ngIf="dataEmissao.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="dataEmissao.errors?.['required']">Campo obrigatório!</small>
                         <small class="errorMsg"

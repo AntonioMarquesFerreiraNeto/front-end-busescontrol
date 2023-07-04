@@ -18,6 +18,15 @@
     </div>
     <div class="table-container">
         <div *ngIf="onibus.length else listnull">
+            <div class="pesquisa-container">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Pesquisar na tabela."
+                    formControlName="pesquisa" required>
+            </div>
             <table class="table" #tabela>
                 <thead>
                     <tr>
@@ -40,11 +49,13 @@
                         <td *ngIf="!larguraMinima">{{item.dataFabricacao}}</td>
                         <td *ngIf="item.statusOnibus == 0; else itemInativo">
                             <a class="link" routerLink="/frota/edit/{{item.id}}"><i class="fa fa-edit"></i></a>
-                            <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link link-trash"><i class="fa fa-trash-alt"></i></a>
+                            <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link link-trash"><i
+                                    class="fa fa-trash-alt"></i></a>
                         </td>
                         <ng-template #itemInativo>
                             <td>
-                                <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link"><i class="fa fa-bus"></i></a>
+                                <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link"><i
+                                        class="fa fa-bus"></i></a>
                             </td>
                         </ng-template>
                     </tr>
@@ -52,7 +63,8 @@
             </table>
             <div class="pagination" *ngIf="!inativosSelect; else paginateInativos">
                 <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualOnibus() == 1">
-                    <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorAtivosPaginate()"><i class="fa fa-arrow-left"></i></a>
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorAtivosPaginate()"><i
+                            class="fa fa-arrow-left"></i></a>
                 </li>
                 <li class="page-item disabled">
                     <p class="page-link shadow-sm">
@@ -60,13 +72,15 @@
                 </li>
                 <li class="page-item proximo"
                     [class.disabled]="compartilhamento.getPaginaAtualOnibus() == compartilhamento.getTotPaginaOnibus()">
-                    <a class="page-link shadow-sm" tabindex="-1" (click)="proximoAtivosPaginate()"><i class="fa fa-arrow-right"></i></a>
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="proximoAtivosPaginate()"><i
+                            class="fa fa-arrow-right"></i></a>
                 </li>
             </div>
             <ng-template #paginateInativos>
                 <div class="pagination">
                     <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualOnibus() == 1">
-                        <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorInativosPaginate()"><i class="fa fa-arrow-left"></i></a>
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorInativosPaginate()"><i
+                                class="fa fa-arrow-left"></i></a>
                     </li>
                     <li class="page-item disabled">
                         <p class="page-link shadow-sm">
@@ -75,7 +89,8 @@
                     </li>
                     <li class="page-item proximo"
                         [class.disabled]="compartilhamento.getPaginaAtualOnibus() == compartilhamento.getTotPaginaOnibus()">
-                        <a class="page-link shadow-sm" tabindex="-1" (click)="proximoInativosPaginate()"><i class="fa fa-arrow-right"></i></a>
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="proximoInativosPaginate()"><i
+                                class="fa fa-arrow-right"></i></a>
                     </li>
                 </div>
             </ng-template>
