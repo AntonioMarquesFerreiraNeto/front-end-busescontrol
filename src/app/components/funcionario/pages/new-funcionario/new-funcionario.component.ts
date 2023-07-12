@@ -23,11 +23,11 @@ export class NewFuncionarioComponent implements OnInit {
     this.funcionarioForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       dataNascimento: new FormControl('', [Validators.required]),
-      cpf: new FormControl('', [Validators.required]),
+      cpf: new FormControl('', [Validators.required, Validators.minLength(11)]),
       email: new FormControl('', [Validators.required]),
-      telefone: new FormControl('', [Validators.required]),
+      telefone: new FormControl('', [Validators.required, Validators.minLength(9)]),
       cargo: new FormControl('', [Validators.required]),
-      cep: new FormControl('', [Validators.required]),
+      cep: new FormControl('', [Validators.required, Validators.minLength(8)]),
       complementoResidencial: new FormControl('', [Validators.required]),
       numeroResidencial: new FormControl('', [Validators.required]),
       logradouro: new FormControl('', [Validators.required]),
@@ -112,6 +112,7 @@ export class NewFuncionarioComponent implements OnInit {
     data.cpf = data.cpf.replace(/\D/g, '');
     data.cargo = Number(data.cargo);
     data.telefone = data.telefone.replace('-', '');
+    data.cep = data.cep.replace('-', '');
 
     this.funcionarioService.CreateFuncionario(data).subscribe({
       next: () => {

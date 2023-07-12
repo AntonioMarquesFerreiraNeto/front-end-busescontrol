@@ -3,6 +3,7 @@
     margin-top: -7px;
     display: flex;
     justify-content: flex-end;
+    font-family: 'Poppins', sans-serif;
 }
 #op1{
     border-top-left-radius: 5px;
@@ -23,7 +24,7 @@
 
 /* Estilo para os botões marcados */
 .btn-group .btn-check:checked+.btn {
-    background: linear-gradient(#0909b0cf, #343491);
+    background:  linear-gradient(#00008bcf, #4646ab);
     /* Cor de fundo para o botão marcado */
     color: #fff;
     /* Cor do texto para o botão marcado */
@@ -393,12 +394,7 @@ td {
 }
 
 @media(max-width: 500px) {
-    .button {
-        width: 100%;
-    }
-
     .container-opcoes {
-        flex-direction: column;
         flex-wrap: wrap;
         justify-content: center;
         flex-shrink: 1;

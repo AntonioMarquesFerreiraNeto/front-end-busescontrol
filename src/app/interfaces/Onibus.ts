@@ -1,3 +1,5 @@
+import { Contrato } from "./Contrato";
+
 export interface Onibus {
   id?: number;
   marca: string;
@@ -9,4 +11,5 @@ export interface Onibus {
   assentos: string;
   corBus?: string;
   statusOnibus?: number;
+  contratos?: Contrato[];
 }

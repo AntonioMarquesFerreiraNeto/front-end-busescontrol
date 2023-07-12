@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { APIURLS } from '../interfaces/APIURLS';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { Funcionario } from '../interfaces/Funcionario';
@@ -8,9 +8,7 @@ import { Onibus } from '../interfaces/Onibus';
 import { ClienteFisico } from '../interfaces/ClienteFisico';
 import { ClienteJuridico } from '../interfaces/ClienteJuridico';
 import { Contrato } from '../interfaces/Contrato';
-import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { ClientesContrato } from '../interfaces/ClientesContrato';
-import { MensagensComponent } from '../components/mensagens/mensagens.component';
 import { MensagensService } from './mensagens.service';
 
 const httpOptions = {
@@ -36,7 +34,7 @@ export class ContratoService {
     return this.http.get<Onibus[]>(`${this.apiURL}/Onibus/OnibusVinculacao`);
   }
   getClientesPfList(): Observable<ClienteFisico[]> {
-    return this.http.get<ClienteFisico[]>(`${this.apiURL}/Cliente/ClientesAutorizados`);
+    return this.http.get<ClienteFisico[]>(`${this.apiURL}/Cliente/ClientesAdimplentes`);
   }
   getClientesPjList(): Observable<ClienteJuridico[]> {
     return this.http.get<ClienteJuridico[]>(`${this.apiURL}/ClienteJuridico/ClientesAutorizados`);
@@ -78,28 +76,18 @@ export class ContratoService {
   }
 
   downloadFileExcel(ativosSelect: boolean): void {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const url = `${this.apiURLContrato}/RelatorioExcel/${ativosSelect}`;
+    window.open(url, "_blank")
+  }
+
+  downloadPdfRelatorio(ativo: boolean): void {
+    const url = `${this.apiURLContrato}/RelatorioPDF/${ativo}`;
+    window.open(url, "_blank");
+  }
   
-    this.http.get(`${this.apiURLContrato}/RelatorioExcel/${ativosSelect}`, {
-      headers: headers,
-      responseType: 'blob' // Indica que a resposta será um objeto blob
-    }).subscribe({
-      next: (data: Blob) =>{
-        const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        const nameFile = (ativosSelect) ? "Contratos ativos" : "Contratos inativos";
-        link.download = `Buses control - ${nameFile}.xlsx`;
-       link.click();
-        window.URL.revokeObjectURL(url);
-      },
-      error: () =>{
-        this.mensagemService.addMensagemError("Nenhum registro encontrado!");
-      }
-    });
+  downloadContratoCliente(id: number, clientePfId: number, clientePjId: number): void{
+    const url = `${this.apiURLContrato}/PdfContratoCliente/${id}/${clientePfId}/${clientePjId}`;
+    window.open(url, "_blank")
   }
 
 }

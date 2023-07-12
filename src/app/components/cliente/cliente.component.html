@@ -13,9 +13,9 @@
             </div>
             <div>
                 <a class="btn button blue" routerLink="/cliente-juridico"><i class="fa fa-users"></i>
-                    Jurídicos</a>
+                    <span *ngIf="!larguraMinima"> Jurídicos</span></a>
                 <a class="btn button blue" routerLink="/cliente/newcliente"><i class="fa fa-plus"></i>
-                    Cliente</a>
+                    <span *ngIf="!larguraMinima"> Cliente</span></a>
             </div>
         </div>
     </div>
@@ -27,8 +27,17 @@
                         <i class="fa fa-search"></i>
                     </span>
                 </div>
-                <input type="text" class="form-control" placeholder="Pesquisar na tabela."
-                    formControlName="pesquisa" required>
+                <input type="text" class="form-control" placeholder="Pesquisar cliente." formControlName="pesquisa"
+                    required>
+
+                <select class="form-control filt">
+                    <option value="">Filtrar por... </option>
+                    <optgroup>
+                        <option value="">ID</option>
+                        <option value="">Nome</option>
+                        <option value="">Telefone</option>
+                    </optgroup>
+                </select>
             </div>
             <table class="table">
                 <thead>
@@ -36,8 +45,9 @@
                         <th scope="col">Id</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Telefone</th>
-                        <th scope="col">Cidade</th>
+                        <th scope="col" *ngIf="!larguraMinima">Cidade</th>
                         <th scope="col" *ngIf="!larguraMinima">Classe</th>
+                        <th scope="col" *ngIf="!larguraMinima">Contratos em curso</th>
                         <th scope="col">Opção</th>
                     </tr>
                 </thead>
@@ -46,16 +56,24 @@
                         <td>{{item.id}}</td>
                         <td>{{item.name}}</td>
                         <td>{{item.telefone}}</td>
-                        <td>{{item.cidade}}</td>
-                        <td *ngIf="!larguraMinima">Pessoa física</td>
+                        <td *ngIf="!larguraMinima">{{item.cidade}}</td>
+                        <td *ngIf="!larguraMinima"> <span class="borda-table azul-borda">Pessoa física</span> </td>
+                        <td *ngIf="!larguraMinima && trueContratosEmAndamento(item) else noAndamento"><span
+                                class="borda-table verde-borda">Em exercicio</span></td>
+                        <ng-template #noAndamento>
+                            <td *ngIf="!larguraMinima">
+                                <span class="borda-table orange-borda">Não possui</span>
+                            </td>
+                        </ng-template>
                         <td *ngIf="item.status == 0 else funcionarioInativo">
-                            <a class="link" routerLink="/cliente/editcliente/{{item.id}}"><i
-                                    class="fa fa-edit"></i></a>
-                            <a routerLink="/cliente" class="link link-trash" (click)="AbrirModalGerir(item)"><i class="fa fa-trash-alt"></i></a>
+                            <a class="link" routerLink="/cliente/editcliente/{{item.id}}"><i class="fa fa-edit"></i></a>
+                            <a routerLink="/cliente" class="link link-trash" (click)="AbrirModalGerir(item)"><i
+                                    class="fa fa-trash-alt"></i></a>
                         </td>
                         <ng-template #funcionarioInativo>
                             <td>
-                                <a routerLink="/cliente" class="link" (click)="AbrirModalGerir(item)"><i class="fa fa-user-gear"></i></a>
+                                <a routerLink="/cliente" class="link" (click)="AbrirModalGerir(item)"><i
+                                        class="fa fa-user-gear"></i></a>
                             </td>
                         </ng-template>
                     </tr>

@@ -1,5 +1,7 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModaluserauthComponent } from './components/modaluserauth/modaluserauth.component';
+
 declare var $: any;
 @Component({
   selector: 'app-root',
@@ -7,10 +9,7 @@ declare var $: any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-  title = 'busescontrol-frontend';
-
-  constructor(private router: Router){
-   
+  constructor(private modal: NgbModal) {
   }
 
   //Para encolher/diminuir/aumentar o menu lateral do sistema.
@@ -31,7 +30,11 @@ export class AppComponent implements AfterViewInit {
       });
 
     });
+  }
 
+  OpenModalUserAuth() {
+    const modalConfig = { size: 'md' };
+    this.modal.open(ModaluserauthComponent, modalConfig);
   }
 }
 

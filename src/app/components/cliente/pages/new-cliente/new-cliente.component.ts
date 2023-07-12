@@ -25,13 +25,13 @@ export class NewClienteComponent implements OnInit {
     this.clienteForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       dataNascimento: new FormControl('', [Validators.required]),
-      cpf: new FormControl('', [Validators.required]),
+      cpf: new FormControl('', [Validators.required, Validators.minLength(11)]),
       rg: new FormControl('', [Validators.required]),
       email: new FormControl(''),
-      telefone: new FormControl('', [Validators.required]),
+      telefone: new FormControl('', [Validators.required, Validators.minLength(9)]),
       idVinculacaoContratual: new FormControl(),
       nameMae: new FormControl('', [Validators.required]),
-      cep: new FormControl('', [Validators.required]),
+      cep: new FormControl('', [Validators.required, Validators.minLength(8)]),
       complementoResidencial: new FormControl('', [Validators.required]),
       numeroResidencial: new FormControl('', [Validators.required]),
       logradouro: new FormControl('', [Validators.required]),
@@ -98,6 +98,7 @@ export class NewClienteComponent implements OnInit {
     const cliente: ClienteFisico = this.clienteForm.value;
     cliente.cpf = cliente.cpf.replace(/\D/g, '');
     cliente.telefone = cliente.telefone.replace('-', '');
+    cliente.cep = cliente.cep.replace('-', '');
     if (cliente.idVinculacaoContratual) cliente.idVinculacaoContratual = Number(cliente.idVinculacaoContratual);
     else cliente.idVinculacaoContratual = undefined;
     this.clienteService.CreateCliente(cliente).subscribe({

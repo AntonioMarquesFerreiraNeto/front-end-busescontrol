@@ -30,15 +30,15 @@ export class ContratoComponent implements OnInit {
     this.tituloPag = "Contratos ativos";
     this.contratoList = [];
     this.contratoService.GetContratosAtivos(this.compartilhamento.getPaginaAtualContrato(), true).subscribe({
-      next:(x) =>{
+      next: (x) => {
         if (!x.contractList.length) {
           this.mensagem = "Nenhum registro encontrado.";
           return;
         }
         this.contratoList = x.contractList;
         this.compartilhamento.setTotPaginaContrato(x.qtPaginas);
-      }, 
-      error: (error: HttpErrorResponse) =>{
+      },
+      error: (error: HttpErrorResponse) => {
         if (error.status === 0) {
           this.mensagemService.addMensagemError("Desculpe, ocorreu um erro ao processar a solicitação. Por favor, tente novamente mais tarde ou entre em contato com o suporte do sistema.");
           this.mensagem = "Desculpe, ocorreu um erro ao processar a solicitação.";
@@ -56,7 +56,7 @@ export class ContratoComponent implements OnInit {
     this.contratoService.GetContratosAtivos(1, true).subscribe((itens) => {
       this.contratoList = itens.contractList;
       this.compartilhamento.setTotPaginaContrato(itens.qtPaginas);
-      if(!this.contratoList.length){
+      if (!this.contratoList.length) {
         this.mensagem = "Nenhum registro encontrado!";
       }
     });
@@ -69,7 +69,7 @@ export class ContratoComponent implements OnInit {
     this.contratoService.GetContratosInativos(this.compartilhamento.getPaginaAtualContrato(), true).subscribe((itens) => {
       this.contratoList = itens.contractList;
       this.compartilhamento.setTotPaginaContrato(itens.qtPaginas);
-      if(!this.contratoList.length){
+      if (!this.contratoList.length) {
         this.mensagem = "Nenhum registro encontrado!";
       }
     });
@@ -80,41 +80,44 @@ export class ContratoComponent implements OnInit {
       return;
     }
     this.compartilhamento.setPaginaAtualContrato(this.compartilhamento.getPaginaAtualContrato() + 1);
-    this.contratoService.GetContratosAtivos(this.compartilhamento.getPaginaAtualContrato(), true).subscribe((itens) =>{
+    this.contratoService.GetContratosAtivos(this.compartilhamento.getPaginaAtualContrato(), true).subscribe((itens) => {
       this.contratoList = itens.contractList;
     })
   }
   anteriorAtivosPaginate() {
-    if(this.compartilhamento.getPaginaAtualContrato() == 1){
+    if (this.compartilhamento.getPaginaAtualContrato() == 1) {
       return;
     }
-    this.contratoService.GetContratosAtivos(this.compartilhamento.getPaginaAtualContrato(), false).subscribe((itens) =>{
+    this.contratoService.GetContratosAtivos(this.compartilhamento.getPaginaAtualContrato(), false).subscribe((itens) => {
       this.contratoList = itens.contractList;
       this.compartilhamento.setPaginaAtualContrato(this.compartilhamento.getPaginaAtualContrato() - 1);
     });
   }
 
   proximoInativosPaginate() {
-    if(this.compartilhamento.getPaginaAtualContrato() == this.compartilhamento.getTotPaginaContrato()){
+    if (this.compartilhamento.getPaginaAtualContrato() == this.compartilhamento.getTotPaginaContrato()) {
       return;
     }
-    this.contratoService.GetContratosInativos(this.compartilhamento.getPaginaAtualContrato() + 1, true).subscribe( itens => {
+    this.contratoService.GetContratosInativos(this.compartilhamento.getPaginaAtualContrato() + 1, true).subscribe(itens => {
       this.contratoList = itens.contractList;
       this.compartilhamento.setPaginaAtualContrato(this.compartilhamento.getPaginaAtualContrato() + 1);
     });
   }
   anteriorInativosPaginate() {
-    if(this.compartilhamento.getPaginaAtualContrato() == 1){
+    if (this.compartilhamento.getPaginaAtualContrato() == 1) {
       return;
     }
-    this.contratoService.GetContratosInativos(this.compartilhamento.getPaginaAtualContrato(), false).subscribe((itens) =>{
+    this.contratoService.GetContratosInativos(this.compartilhamento.getPaginaAtualContrato(), false).subscribe((itens) => {
       this.contratoList = itens.contractList;
       this.compartilhamento.setPaginaAtualContrato(this.compartilhamento.getPaginaAtualContrato() - 1);
     });
   }
 
-  RelatorioExcel(){
+  RelatorioExcel() {
     this.contratoService.downloadFileExcel(!this.inativosSelect);
+  }
+  RelatorioPdf(){
+    this.contratoService.downloadPdfRelatorio(!this.inativosSelect);
   }
 
   returnDataFormatada(data: string) {
@@ -131,7 +134,7 @@ export class ContratoComponent implements OnInit {
   }
   returnAndamento(status: number) {
     if (status == 0) {
-      return "Em espera";
+      return "Em tramitação";
     } else if (status == 1) {
       return "Em andamento";
     }
@@ -143,7 +146,7 @@ export class ContratoComponent implements OnInit {
     if (status == 0) {
       return "Em análise";
     } else if (status == 1) {
-      return "Negado";
+      return "Revogado";
     }
     else {
       return "Aprovado";
@@ -190,17 +193,42 @@ export class ContratoComponent implements OnInit {
   }
   gerirContrato(item: Contrato) {
     var modalOptions;
-    if(item.statusContrato == 0){
+    if (item.statusContrato == 0) {
       modalOptions = {
         size: "md"
       }
-    } else{
+    } else {
       modalOptions = {
         size: "lg"
       }
     }
     const modalRef = this.modal.open(GerirContratoComponent, modalOptions);
     modalRef.componentInstance.contrato = item;
+  }
+
+  returnCorAprovacao(aprovacao: number) {
+    if (aprovacao == 0) {
+      return "azul-borda";
+    }
+    if (aprovacao == 1) {
+      return "orange-borda";
+    }
+    if (aprovacao == 2) {
+      return "roxo-borda";
+    }
+    return "";
+  }
+  returnCorAndamento(andamento: number) {
+    if (andamento == 0) {
+      return "azul-borda";
+    }
+    if (andamento == 1) {
+      return "verde-borda";
+    }
+    if (andamento == 2) {
+      return "roxo-borda";
+    }
+    return "";
   }
 
   larguraMinima = false;

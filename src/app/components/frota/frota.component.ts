@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
-import { Onibus } from 'src/app/interfaces/Onibus'; 
+import { Onibus } from 'src/app/interfaces/Onibus';
 import { OnibusService } from 'src/app/services/onibus.service';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { GerirStatusBusComponent } from './pages/gerir-status/gerirstatus-bus.component';
@@ -14,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class FrotaComponent implements OnInit {
   onibus!: Onibus[];
+  onibusRef!: Onibus[];
   tituloPag: string = "Ônibus";
   inativosSelect = false;
   mensagem = "Carregando...";
@@ -26,6 +27,7 @@ export class FrotaComponent implements OnInit {
       next: (itens) => {
         this.tituloPag = "Ônibus ativos";
         this.onibus = itens.onibusList;
+        this.onibusRef = itens.onibusList;
         if (!itens.length) {
           this.mensagem = "Nenhum registro encontrado.";
         }
@@ -40,6 +42,7 @@ export class FrotaComponent implements OnInit {
     });
     this.compartilhamento.onibus$.subscribe((list) => {
       this.onibus = list;
+      this.onibusRef = list;
     });
   }
 
@@ -49,6 +52,7 @@ export class FrotaComponent implements OnInit {
       this.inativosSelect = false;
       this.compartilhamento.setPaginaAtualOnibus(1);
       this.onibus = itens.onibusList;
+      this.onibusRef = itens.onibusList;
       this.compartilhamento.setTotPaginaOnibus(itens.qtPaginate);
     });
   }
@@ -59,11 +63,13 @@ export class FrotaComponent implements OnInit {
     this.compartilhamento.setPaginaAtualOnibus(this.compartilhamento.getPaginaAtualOnibus() + 1);
     this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtualOnibus(), true).subscribe((itens) => {
       this.onibus = itens.onibusList;
+      this.onibusRef = itens.onibusList;
     });
   }
   anteriorAtivosPaginate() {
     this.onibusService.GetOnibusPaginateAtivos(this.compartilhamento.getPaginaAtualOnibus(), false).subscribe((itens) => {
       this.onibus = itens.onibusList;
+      this.onibusRef = itens.onibusList;
       this.compartilhamento.setPaginaAtualOnibus(this.compartilhamento.getPaginaAtualOnibus() - 1);
     });
   }
@@ -74,6 +80,7 @@ export class FrotaComponent implements OnInit {
       this.tituloPag = "Ônibus inativos";
       this.inativosSelect = true;
       this.onibus = itens.onibusList;
+      this.onibusRef = itens.onibusList;
       this.compartilhamento.setTotPaginaOnibus(itens.qtPaginate);
     });
   }
@@ -84,11 +91,13 @@ export class FrotaComponent implements OnInit {
     this.compartilhamento.setPaginaAtualOnibus(this.compartilhamento.getPaginaAtualOnibus() + 1);
     this.onibusService.GetOnibusPaginateInativos(this.compartilhamento.getPaginaAtualOnibus(), true).subscribe((itens) => {
       this.onibus = itens.onibusList;
+      this.onibusRef = itens.onibusList;
     });
   }
   anteriorInativosPaginate() {
     this.onibusService.GetOnibusPaginateInativos(this.compartilhamento.getPaginaAtualOnibus(), false).subscribe((itens) => {
       this.onibus = itens.onibusList;
+      this.onibusRef = itens.onibusList;
       this.compartilhamento.setPaginaAtualOnibus(this.compartilhamento.getPaginaAtualOnibus() - 1);
     });
   }
@@ -110,6 +119,19 @@ export class FrotaComponent implements OnInit {
     const numeros = placa.substring(0, 3);
     const letras = placa.substring(3);
     return `${numeros}-${letras}`;
+  }
+
+  FiltrarTabela(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+    this.onibus = this.onibusRef.filter((x) => {
+      return x.nameBus.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+    });
+  }
+
+  trueContratosEmAndamento(item: Onibus): boolean {
+    const contratos = item.contratos!.some(x => x.andamento === 1);
+    return (contratos) ? true : false;
   }
 
   larguraMinima = false;

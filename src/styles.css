@@ -1,22 +1,90 @@
+.button{
+  max-width: 135px !important;
+}
 .header h3 {
+  font-family: 'Poppins', Arial, sans-serif !important;
   color: #4646ab;
 }
 
-.pesquisa-container{
+.modal-title {
+  font-weight: normal !important;
+  color: #1a0079 !important;
+}
+
+strong {
+  font-weight: normal !important;
+  font-family: "Poppins", sans-serif;
+  color: #22009d;
+}
+option{
+  font-family: "Poppins", sans-serif !important;
+}
+table {
+  font-family: "Poppins", sans-serif;
+}
+
+thead {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&display=swap');
+
+.borda-table {
+  border-radius: 5px;
+  padding: 4px 7px;
+  font-weight: normal;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 0 7px rgba(148, 148, 148, 0.346);
+}
+
+.azul-borda {
+  background-color: rgb(185, 233, 233);
+  color: rgb(15, 0, 175);
+}
+
+.roxo-borda {
+  background-color: rgb(255, 204, 237);
+  color: rgb(190, 2, 105);
+}
+
+.orange-borda {
+  background-color: rgba(253, 185, 67, 0.64);
+  color: rgb(135, 40, 3);
+}
+
+.verde-borda {
+  background-color: rgb(192, 254, 156);
+  color: rgb(9, 132, 0);
+}
+
+.pesquisa-container {
   margin: 0px;
-  margin-bottom: 1px;
+  margin-bottom: 3px;
   display: flex;
   align-items: flex-end;
   align-content: flex-end;
   justify-content: flex-end;
 }
+
+@media(max-width: 570px) {
+  .pesquisa-container {
+    justify-content: center;
+  }
+}
+
 .pesquisa-container .form-control {
   font-size: 10pt;
-  max-width: 300px;
+  max-width: 230px;
   border-radius: 0px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  height: 35px !important;
+  height: 36px !important;
+}
+
+.filt {
+  max-width: 140px !important;
+  margin-left: 5px !important;
+  border-radius: 5px !important;
 }
 
 .pesquisa-container .input-group-prepend span {
@@ -24,7 +92,7 @@
   border-radius: 0px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  height: 35px !important;
+  height: 36px !important;
 }
 
 .hr {
@@ -49,15 +117,17 @@ td {
 .table thead {
   background: linear-gradient(#00008bcf, #4646ab);
 }
-.op-table{
+
+.op-table {
   text-align: right !important;
 }
+
 i {
   transition: 0.212s;
 }
 
-i:hover {
-  transform: scale(1.12);
+.table i:hover {
+  transform: scale(1.08);
 }
 
 .row-hover:hover {
@@ -136,9 +206,11 @@ i:hover {
 .link-green:hover {
   color: darkgreen;
 }
-.disabled{
+
+.disabled {
   color: gray !important;
 }
+
 /* Barra de rolagem */
 ::-webkit-scrollbar {
   width: 3px;
@@ -6524,7 +6596,7 @@ button.bg-dark:focus {
 }
 
 body {
-  font-family: "Poppins", Arial, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 14px;
   line-height: 1.8;
   font-weight: normal;

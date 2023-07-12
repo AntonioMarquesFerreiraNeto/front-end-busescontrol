@@ -12,41 +12,63 @@
                 <button class="btn button red" (click)="GetOnibusInativos()">Inativos</button>
             </div>
             <div>
-                <a class="btn button blue" routerLink="/frota/newfrota"><i class="fa fa-plus"></i> Ônibus</a>
+                <a class="btn button blue" routerLink="/frota/newfrota"><i class="fa fa-plus"></i>
+                    <span *ngIf="!larguraMinima"> Ônibus</span>
+                </a>
             </div>
         </div>
     </div>
     <div class="table-container">
-        <div *ngIf="onibus.length else listnull">
+        <div class="pesquisa-container">
             <div class="pesquisa-container">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
                         <i class="fa fa-search"></i>
                     </span>
                 </div>
-                <input type="text" class="form-control" placeholder="Pesquisar na tabela."
-                    formControlName="pesquisa" required>
+                <input type="text" class="form-control" placeholder="Pesquisar Ônibus." required
+                    (input)="FiltrarTabela($event)">
+                <select class="form-control filt">
+                    <option value="">Filtrar por... </option>
+                    <optgroup>
+                        <option value="">ID</option>
+                        <option value="">Marca</option>
+                        <option value="">Modelo</option>
+                        <option value="">Placa</option>
+                        <option value="">Ano de fab.</option>
+                    </optgroup>
+                </select>
             </div>
+        </div>
+        <div *ngIf="onibus.length else listnull">
             <table class="table" #tabela>
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Mar&shy;ca</th>
+                        <th scope="col" *ngIf="!larguraMinima">Mar&shy;ca</th>
                         <th scope="col">Mod&shy;elo</th>
                         <th scope="col" *ngIf="!larguraMinima">Cor</th>
                         <th scope="col">Pla&shy;ca</th>
                         <th scope="col" *ngIf="!larguraMinima">Ano de fab.</th>
+                        <th scope="col">Em uso</th>
                         <th scope="col">Opção</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="row-hover" *ngFor="let item of onibus">
                         <td>{{item.id}}</td>
-                        <td>{{item.marca}}</td>
+                        <td *ngIf="!larguraMinima">{{item.marca}}</td>
                         <td>{{item.nameBus}}</td>
                         <td *ngIf="!larguraMinima">{{item.corBus}}</td>
                         <td>{{FormatarPlaca(item.placa)}}</td>
                         <td *ngIf="!larguraMinima">{{item.dataFabricacao}}</td>
+
+                        <td *ngIf="trueContratosEmAndamento(item) else noContratosEmAndamento"><span
+                                class="borda-table verde-borda">Sim</span></td>
+                        <ng-template #noContratosEmAndamento>
+                            <td><span class="borda-table roxo-borda">Não</span></td>
+                        </ng-template>
+
                         <td *ngIf="item.statusOnibus == 0; else itemInativo">
                             <a class="link" routerLink="/frota/edit/{{item.id}}"><i class="fa fa-edit"></i></a>
                             <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link link-trash"><i

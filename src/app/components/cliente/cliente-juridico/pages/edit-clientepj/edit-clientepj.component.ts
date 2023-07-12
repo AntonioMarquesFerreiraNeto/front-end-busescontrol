@@ -26,12 +26,12 @@ export class EditClientepjComponent implements OnInit {
           id: new FormControl(id),
           nomeFantasia: new FormControl(item.nomeFantasia, [Validators.required]),
           razaoSocial: new FormControl(item.razaoSocial, [Validators.required]),
-          cnpj: new FormControl(item.cnpj, [Validators.required]),
+          cnpj: new FormControl(item.cnpj, [Validators.required, Validators.minLength(14)]),
           inscricaoMunicipal: new FormControl(item.inscricaoMunicipal, [Validators.required]),
           inscricaoEstadual: new FormControl(item.inscricaoEstadual, [Validators.required]),
           email: new FormControl(item.email),
-          telefone: new FormControl(item.telefone, [Validators.required]),
-          cep: new FormControl(item.cep, [Validators.required]),
+          telefone: new FormControl(item.telefone, [Validators.required, Validators.minLength(9)]),
+          cep: new FormControl(item.cep, [Validators.required, Validators.minLength(8)]),
           complementoResidencial: new FormControl(item.complementoResidencial, [Validators.required]),
           numeroResidencial: new FormControl(item.numeroResidencial, [Validators.required]),
           logradouro: new FormControl(item.logradouro, [Validators.required]),
@@ -105,6 +105,7 @@ export class EditClientepjComponent implements OnInit {
     const data: ClienteJuridico = this.clienteForm.value;
     data.cnpj = data.cnpj.replace(/\D/g, '');
     data.telefone = data.telefone.replace('-', '');
+    data.cep = data.cep.replace('-', '');
     
     this.clienteService.UpdateClientePJ(data).subscribe({
       next: () => {

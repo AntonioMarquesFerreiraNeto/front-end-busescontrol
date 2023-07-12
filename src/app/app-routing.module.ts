@@ -17,6 +17,8 @@ import { ContratoComponent } from './components/contrato/contrato.component';
 import { NewContratoComponent } from './components/contrato/pages/new-contrato/new-contrato.component';
 import { FornecedorComponent } from './components/fornecedor/fornecedor.component';
 import { EditContratoComponent } from './components/contrato/pages/edit-contrato/edit-contrato.component';
+import { FinanceiroComponent } from './components/financeiro/financeiro.component';
+import { RelatorioComponent } from './components/relatorio/relatorio.component';
 
 const routes: Routes = [
   //Defino path do component Home como '' para iniciar o sistema na página home.
@@ -44,7 +46,11 @@ const routes: Routes = [
 
   { path: 'contrato', component: ContratoComponent },
   { path: 'contrato/newcontrato', component: NewContratoComponent },
-  {path: 'contrato/edit/:id', component: EditContratoComponent}
+  {path: 'contrato/edit/:id', component: EditContratoComponent},
+
+  {path: 'financeiro', component: FinanceiroComponent},
+
+  {path: 'relatorio', component: RelatorioComponent}
 ];
 
 @NgModule({

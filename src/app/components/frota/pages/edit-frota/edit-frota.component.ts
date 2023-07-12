@@ -37,7 +37,7 @@ export class EditFrotaComponent implements OnInit {
           dataFabricacao: new FormControl(this.onibusListado ? this.onibusListado.dataFabricacao : '', [Validators.required]),
           corBus: new FormControl(this.onibusListado ? this.onibusListado.corBus : ''),
           renavam: new FormControl(this.onibusListado ? this.onibusListado.renavam : '', [Validators.required]),
-          placa: new FormControl(this.onibusListado ? this.onibusListado.placa : '', [Validators.required]),
+          placa: new FormControl(this.onibusListado ? this.onibusListado.placa : '', [Validators.required, Validators.minLength(7)]),
           chassi: new FormControl(this.onibusListado ? this.onibusListado.chassi : '', [Validators.required]),
           assentos: new FormControl(this.onibusListado ? this.onibusListado.assentos : '', [Validators.required]),
           statusOnibus: new FormControl(0)

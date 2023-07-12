@@ -2,7 +2,7 @@
     <app-mensagens></app-mensagens>
     <div class="header">
         <h3 [class.red-color]="inativosSelect">
-            <i class="fa-solid fa-clipboard-list fa-shake" style="font-size: 16pt;"></i> {{tituloPag}}
+            <i class="fa-solid fa-clipboard-list" style="font-size: 16pt;"></i> {{tituloPag}}
         </h3>
         <hr class="hr">
     </div>
@@ -12,8 +12,8 @@
             <button class="btn button red" (click)="GetContratosInativos()">Inativos</button>
         </div>
         <div>
-            <a class="btn button grenn" routerLink="/contrato" data-target="#gerarRelatorio" data-toggle="modal"><i class="fa fa-print"></i>Gerar docs</a>
-            <a class="btn button blue" routerLink="/contrato/newcontrato"><i class="fa fa-plus"></i> Contrato</a>
+            <a class="btn button grenn" routerLink="/contrato" data-target="#gerarRelatorio" data-toggle="modal"><i class="fa fa-print"></i> <span *ngIf="!larguraMinima"> Gerar docs </span></a>
+            <a class="btn button blue" routerLink="/contrato/newcontrato"><i class="fa fa-plus"></i>  <span *ngIf="!larguraMinima"> Contrato</span></a>
         </div>
     </div>
     <div class="table-container">
@@ -24,13 +24,23 @@
                         <i class="fa fa-search"></i>
                     </span>
                 </div>
-                <input type="text" class="form-control" placeholder="Pesquisar na tabela."
+                <input type="text" class="form-control" placeholder="Pesquisar contrato."
                     formControlName="pesquisa" required>
+                    
+                <select class="form-control filt">
+                    <option value="">Filtrar por... </option>
+                    <optgroup>
+                        <option value="">ID</option>
+                        <option value="">Vencimento</option>
+                        <option value="">Andamento</option>
+                        <option value="">Aprovação</option>
+                    </optgroup>
+                </select>
             </div>
             <table class="table" #tabela>
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
+                        <th scope="col" *ngIf="!larguraMinima">Id</th>
                         <th scope="col">Clientes</th>
                         <th scope="col" *ngIf="!larguraMinima">Qt. clien&shy;tes</th>
                         <th scope="col" *ngIf="!larguraMinima">Vencimento</th>
@@ -43,14 +53,14 @@
                 </thead>
                 <tbody>
                     <tr class="row-hover" *ngFor="let item of contratoList">
-                        <td>{{item.id!}}</td>
+                        <td *ngIf="!larguraMinima">{{item.id!}}</td>
                         <td><a routerLink="/contrato" class="link" (click)="consultClientes(item)"><i class="fa fa-users"></i></a></td>
                         <td *ngIf="!larguraMinima">{{item.clientesContrato!.length}}</td>
                         <td *ngIf="!larguraMinima">{{returnDataFormatada(item.dataVencimento)}}</td>
                         <td>{{returnDinheiro(item.valorMonetario)}}</td>
-                        <td *ngIf="!larguraMinima">{{returnTypePagamento(item.pagament!)}}</td>
-                        <td>{{returnAprovacao(item.aprovacao!)}}</td>
-                        <td *ngIf="!larguraMinima">{{returnAndamento(item.andamento!)}}</td>
+                        <td *ngIf="!larguraMinima">{{returnTypePagamento(item.pagament!)}}</td>  
+                        <td><span class="borda-table" ngClass="{{returnCorAprovacao(item.aprovacao!)}}">{{returnAprovacao(item.aprovacao!)}}</span></td>             
+                        <td *ngIf="!larguraMinima"><span class="borda-table" ngClass="{{returnCorAndamento(item.andamento!)}}">{{returnAndamento(item.andamento!)}}</span></td>            
                         <td *ngIf="item.statusContrato == 0; else itemInativo">
                             <a *ngIf="item.aprovacao != 2; else encerradoedit"  class="link" routerLink="/contrato/edit/{{item.id}}"><i class="fa fa-edit"></i></a>
                             <ng-template #encerradoedit> <a class="link disabled"><i class="fa fa-edit"></i></a></ng-template>
@@ -135,7 +145,7 @@
               </p>
             </div>
             <div class="modal-footer">
-              <a class="btn button blue" routerLink="/contrato" data-dismiss="modal"><i class="fa fa-file-export"></i> PDF</a>
+              <a class="btn button blue" routerLink="/contrato" data-dismiss="modal" (click)="RelatorioPdf()"><i class="fa fa-file-export"></i> PDF</a>
               <a class="btn button grenn" routerLink="/contrato" data-dismiss="modal" (click)="RelatorioExcel()"><i class="fa fa-file-excel"></i> Excel</a>
             </div>
           </div>

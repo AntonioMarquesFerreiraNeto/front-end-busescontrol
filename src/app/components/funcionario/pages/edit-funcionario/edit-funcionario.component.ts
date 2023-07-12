@@ -102,6 +102,7 @@ export class EditFuncionarioComponent implements OnInit {
     const data : Funcionario = this.funcionarioForm.value;
     data.cpf = data.cpf.replace(/\D/g, '');
     data.telefone = data.telefone.replace('-', '');
+    data.cep = data.cep.replace('-', '');
     data.cargo = Number(data.cargo);
 
     this.funcionarioService.UpdateFuncionario(data).subscribe({

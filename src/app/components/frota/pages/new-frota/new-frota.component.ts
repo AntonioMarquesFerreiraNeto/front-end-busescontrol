@@ -36,7 +36,7 @@ export class NewFrotaComponent implements OnInit {
       nameBus: new FormControl('', [Validators.required]),
       dataFabricacao: new FormControl('', [Validators.required]),
       renavam: new FormControl('', [Validators.required]),
-      placa: new FormControl('', [Validators.required]),
+      placa: new FormControl('', [Validators.required, Validators.minLength(7)]),
       chassi: new FormControl('', [Validators.required]),
       assentos: new FormControl('', [Validators.required]),
       statusOnibus: new FormControl(0),

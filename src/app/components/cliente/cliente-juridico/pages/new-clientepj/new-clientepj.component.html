@@ -13,8 +13,8 @@
                             <i class="fas fa-user-tie"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Informe o nome fantasia do cliente." maxlength="60"
-                        formControlName="nomeFantasia" id="name" required>
+                    <input type="text" class="form-control" placeholder="Informe o nome fantasia do cliente."
+                        maxlength="60" formControlName="nomeFantasia" id="name" required>
                     <div class="i" *ngIf="nomeFantasia.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="nomeFantasia.errors?.['required']">Campo obrigatório!</small>
                         <small class="errorMsg"
@@ -27,8 +27,8 @@
                             <i class="fas fa-user-tie"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Informe a razão social do cliente." maxlength="60"
-                        formControlName="razaoSocial" id="razaoSocial" required>
+                    <input type="text" class="form-control" placeholder="Informe a razão social do cliente."
+                        maxlength="60" formControlName="razaoSocial" id="razaoSocial" required>
                     <div class="i" *ngIf="razaoSocial.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="razaoSocial.errors?.['required']">Campo obrigatório!</small>
                         <small class="errorMsg"
@@ -46,6 +46,7 @@
                         onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
                     <div class="i" *ngIf="cnpj.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="cnpj.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg" *ngIf="cnpj.errors?.['minlength']">Campo inválido!</small>
                         <small class="errorMsg"
                             *ngIf="cnpj.errors?.['serverError']">{{cnpj.errors?.['serverError'][0]}}</small>
                     </div>
@@ -56,11 +57,12 @@
                             <i class="fas fa-address-card"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Informe a inscrição estadual do cliente." maxlength="14"
-                        formControlName="inscricaoEstadual" id="inscricaoEstadual"
+                    <input type="text" class="form-control" placeholder="Informe a inscrição estadual do cliente."
+                        maxlength="14" formControlName="inscricaoEstadual" id="inscricaoEstadual"
                         onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
                     <div class="i" *ngIf="inscricaoEstadual.invalid && formDir.submitted">
-                        <small class="errorMsg" *ngIf="inscricaoEstadual.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg" *ngIf="inscricaoEstadual.errors?.['required']">Campo
+                            obrigatório!</small>
                         <small class="errorMsg"
                             *ngIf="inscricaoEstadual.errors?.['serverError']">{{inscricaoEstadual.errors?.['serverError'][0]}}</small>
                     </div>
@@ -71,11 +73,12 @@
                             <i class="fas fa-address-card"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Informe a inscrição municipal do cliente." maxlength="14"
-                        formControlName="inscricaoMunicipal" id="inscricaoMunicipal"
+                    <input type="text" class="form-control" placeholder="Informe a inscrição municipal do cliente."
+                        maxlength="14" formControlName="inscricaoMunicipal" id="inscricaoMunicipal"
                         onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
                     <div class="i" *ngIf="inscricaoMunicipal.invalid && formDir.submitted">
-                        <small class="errorMsg" *ngIf="inscricaoMunicipal.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg" *ngIf="inscricaoMunicipal.errors?.['required']">Campo
+                            obrigatório!</small>
                         <small class="errorMsg"
                             *ngIf="inscricaoMunicipal.errors?.['serverError']">{{inscricaoMunicipal.errors?.['serverError'][0]}}</small>
                     </div>
@@ -86,8 +89,8 @@
                             <i class="fas fa-envelope"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Informe o e-mail do cliente."
-                        maxlength="60" formControlName="email" id="email">
+                    <input type="text" class="form-control" placeholder="Informe o e-mail do cliente." maxlength="60"
+                        formControlName="email" id="email">
                     <div class="i" *ngIf="email.invalid && formDir.submitted">
                         <small class="errorMsg"
                             *ngIf="email.errors?.['serverError']">{{email.errors?.['serverError'][0]}}</small>
@@ -99,11 +102,12 @@
                             <i class="fas fa-phone"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Informe o telefone do cliente."
-                        maxlength="10" formControlName="telefone" id="telefone" mask="00000-0000"
+                    <input type="text" class="form-control" placeholder="Informe o telefone do cliente." maxlength="10"
+                        formControlName="telefone" id="telefone" mask="00000-0000"
                         onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
                     <div class="i" *ngIf="telefone.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="telefone.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg" *ngIf="telefone.errors?.['minlength']">Campo inválido!</small>
                         <small class="errorMsg"
                             *ngIf="telefone.errors?.['serverError']">{{telefone.errors?.['serverError'][0]}}</small>
                     </div>
@@ -112,7 +116,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="header-endereco">
-                        <h3>Endereço<hr id="hr-ende"></h3>
+                        <h3>Endereço
+                            <hr id="hr-ende">
+                        </h3>
                     </div>
                 </div>
                 <div class="col-md-6 input-group form-group form-it">
@@ -121,12 +127,13 @@
                             <i class="fa fa-map-location-dot"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" maxlength="8" placeholder="Informe o CEP."
+                    <input type="text" class="form-control" maxlength="9" placeholder="Informe o CEP."
                         formControlName="cep" id="cep"
                         onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;"
-                        asp-for="Cep">
+                        asp-for="Cep" mask="00000-000">
                     <div class="i" *ngIf="cep.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="cep.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg" *ngIf="cep.errors?.['minlength']">Campo inválido!</small>
                         <small class="errorMsg"
                             *ngIf="cep.errors?.['serverError']">{{cep.errors?.['serverError'][0]}}</small>
                     </div>
@@ -237,7 +244,7 @@
             <div class="container-opcoes">
                 <div>
                     <button class="btn button cores" type="button" (click)="buscarByCep(cep.value)">
-                        Busca por CEP
+                        <i class="fa fa-map-location-dot"></i> buscar
                     </button>
                 </div>
                 <div>

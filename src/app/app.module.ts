@@ -38,6 +38,10 @@ import { AprovacaoContratoComponent } from './components/contrato/pages/aprovaca
 import { ConsultClienteComponent } from './components/contrato/pages/consult-cliente/consult-cliente.component';
 import { ViewClientescontratoComponent } from './components/contrato/pages/view-clientescontrato/view-clientescontrato.component';
 import { GerirPdfComponent } from './components/contrato/pages/gerir-pdf/gerir-pdf.component';
+import { ModaluserauthComponent } from './components/modaluserauth/modaluserauth.component';
+import { NewFornecedorComponent } from './components/fornecedor/pages/new-fornecedor/new-fornecedor.component';
+import { EditFornecedorComponent } from './components/fornecedor/pages/edit-fornecedor/edit-fornecedor.component';
+import { GerirFornecedorComponent } from './components/fornecedor/pages/gerir-fornecedor/gerir-fornecedor.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +75,11 @@ import { GerirPdfComponent } from './components/contrato/pages/gerir-pdf/gerir-p
     AprovacaoContratoComponent,
     ConsultClienteComponent,
     ViewClientescontratoComponent,
-    GerirPdfComponent
+    GerirPdfComponent,
+    ModaluserauthComponent,
+    NewFornecedorComponent,
+    EditFornecedorComponent,
+    GerirFornecedorComponent
   ],
   imports: [
     BrowserModule,

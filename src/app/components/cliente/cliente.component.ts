@@ -6,6 +6,7 @@ import { GerirClienteComponent } from './pages/gerir-cliente/gerir-cliente.compo
 import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MensagensService } from 'src/app/services/mensagens.service';
+import { Contrato } from 'src/app/interfaces/Contrato';
 
 @Component({
   selector: 'app-cliente',
@@ -108,6 +109,11 @@ export class ClienteComponent implements OnInit {
     }
     const modalRef = this.modal.open(GerirClienteComponent, modalOptions);
     modalRef.componentInstance.cliente = cliente;
+  }
+
+  trueContratosEmAndamento(item: ClienteFisico): boolean{
+    const contratosEmAndamento = item.clientesContrato?.some(x => x.contrato?.andamento === 1);
+    return (contratosEmAndamento) ? true : false;
   }
 
   larguraMinima = false;

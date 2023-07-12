@@ -28,13 +28,13 @@ export class EditClienteComponent implements OnInit {
           id: new FormControl(id),
           name: new FormControl(item.name, Validators.required),
           dataNascimento: new FormControl(dataFormatada, Validators.required),
-          cpf: new FormControl(item.cpf, Validators.required),
+          cpf: new FormControl(item.cpf, [Validators.required, Validators.minLength(11)]),
           rg: new FormControl(item.rg, Validators.required),
           email: new FormControl(item.email ? item.email : ''),
-          telefone: new FormControl(item.telefone, [Validators.required]),
+          telefone: new FormControl(item.telefone, [Validators.required, Validators.minLength(9)]),
           idVinculacaoContratual: new FormControl(item.idVinculacaoContratual),
           nameMae: new FormControl(item.nameMae, [Validators.required]),
-          cep: new FormControl(item.cep, [Validators.required]),
+          cep: new FormControl(item.cep, [Validators.required, Validators.minLength(8)]),
           complementoResidencial: new FormControl(item.complementoResidencial, [Validators.required]),
           numeroResidencial: new FormControl(item.numeroResidencial, [Validators.required]),
           logradouro: new FormControl(item.logradouro, [Validators.required]),
@@ -111,6 +111,7 @@ export class EditClienteComponent implements OnInit {
     const cliente : ClienteFisico = this.clienteForm.value;
     cliente.cpf = cliente.cpf.replace(/\D/g, '');
     cliente.telefone = cliente.telefone.replace('-', '');
+    cliente.cep = cliente.cep.replace('-', '');
     
     if(cliente.idVinculacaoContratual){
       cliente.idVinculacaoContratual = Number(cliente.idVinculacaoContratual);

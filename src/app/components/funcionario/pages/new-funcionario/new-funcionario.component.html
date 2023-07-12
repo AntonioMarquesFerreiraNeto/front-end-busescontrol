@@ -66,6 +66,7 @@
                         onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
                     <div class="i" *ngIf="cpf.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="cpf.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg" *ngIf="cpf.errors?.['minlength']">Campo inválido!</small>
                         <small class="errorMsg"
                             *ngIf="cpf.errors?.['serverError']">{{cpf.errors?.['serverError'][0]}}</small>
                     </div>
@@ -95,6 +96,7 @@
                         onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
                     <div class="i" *ngIf="telefone.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="telefone.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg" *ngIf="telefone.errors?.['minlength']">Campo inválido!</small>
                         <small class="errorMsg"
                             *ngIf="telefone.errors?.['serverError']">{{telefone.errors?.['serverError'][0]}}</small>
                     </div>
@@ -112,12 +114,13 @@
                             <i class="fa fa-map-location-dot"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" maxlength="8" placeholder="Informe o CEP."
+                    <input type="text" class="form-control" maxlength="9" placeholder="Informe o CEP."
                         formControlName="cep" id="cep"
                         onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;"
-                        asp-for="Cep">
+                        asp-for="Cep" mask="00000-000">
                     <div class="i" *ngIf="cep.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="cep.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg" *ngIf="cep.errors?.['minlength']">Campo inválido!</small>
                         <small class="errorMsg"
                             *ngIf="cep.errors?.['serverError']">{{cep.errors?.['serverError'][0]}}</small>
                     </div>
@@ -228,7 +231,7 @@
             <div class="container-opcoes">
                 <div>
                     <button class="btn button cores" type="button" (click)="buscarByCep()">
-                        Busca por CEP
+                        <i class="fa fa-map-location-dot"></i> buscar
                     </button>
                 </div>
                 <div>

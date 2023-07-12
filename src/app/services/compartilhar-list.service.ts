@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ClienteFisico } from '../interfaces/ClienteFisico';
 import { ClienteJuridico } from '../interfaces/ClienteJuridico';
 import { Contrato } from '../interfaces/Contrato';
+import { Fornecedor } from '../interfaces/Fornecedor';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,9 @@ export class CompartilharListService {
 
   paginaAtualContrato: number = 1;
   totPaginasContrato!: number;
+
+  paginaAtualFornecedor: number = 1;
+  totPaginaFornecedor!: number;
 
   apiCorreios = "https://viacep.com.br/ws/";
 
@@ -46,6 +50,9 @@ export class CompartilharListService {
 
   private contratosSubject = new BehaviorSubject<Contrato[]>([]);
   contrato$ = this.contratosSubject.asObservable();
+
+  private fornecedoresSubject = new BehaviorSubject<Fornecedor[]>([]);
+  fornecedores$ = this.fornecedoresSubject.asObservable();
   
   GetEnderecoByCep(cep: string): Observable<any>{
     return this.http.get<any>(`${this.apiCorreios}/${cep}/json`);
@@ -65,6 +72,9 @@ export class CompartilharListService {
   }
   atualizarContrato(contratos: Contrato[]){
     this.contratosSubject.next(contratos);
+  }
+  atualizarFornecedor(fornecedores: Fornecedor[]){
+    this.fornecedoresSubject.next(fornecedores);
   }
 
   setPaginaAtualOnibus(valor: number) {
@@ -130,5 +140,18 @@ export class CompartilharListService {
   }
   getTotPaginaClientePj(){
     return this.totPaginasClientePj;
+  }
+
+  setPaginaAtualFornecedor(value: number){
+    this.paginaAtualFornecedor = value;
+  }
+  getPaginaAtualFornecedor(){
+    return this.paginaAtualFornecedor;
+  }
+  setTotPaginaFornecedor(value: number){
+    this.totPaginaFornecedor = value;
+  }
+  getTotPaginaFornecedor(){
+    return this.totPaginaFornecedor;
   }
 }

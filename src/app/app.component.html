@@ -24,8 +24,8 @@
                 <a routerLink="/"><span class="fa fa-right-from-bracket" style="font-size: 14pt;"></span> Sair</a>
             </li>
         </ul>
-        <div class="footer">
-            <p style="text-align: justify;">
+        <div class="footer direitos">
+            <p style="text-align: justify; width: 70%;">
                 Copyright &copy;
                 <script>document.write(new Date().getFullYear());</script> <a href="" class="text-white"
                     style="text-decoration: underline;">Todos os direitos reservados.</a> | <a href=""
@@ -42,20 +42,20 @@
                     <span class="sr-only">Toggle Menu</span>
                 </button>
                 <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item linha">
-                            <a class="nav-link linkMenu" routerLink="/"><i class="fa-solid fa-clipboard-list"
+                            <a class="nav-link linkMenu" routerLink="/relatorio"><i class="fa-solid fa-clipboard-list"
                                     style="margin-right: 3px; font-size: 13pt;"></i>
                                 Relatórios
                             </a>
                         </li>
                         <li class="nav-item linha">
-                            <a class="nav-link linkMenu clear-filtros" routerLink="/"><i class="fa fa-coins"
+                            <a class="nav-link linkMenu clear-filtros" routerLink="/financeiro"><i class="fa fa-coins"
                                     style="margin-right: 3px; font-size: 13pt;"></i>
                                 Financeiro
                             </a>
@@ -64,11 +64,10 @@
                             <a class="nav-link linkMenu" style="color: transparent; opacity: 0;">#</a>
                         </li>
                         <li class="nav-item linha">
-                            <a class="btn user-btn" data-toggle="modal"
-                                data-target="#janelaModalPerfil" routerLink="/">
-                                <i class="fa fa-user-gear fa-shake" style="margin-right: 3px;"></i>
-                                Ceo - Gustavo Marques Ferreira
-                            </a>
+                            <button class="btn user-btn" (click)="OpenModalUserAuth()">
+                                <i class="fa fa-user-gear font-size" style="margin-right: 3px;"></i>
+                                Gustavo Marques
+                            </button>
                         </li>
                     </ul>
                 </div>

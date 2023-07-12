@@ -109,6 +109,11 @@ export class ClienteJuridicoComponent implements OnInit {
     modalRef.componentInstance.cliente = cliente;
   }
 
+  trueContratosEmAndamento(item: ClienteJuridico): boolean{
+    const contratosEmAndamento = item.clientesContrato?.some(x => x.contrato?.andamento === 1);
+    return (contratosEmAndamento) ? true : false;
+  }
+
   larguraMinima = false;
   @HostListener('window:resize', ['$event'])
   validaResolucao() {

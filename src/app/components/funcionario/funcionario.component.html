@@ -2,7 +2,7 @@
     <app-mensagens></app-mensagens>
     <div class="header">
         <h3 [class.red-color]="inativosSelect">
-            <i class="fa fa-bus"></i>
+            <i class="fa fa-users"></i>
             {{tituloPag}}
         </h3>
         <hr class="hr">
@@ -13,7 +13,8 @@
             </div>
             <div>
                 <a class="btn button blue" routerLink="/funcionario/newfuncionario"><i class="fa fa-plus"></i>
-                    Funcionário</a>
+                    <span *ngIf="!larguraMinima"> funcionário</span>
+                </a>
             </div>
         </div>
     </div>
@@ -25,15 +26,25 @@
                         <i class="fa fa-search"></i>
                     </span>
                 </div>
-                <input type="text" class="form-control" placeholder="Pesquisar na tabela."
-                    formControlName="pesquisa" required>
+                <input type="text" class="form-control" placeholder="Pesquisar funcionário." formControlName="pesquisa"
+                    required>
+
+                <select class="form-control filt">
+                    <option value="">Filtrar por... </option>
+                    <optgroup>
+                        <option value="">ID</option>
+                        <option value="">Nome</option>
+                        <option value="">Cargo</option>
+                        <option value="">Telefone</option>
+                    </optgroup>
+                </select>
             </div>
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Nome</th>
-                        <th scope="col">Telefone</th>
+                        <th scope="col" *ngIf="!larguraMinima">Telefone</th>
                         <th scope="col" *ngIf="!larguraMinima">E-mail</th>
                         <th scope="col">Cargo</th>
                         <th scope="col">Opção</th>
@@ -43,19 +54,27 @@
                     <tr class="row-hover">
                         <td>{{item.id}}</td>
                         <td>{{item.name}}</td>
-                        <td>{{item.telefone}}</td>
+                        <td *ngIf="!larguraMinima">{{item.telefone}}</td>
                         <td *ngIf="!larguraMinima">{{item.email}}</td>
-                        <td>{{ReturnCargoFuncionario(item.cargo)}}</td>
+                        <td><span class="borda-table"
+                                ngClass="{{ReturnCorCargo(item.cargo)}}">{{ReturnCargoFuncionario(item.cargo)}}</span>
+                        </td>
                         <td *ngIf="item.status == 0 else funcionarioInativo">
-                            <a class="link" routerLink="/funcionario/editfuncionario/{{item.id}}"><i class="fa fa-edit"></i></a>
-                            <a routerLink="/funcionario" class="link link-trash"><i class="fa fa-trash-alt" (click)="ModalGerirFuncionario(item)"></i></a>
-                            <a class="link disabled" *ngIf="item.cargo == 0" style="color: gray;"><i class="fa fa-user-times"></i></a>
-                            <a routerLink="/funcionario" (click)="ModalGerirUsuario(item)" class="link link-orange" *ngIf="item.statusUsuario == 1 && item.cargo != 0"><i class="fa fa-user-times"></i></a>
-                            <a routerLink="/funcionario" (click)="ModalGerirUsuario(item)" class="link link-green" *ngIf="item.statusUsuario == 0 && item.cargo != 0"><i class="fa fa-user-check"></i></a>
+                            <a class="link" routerLink="/funcionario/editfuncionario/{{item.id}}"><i
+                                    class="fa fa-edit"></i></a>
+                            <a routerLink="/funcionario" class="link link-trash"><i class="fa fa-trash-alt"
+                                    (click)="ModalGerirFuncionario(item)"></i></a>
+                            <a class="link disabled" *ngIf="item.cargo == 0" style="color: gray;"><i
+                                    class="fa fa-user-times"></i></a>
+                            <a routerLink="/funcionario" (click)="ModalGerirUsuario(item)" class="link link-orange"
+                                *ngIf="item.statusUsuario == 1 && item.cargo != 0"><i class="fa fa-user-times"></i></a>
+                            <a routerLink="/funcionario" (click)="ModalGerirUsuario(item)" class="link link-green"
+                                *ngIf="item.statusUsuario == 0 && item.cargo != 0"><i class="fa fa-user-check"></i></a>
                         </td>
                         <ng-template #funcionarioInativo>
                             <td>
-                                <a routerLink="/funcionario" (click)="ModalGerirFuncionario(item)" class="link"><i class="fa fa-user-gear"></i></a>
+                                <a routerLink="/funcionario" (click)="ModalGerirFuncionario(item)" class="link"><i
+                                        class="fa fa-user-gear"></i></a>
                             </td>
                         </ng-template>
                     </tr>

@@ -22,21 +22,21 @@
                 <tr *ngFor="let item of contrato.clientesContrato">
                     <td *ngIf="item.pessoaFisica">{{item.pessoaFisica.name}}</td>
                     <td *ngIf="item.pessoaFisica">{{returnCpf(item.pessoaFisica.cpf)}}</td>
-                    <td *ngIf="item.pessoaFisica">Pessoa fisica</td>
+                    <td *ngIf="item.pessoaFisica"><span class="borda-table azul-borda">Pessoa fisica</span></td>
 
                     <td *ngIf="item.pessoaJuridica">{{item.pessoaJuridica.razaoSocial}}</td>
                     <td *ngIf="item.pessoaJuridica">{{returnCnpj(item.pessoaJuridica.cnpj)}}</td>
-                    <td *ngIf="item.pessoaJuridica">Pessoa jurídica</td>
+                    <td *ngIf="item.pessoaJuridica"><span class="borda-table roxo-borda">Pessoa jurídica</span></td>
 
                     <td *ngIf="item.pessoaFisica else opPessoaJuridica">
-                        <a class="link link-verde" routerLink="/contrato"><i class="fa fa-download"></i>
+                        <a class="link link-verde" routerLink="/contrato" (click)="downloadContratoPF(item.pessoaFisicaId!)"><i class="fa fa-download"></i>
                         </a>
                         <a class="link link-orange" routerLink="/contrato"><i class="fa fa-download"></i>
                         </a>
                     </td>
                     <ng-template #opPessoaJuridica>
                         <td>
-                            <a class="link link-verde" routerLink="/contrato"><i class="fa fa-download"></i>
+                            <a class="link link-verde" routerLink="/contrato" (click)="downloadContratoPJ(item.pessoaJuridicaId!)"><i class="fa fa-download"></i>
                             </a>
                             <a class="link link-orange" routerLink="/contrato"><i class="fa fa-download"></i>
                             </a>

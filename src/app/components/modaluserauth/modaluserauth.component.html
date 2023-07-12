@@ -1,0 +1,67 @@
+<form style="margin: 0;" (ngSubmit)="submitUser()" [formGroup]="userAuthForm" #formDir="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title"><i class="fa fa-user-gear fa-bounce"></i> Perfil Administrador</h4>
+        <button type="button" class="close-mod" (click)="modalConfig.dismiss()">
+            <i class="fa fa-close"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>
+            <strong>Nome:</strong> Gustavo Marques Ferreira <br>
+            <strong>E-mail:</strong> gustavoferreira@gmail.com <br>
+            <strong>Data de nascimento: </strong> 29/01/2001 <br>
+        </p>
+        <p style="margin-bottom: 0px; margin-top: 0px;"><strong>Sessão de alteração: </strong></p>
+        <div class="sessao-alteracao">
+            <div class="container-alteracao">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-key"></i>
+                    </span>
+                </div>
+                <input type="password" id="senha" class="form-control" placeholder="Informe a senha atual."
+                    formControlName="senhaAtual">
+                <div class="i" *ngIf="formDir.submitted && senhaAtual.invalid">
+                    <small class="errorMsg" *ngIf="senhaAtual.errors?.['required']">Obrigatório!</small>
+                    <small class="errorMsg" *ngIf="senhaAtual.errors?.['minlength']">Inválido!</small>
+                    <small class="errorMsg" *ngIf="senhaAtual.errors?.['serverError']">{{senhaAtual.errors?.['serverError'][0]}}</small>
+                </div>
+            </div>
+            <div class="container-alteracao">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-key"></i>
+                    </span>
+                </div>
+                <input type="password" id="senha_atual" class="form-control" placeholder="Informe a nova senha."
+                    formControlName="novaSenha">
+                <div class="i" *ngIf="formDir.submitted && novaSenha.invalid">
+                    <small class="errorMsg" *ngIf="novaSenha.errors?.['required']">Obrigatório!</small>
+                    <small class="errorMsg" *ngIf="novaSenha.errors?.['minlength']">Inválido!</small>
+                    <small class="errorMsg" *ngIf="novaSenha.errors?.['serverError']">{{novaSenha.errors?.['serverError'][0]}}</small>
+                </div>
+            </div>
+            <div class="container-alteracao">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-key"></i>
+                    </span>
+                </div>
+                <input type="password" id="confirm_senha" class="form-control" placeholder="Confirme a nova senha."
+                    formControlName="confirmSenha">
+                <div class="i" *ngIf="formDir.submitted && confirmSenha.invalid">
+                    <small class="errorMsg" *ngIf="confirmSenha.errors?.['required']">Obrigatório!</small>
+                    <small class="errorMsg" *ngIf="confirmSenha.errors?.['minlength']">Inválido!</small>
+                    <small class="errorMsg" *ngIf="confirmSenha.errors?.['serverError']">{{confirmSenha.errors?.['serverError'][0]}}</small>
+                </div>
+            </div>
+            <small style="font-size: 10pt;"><input type="checkbox" (click)="OcultarOuMostrarSenha()"> Mostrar
+                senhas</small>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button id="enviar" type="submit" class="btn button blue">Atualizar</button>
+        <button type="button" class="btn button red" (click)="modalConfig.dismiss()">Fechar</button>
+    </div>
+</form>

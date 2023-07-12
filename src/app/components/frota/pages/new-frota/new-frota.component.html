@@ -92,6 +92,7 @@
             formControlName="placa" mask="AAA-0000">
           <div class="i" *ngIf="placa.invalid && formDir.submitted">
             <small class="errorMsg" *ngIf="placa.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg" *ngIf="placa.errors?.['minlength']">Campo inválido!</small>
             <small class="errorMsg" *ngIf="placa.errors?.['serverError']">{{placa.errors?.['serverError'][0]}}</small>
           </div>
         </div>
@@ -125,7 +126,7 @@
       <div class="container-opcoes">
         <div>
           <button class="btn button cores" type="button" data-target="#ManterCores" data-toggle="modal">
-            <i class="fa fa-plus"></i> Cores
+            <i class="fa fa-palette"></i> Cores
           </button>
         </div>
         <div>

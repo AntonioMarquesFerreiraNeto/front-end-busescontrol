@@ -23,12 +23,12 @@
                     <td *ngIf="item.pessoaFisica">{{item.pessoaFisica.id}}</td>
                     <td *ngIf="item.pessoaFisica">{{item.pessoaFisica.name}}</td>
                     <td *ngIf="item.pessoaFisica">{{returnCpf(item.pessoaFisica.cpf)}}</td>
-                    <td *ngIf="item.pessoaFisica">Pessoa física</td>
+                    <td *ngIf="item.pessoaFisica"><span class="borda-table azul-borda">Pessoa física</span></td>
 
                     <td *ngIf="item.pessoaJuridica">{{item.pessoaJuridica.id}}</td>
                     <td *ngIf="item.pessoaJuridica">{{item.pessoaJuridica.razaoSocial}}</td>
                     <td *ngIf="item.pessoaJuridica">{{returnCnpj(item.pessoaJuridica.cnpj)}}</td>
-                    <td *ngIf="item.pessoaJuridica">Pessoa jurídica</td>
+                    <td *ngIf="item.pessoaJuridica"><span class="borda-table roxo-borda">Pessoa jurídica</span></td>
                 </tr>
             </tbody>
         </table>

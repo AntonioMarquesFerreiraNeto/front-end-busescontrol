@@ -344,12 +344,7 @@
 }
 
 @media(max-width: 500px) {
-  .button {
-    width: 100%;
-  }
-
   .container-opcoes {
-    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     flex-shrink: 1;

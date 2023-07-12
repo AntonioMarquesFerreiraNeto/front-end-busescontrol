@@ -113,6 +113,14 @@ export class FuncionarioComponent implements OnInit {
     }
     return "Cargo não encontrado";
   }
+  ReturnCorCargo(cargo: number) {
+    switch (cargo) {
+      case 0: return "azul-borda";
+      case 1: return "roxo-borda";
+      case 2: return "verde-borda";
+    }
+    return "";
+  }
 
 
   ModalGerirFuncionario(funcionario: Funcionario){

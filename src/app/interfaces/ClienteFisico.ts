@@ -1,3 +1,5 @@
+import { ClientesContrato } from "./ClientesContrato";
+
 export interface ClienteFisico {
     id?: number;
     name: string;
@@ -17,4 +19,5 @@ export interface ClienteFisico {
     ddd: string;
     idVinculacaoContratual?: number;
     status?: number;
+    clientesContrato?: ClientesContrato[];
 }

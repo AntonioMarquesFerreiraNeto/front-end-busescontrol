@@ -63,7 +63,9 @@
     align-self: center;
     margin-right: 6px;
 }
-
+.fa-close{
+    font-size: 12pt !important;
+}
 i {
     align-items: center;
     font-weight: bold;
@@ -82,7 +84,7 @@ i {
     z-index: 0;
     border-radius: 10px;
     width: 39px;
-    height: 36px;
+    height: 39px;
     color: rgb(255, 255, 255);
     transition: 0.5s;
     box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.5);

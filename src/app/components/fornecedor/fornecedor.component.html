@@ -1,3 +1,127 @@
 <div class="container-components">
-    
+    <app-mensagens></app-mensagens>
+    <div class="header">
+        <h3 [class.red-color]="inativosSelect">
+            <i class="fa fa-users"></i>
+            {{tituloPag}}
+        </h3>
+        <hr class="hr">
+        <div class="container-buttons">
+            <div>
+                <button class="btn button grenn" (click)="GetAtivos()">Ativos</button>
+                <button class="btn button red" (click)="GetInativos()">Inativos</button>
+            </div>
+            <div>
+                <button class="btn button blue" (click)="AdicionarFornecedor()"><i class="fa fa-plus"></i>
+                    <span *ngIf="!larguraMinima"> Fornecedor</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <div *ngIf="fornecedores.length  else listnull">
+            <div class="pesquisa-container">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Pesquisar fornecedor." formControlName="pesquisa"
+                    required>
+
+                <select class="form-control filt">
+                    <option value="">Filtrar por... </option>
+                    <optgroup>
+                        <option value="">ID</option>
+                        <option value="">Nome/Razão Social</option>
+                        <option value="">Telefone</option>
+                        <option value="">Classe</option>
+                    </optgroup>
+                </select>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nome/Razão Social</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col" *ngIf="!larguraMinima">Cidade</th>
+                        <th scope="col" *ngIf="!larguraMinima">Classe</th>
+                        <th scope="col" *ngIf="!larguraMinima">Despesas</th>
+                        <th scope="col">Opção</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of fornecedores">
+                    <tr class="row-hover">
+                        <td>{{item.id}}</td>
+                        <td>{{item.nameOrRazaoSocial}}</td>
+                        <td>{{item.telefone}}</td>
+                        <td *ngIf="!larguraMinima">{{item.cidade}}</td>
+                        <td *ngIf="!larguraMinima"> <span class="borda-table" [ngClass]="ReturnCorFornecedor(item.typePessoa)">{{ReturnTypeFornecedor(item.typePessoa)}}</span> </td>
+                        <td *ngIf="!larguraMinima"> <span class="borda-table verde-borda">Inserir depois</span></td>
+                        <td *ngIf="item.status == 0 else funcionarioInativo">
+                            <a class="link" (click)="EditarFornecedor(item)" routerLink="/fornecedor"><i class="fa fa-edit"></i></a>
+                            <a routerLink="/fornecedor" (click)="GerirFornecedor(item)" class="link link-trash"><i class="fa fa-trash-alt"></i></a>
+                        </td>
+                        <ng-template #funcionarioInativo>
+                            <td>
+                                <a routerLink="/fornecedor" (click)="GerirFornecedor(item)" class="link"><i class="fa fa-user-gear"></i></a>
+                            </td>
+                        </ng-template>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination" *ngIf="!inativosSelect; else paginateInativos">
+                <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualFornecedor() == 1">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorAtivosPaginate()"><i
+                            class="fa fa-arrow-left"></i></a>
+                </li>
+                <li class="page-item disabled">
+                    <p class="page-link shadow-sm">
+                        {{compartilhamento.getPaginaAtualFornecedor()}}/{{compartilhamento.getTotPaginaFornecedor()}}
+                    </p>
+                </li>
+                <li class="page-item proximo"
+                    [class.disabled]="compartilhamento.getPaginaAtualFornecedor() == compartilhamento.getTotPaginaFornecedor()">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="proximoAtivosPaginate()"><i
+                            class="fa fa-arrow-right"></i></a>
+                </li>
+            </div>
+            <ng-template #paginateInativos>
+                <div class="pagination">
+                    <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualFornecedor() == 1">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorInativosPaginate()"><i
+                                class="fa fa-arrow-left"></i></a>
+                    </li>
+                    <li class="page-item disabled">
+                        <p class="page-link shadow-sm">
+                            {{compartilhamento.getPaginaAtualFornecedor()}}/{{compartilhamento.getTotPaginaFornecedor()}}
+                        </p>
+                    </li>
+                    <li class="page-item proximo"
+                        [class.disabled]="compartilhamento.getPaginaAtualFornecedor() == compartilhamento.getTotPaginaFornecedor()">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="proximoInativosPaginate()"><i
+                                class="fa fa-arrow-right"></i></a>
+                    </li>
+                </div>
+            </ng-template>
+        </div>
+        <ng-template #listnull>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">Cidade</th>
+                        <th scope="col" *ngIf="!larguraMinima">Classe do cliente</th>
+                        <th scope="col">Opção</th>
+                    </tr>
+                </thead>
+                <tr class="row-hover">
+                    <td colspan="7">{{mensagem}}</td>
+                </tr>
+            </table>
+        </ng-template>
+    </div>
 </div>
