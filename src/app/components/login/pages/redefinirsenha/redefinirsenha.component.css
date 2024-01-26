@@ -1,0 +1,152 @@
+.container-auth {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: aliceblue;
+}
+
+.card {
+    padding: 0 !important;
+    min-height: 430px;
+    min-width: 390px;
+    border-radius: 20px !important;
+    border: none;
+    box-shadow: 1px 1px 8px rgba(109, 109, 109, 0.188);
+    background-color: rgb(255, 255, 255);
+}
+.card-header{
+    height: 107px;
+    background-image: url('/assets/Imagens/backalternativo.PNG');
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+}
+.header {
+    max-height: 50px;
+    margin-top: 0px;
+    font-size: 15pt;
+    text-align: center;
+    color: rgb(101, 125, 184);
+    letter-spacing: 2px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+}
+
+.card-body {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.errorMsg {
+  font-size: 9pt;
+  font-style: normal;
+  position: absolute;
+  top: 3.1em;
+  color: rgb(255, 0, 0);
+  right: 0.2em !important;
+}
+.form-control {
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    box-sizing: none !important;
+    border: none !important;
+    background-color: rgba(232, 240, 254, 0.872) !important;
+    color: rgb(124, 124, 124) !important;
+    height: 40px;
+    font-size: 10pt;
+}
+input:focus {
+    outline: 0 0 0 0 !important;
+    background-color: rgba(179, 195, 236, 0.459);
+    box-shadow: 0 0 0 0 !important;
+  }
+  
+.input-group-prepend2 span {
+    border-radius: 0px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background-color: #5353a1 !important;
+    height: 40px;
+    color: #ffffff;
+    border: 0 !important;
+}
+
+.input-form::after {
+    border: 1px solid green;
+}
+
+.card-footer {
+    background-color: rgb(255, 255, 255);
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+    height: 100px;
+    padding: 10px 10px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.button {
+    padding: 11px 7px;
+    min-width: 100%;
+    background-color: #5353a1 !important;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+    transform: scale(1);
+    background-color: #6c6c95 !important;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    color: white;
+}
+.link{
+    font-size: 10pt !important;
+    color: rgb(101, 125, 184);
+}
+.link:hover{
+    color: rgb(78, 97, 146);
+}
+
+.container-pass{
+    z-index: 99;
+    position: relative;
+}
+.icon-pass{
+    position: absolute;
+    top: 10px;
+    right: 13px;
+}
+@media(max-width: 550px){
+    .card{
+        min-width: 95%;
+    }
+    .form-control{
+        height: 36px;
+    }
+    .input-group-prepend2 span {
+        height: 36px;
+    }
+}

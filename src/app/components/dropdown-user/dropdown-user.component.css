@@ -1,0 +1,120 @@
+.container-dropdown {
+    display: flex;
+    z-index: 9999;
+    width: 207px;
+    position: fixed;
+    top: 54px;
+    right: 15px;
+    border-top-right-radius: 1px;
+    border-top-left-radius: 1px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid rgb(220, 220, 220);
+}
+
+.bi-fontsize {
+    font-size: 11pt;
+}
+
+@media(max-width: 592px) {
+    .container-dropdown {
+        width: 250px;
+        right: 8px;
+    }
+}
+
+@media(min-width: 592.1px) {
+    .text-dropdown {
+        width: 110px;
+    }
+}
+
+.opcoes-dropdown {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-dropdown {
+    padding: 12px;
+    width: 100%;
+    height: 35px;
+    background-color: rgb(221, 221, 228);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.title-dropdown {
+    font-size: 10pt;
+    font-family: 'Arial', sans-serif;
+    color: #737c9d;
+    padding: 0;
+    margin: 0;
+    font-weight: normal;
+}
+
+.opcao-dropdown {
+    margin: 2px;
+    margin-left: 4px;
+    margin-right: 4px;
+    color: #4d4d5c;
+    display: flex;
+    padding: 10px;
+    font-size: 10pt;
+    align-items: center;
+    justify-content: space-between;
+    height: 30px;
+    cursor: pointer;
+    transition: 0.114s;
+}
+
+.opcao-dropdown:hover {
+    border-radius: 5px !important;
+    background-color: rgb(219, 221, 228);
+}
+
+.card-count {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 30px;
+    font-size: 8pt;
+    color: white;
+    border-radius: 5px;
+}
+
+.card-blue {
+    background-color: rgb(60, 163, 232);
+}
+
+.card-green {
+    background-color: rgb(6, 187, 6);
+}
+
+.card-enviadas{
+    background-color: rgb(140, 174, 142);
+}
+
+.flex-default {
+    gap: 14px;
+    justify-content: flex-start;
+    margin-bottom: 4px;
+    margin-top: 5px;
+    margin-right: 4px;
+}
+.flex-default2{
+    gap: 12px;
+    justify-content: flex-start;
+    margin-bottom: 2px;
+    margin-top: 1px;
+    margin-right: 4px;
+}
+.border-close {
+    margin: auto;
+    width: 96%;
+    height: 1px;
+    background-color: #ff000040;
+}

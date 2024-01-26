@@ -1,0 +1,64 @@
+<div class="container-auth" *ngIf="!loudingActive else louding">
+    <form class="card" (ngSubmit)="Submit()" [formGroup]="redefinirSenhaForm" #formDir="ngForm" method="post">
+        <app-mensagens></app-mensagens>
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="input-group form-group">
+                <div class="input-group-prepend2">
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="{{typeNewSenha}}" class="form-control" placeholder="Informe sua nova senha." asp-for="Senha"
+                    id="senha" formControlName="novaSenha">
+                <div class="container-pass">
+                    <a routerLink="/redefinirSenha" class="link icon-pass" (click)="OcultarMostrarSenha(1)">
+                        <i class="fa-regular fa-eye" *ngIf="iconNewSenha else iconNotSenha"></i>
+                        <ng-template #iconNotSenha>
+                            <i class="fa-regular fa-eye-slash"></i>
+                        </ng-template>
+                    </a>
+                </div>
+                <i class="i" *ngIf="novaSenha.invalid && formDir.submitted">
+                    <small class="errorMsg" *ngIf="novaSenha.errors?.['required']">
+                        Obrigatório!
+                    </small>
+                    <small class="errorMsg" *ngIf="novaSenha.errors?.['minlength']">Campo inválido!</small>
+                </i>
+            </div>
+            <div class="input-group form-group">
+                <div class="input-group-prepend2">
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="{{typeConfirmSenha}}" class="form-control" placeholder="Confirme sua nova senha." asp-for="Senha"
+                    id="senha" formControlName="confirmarSenha">
+                <div class="container-pass">
+                    <a routerLink="/redefinirSenha" class="link icon-pass" (click)="OcultarMostrarSenha(2)">
+                        <i class="fa-regular fa-eye" *ngIf="iconConfirmSenha else iconNotSenha"></i>
+                        <ng-template #iconNotSenha>
+                            <i class="fa-regular fa-eye-slash"></i>
+                        </ng-template>
+                    </a>
+                </div>
+                <i class="i" *ngIf="confirmarSenha.invalid && formDir.submitted">
+                    <small class="errorMsg" *ngIf="confirmarSenha.errors?.['required']">
+                        Obrigatório!
+                    </small>
+                    <small class="errorMsg" *ngIf="confirmarSenha.errors?.['minlength']">Campo inválido!</small>
+                </i>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn button">Redefinir senha</button>
+        </div>
+    </form>
+</div>
+<ng-template #louding>  
+    <div class="container-auth">
+        <div class="main-louding">
+            <div class="louding">
+                <img src="assets/Imagens/logobus.png" alt="espere..." class="logoLouding">
+                <div class="animation-bar"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>

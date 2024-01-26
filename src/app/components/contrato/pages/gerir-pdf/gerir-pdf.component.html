@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-bus"></i> Controle de contrato</h4>
+    <button type="button" class="close-mod" (click)="modal.dismiss()">
+        <i class="fa fa-close"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <p>
+        <strong>Impressões de contrato <span *ngIf="contrato.aprovacao == 2">e rescisões</span>: </strong>
+    </p>
+    <div class="table-container body-modal-alt">
+        <table class="table" #tabela>
+            <thead>
+                <tr>
+                    <th scope="col">Nome/Razão Social</th>
+                    <th scope="col" *ngIf="!larguraMinima">CPF/CNPJ</th>
+                    <th scope="col" *ngIf="!larguraMinima">Classe</th>
+                    <th scope="col">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of contrato.clientesContrato">
+                    <td *ngIf="item.pessoaFisica">{{item.pessoaFisica.name}}</td>
+                    <td *ngIf="item.pessoaFisica && !larguraMinima">{{returnCpf(item.pessoaFisica.cpf)}}</td>
+                    <td *ngIf="item.pessoaFisica && !larguraMinima"><div class="borda-table azul-borda">Pessoa fisica</div></td>
+
+                    <td *ngIf="item.pessoaJuridica">{{item.pessoaJuridica.razaoSocial}}</td>
+                    <td *ngIf="item.pessoaJuridica && !larguraMinima">{{returnCnpj(item.pessoaJuridica.cnpj)}}</td>
+                    <td *ngIf="item.pessoaJuridica && !larguraMinima"><div class="borda-table roxo-borda">Pessoa jurídica</div></td>
+
+                    <td *ngIf="item.pessoaFisica else opPessoaJuridica">
+                        <a class="link link-verde" routerLink="/contrato" (click)="downloadContratoPF(item.pessoaFisicaId!)" data-toggle="tooltip" data-placement="top" title="Pdf do contrato"><i class="fa fa-download"></i>
+                        </a>
+                        <a *ngIf="item.processRescisao == 0 && contrato.aprovacao == 2 && usuarioAutenticado.role == 'Administrador' else pdfBaixado" class="link link-orange" routerLink="/contrato" (click)="downloadPdfRescisao(item)" data-toggle="tooltip" data-placement="top" title="Pdf da rescisão"><i class="fa fa-download"></i>
+                        </a>
+                        <ng-template #pdfBaixado>
+                            <a *ngIf="contrato.aprovacao == 2 && usuarioAutenticado.role == 'Administrador'" class="link link-roxo" (click)="confirmRescisaoContrato(item)" routerLink="/contrato" data-toggle="tooltip" data-placement="top" title="Finalizar o processo de rescisão"><i class="fa fa-circle-check"></i></a>
+                        </ng-template>
+                    </td>
+                    <ng-template #opPessoaJuridica>
+                        <td>
+                            <a class="link link-verde" routerLink="/contrato" (click)="downloadContratoPJ(item.pessoaJuridicaId!)" data-toggle="tooltip" data-placement="top" title="Pdf do contrato"><i class="fa fa-download"></i>
+                            </a>
+                            <a *ngIf="item.processRescisao == 0 && contrato.aprovacao == 2 && usuarioAutenticado.role == 'Administrador' else pdfBaixado" class="link link-orange" routerLink="/contrato" (click)="downloadPdfRescisao(item)" data-toggle="tooltip" data-placement="top" title="Pdf da rescisão"><i class="fa fa-download"></i>
+                            </a>
+                            <ng-template #pdfBaixado>
+                                <a *ngIf="contrato.aprovacao == 2 && usuarioAutenticado.role == 'Administrador'" class="link link-roxo" (click)="confirmRescisaoContrato(item)" routerLink="/contrato" data-toggle="tooltip" data-placement="top" title="Finalizar o processo de rescisão"><i class="fa fa-circle-check"></i></a>
+                            </ng-template>
+                        </td>
+                    </ng-template>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+</div>

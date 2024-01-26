@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-bus"></i> Consultar clientes</h4>
+    <button type="button" class="close-mod" (click)="modal.dismiss()">
+        <i class="fa fa-close"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <p>
+        <strong>Consulta sobre os clientes do contrato: </strong>
+    </p>
+    <div class="table-container body-modal-alt">
+        <table class="table" #tabela>
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nome/Razão Social</th>
+                    <th scope="col">CPF/CNPJ</th>
+                    <th scope="col" *ngIf="!larguraMinima">Classe</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of contrato.clientesContrato">
+                    <td *ngIf="item.pessoaFisica">{{item.pessoaFisica.id}}</td>
+                    <td *ngIf="item.pessoaFisica">{{item.pessoaFisica.name}}</td>
+                    <td *ngIf="item.pessoaFisica">{{returnCpf(item.pessoaFisica.cpf)}}</td>
+                    <td *ngIf="item.pessoaFisica && !larguraMinima"><div class="borda-table azul-borda">Pessoa física</div></td>
+
+                    <td *ngIf="item.pessoaJuridica">{{item.pessoaJuridica.id}}</td>
+                    <td *ngIf="item.pessoaJuridica">{{item.pessoaJuridica.razaoSocial}}</td>
+                    <td *ngIf="item.pessoaJuridica">{{returnCnpj(item.pessoaJuridica.cnpj)}}</td>
+                    <td *ngIf="item.pessoaJuridica && !larguraMinima"><div class="borda-table roxo-borda">Pessoa jurídica</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+</div>

@@ -1,0 +1,349 @@
+/*Desabilitando a borda de botões que usar esta classe*/
+.btn-link {
+  border: none;
+}
+
+.header {
+  margin: 0;
+  padding: 0;
+}
+
+.header h3 {
+  font-size: 1.3em;
+  font-weight: normal;
+}
+
+.hr {
+  margin: 0;
+  height: 2px;
+  background-color: rgb(0, 58, 171);
+  border-radius: 5px;
+  border: none;
+  padding: 0;
+}
+
+.container-form {
+  margin-top: 10px;
+}
+
+.col-md-12 {
+  display: flex;
+  align-items: center;
+}
+
+.container-opcoes {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: space-between;
+  margin-left: -1px;
+  margin-right: -1px;
+}
+
+.button {
+  margin-top: 8px;
+  margin: 1px;
+  padding: 9px 7px;
+  min-width: 150px;
+  background-color: #1f1f33;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 9px;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4) !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+  background-color: rgb(40, 40, 40);
+  text-decoration: none;
+  color: white;
+}
+
+.link {
+  font-size: 12pt;
+  margin: 0 13px;
+}
+
+.link-trash {
+  font-size: 11pt;
+  color: red;
+  transition: .4s;
+}
+
+.link-trash:hover {
+  color: darkred;
+}
+
+.btn-cor {
+  color: #ffffff;
+  border: none;
+  height: 35px;
+  min-width: 35px;
+  margin-top: 4px;
+  margin-left: 3px;
+  font-weight: normal;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-cor i {
+  font-size: 9pt;
+}
+
+
+.body-modal-alt {
+  max-height: calc(100vh - 250px);
+  overflow-y: auto;
+  background-color: ghostwhite;
+}
+
+/* Barra de rolagem */
+.body-modal-alt::-webkit-scrollbar {
+  width: 8px;
+}
+
+.body-modal-alt::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.body-modal-alt::-webkit-scrollbar-thumb {
+  background-color: #a0cdfed6;
+  border-radius: 20px;
+}
+
+/* Botão "scroll to top" */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.scroll-top-btn:hover {
+  background-color: #555;
+}
+
+.listCores {
+  padding: 13px;
+  width: 100%;
+  margin: auto;
+  border-radius: 5px;
+  background-color: #a0cdfed6;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+}
+
+.listCores tr {
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  background-color: white;
+  border: 3px solid #F8F8FF;
+  margin: 2px;
+  padding: 13px;
+}
+
+.listCores td {
+  border: none;
+  margin: 2px;
+  padding: 23px;
+}
+
+.form-control {
+  height: 35px;
+  margin-top: 4px;
+}
+
+.input-group-prepend span {
+  margin-top: 4px;
+  height: 35px;
+}
+
+
+/* Estilização geral do modal */
+.modal {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /* permite rolar a tela quando o modal estiver aberto */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* fundo semi-transparente */
+}
+
+/* Conteúdo do modal */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  display: flex;
+  /* usa flexbox para centralizar o conteúdo verticalmente */
+  flex-direction: column;
+  /* alinha o conteúdo verticalmente */
+  justify-content: center;
+  /* centraliza o conteúdo verticalmente */
+}
+
+/* Efeito de transição do modal */
+.modal {
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+}
+
+/* Efeito de transição do conteúdo do modal */
+.modal-content {
+  animation-name: slideIn;
+  animation-duration: 0.4s;
+}
+
+.modal-header {
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.modal-title {
+  font-size: 12pt;
+  font-weight: bold;
+  color: #4e4f6a;
+  text-align: center;
+}
+
+.modal-body p {
+  color: #4e4f6a;
+  font-size: 11pt;
+  text-align: justify;
+}
+
+/* Botão de fechar */
+.close-mod {
+  position: absolute;
+  right: 23px;
+  top: 20px;
+  background-color: #e24343;
+  border: none;
+  border-radius: 10px;
+  width: 39px;
+  height: 36px;
+  color: white;
+  transition: 0.5s;
+  box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.3);
+}
+
+.close-mod span {
+  font-size: 12pt;
+}
+
+.close-mod:hover {
+  color: white;
+  background-color: darkred;
+  box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.7);
+}
+
+/* Efeito de transição do modal */
+.modal {
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0px;
+  padding: 0px;
+  padding-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.error-Msg div {
+  position: relative;
+}
+
+.errorMsg {
+  font-size: 9pt;
+  position: absolute;
+  bottom: -1.5em;
+  color: rgb(255, 0, 0);
+  right: 1.3em;
+}
+
+.errorMsg-modal div {
+  position: relative;
+}
+
+.errorMsg-modal {
+  font-size: 9pt;
+  position: absolute;
+  bottom: -1.6em;
+  color: rgb(255, 60, 0);
+  right: 4.2em;
+}
+
+.header-endereco {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
+}
+
+.header-endereco h3 {
+  font-size: 1em;
+  font-weight: normal;
+  flex-shrink: 0;
+  color: rgb(0, 58, 171);
+}
+
+.header-endereco i {
+  font-size: .9em;
+}
+
+#hr-ende {
+  margin: 0;
+  height: 1px;
+  flex-shrink: 0;
+  background-color: #98a6b474 !important;
+  border-radius: 5px;
+  border: none;
+  padding: 0;
+}
+
+@media(max-width: 700px) {
+  .button {
+    min-width: 120px;
+  }
+
+  .container-opcoes {
+    justify-content: space-between;
+  }
+}
+
+@media(max-width: 500px) {
+  .container-opcoes {
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-shrink: 1;
+  }
+}

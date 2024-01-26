@@ -1,0 +1,56 @@
+<div *ngIf="display_dropdown" class="dropdown container-dropdown">
+    <div class="opcoes-dropdown">
+        <div class="header-dropdown" *ngIf="larguraMinima && usuarioAutenticado.role == 'Administrador'">
+            <h3 class="title-dropdown">Funções admin</h3>
+        </div>
+        <div class="opcao-dropdown flex-default" *ngIf="larguraMinima && usuarioAutenticado.role == 'Administrador'" routerLink="/financeiro" (click)="FecharDropdown()">
+            <i class="bi bi-coin"></i>
+            <div class="text-dropdown">Financeiro</div>
+        </div>
+        <div class="opcao-dropdown flex-default" *ngIf="larguraMinima && usuarioAutenticado.role == 'Administrador'" routerLink="/dashboard" (click)="FecharDropdown()">
+            <i class="bi bi-bar-chart"></i>
+            <div class="text-dropdown">Dashboard</div>
+        </div>
+        <div class="header-dropdown">
+            <h3 class="title-dropdown">Lembretes</h3>
+        </div>
+        <div class="opcao-dropdown" (click)="OpenModalNotificacoes()">
+            <span>
+                <i class="bi bi-bell"></i>
+            </span>
+            <span class="text-dropdown">Notificações</span>
+            <div class="card-count card-blue">{{qtLembreteNoti}}</div>
+        </div>
+        <div class="opcao-dropdown" (click)="OpenModalMensagens()">
+            <span>
+                <i class="fa-regular fa-envelope-open"></i>
+            </span>
+            <span class="text-dropdown">Mensagens</span>
+            <div class="card-count card-green">{{qtLembreteMensagem}}</div>
+        </div>
+        <div class="opcao-dropdown flex-default2" (click)="OpenEnviadas()">
+            <span>
+                <i class="bi bi-send"></i>
+            </span>
+            <span class="text-dropdown">Enviadas</span>
+        </div>
+        <div class="opcao-dropdown flex-default2" (click)="OpenEnviarMensagem()">
+            <i class="bi bi-envelope-plus"></i>
+            <div class="text-dropdown">Escrever</div>
+        </div>
+        <div class="header-dropdown">
+            <h3 class="title-dropdown">
+                Configurações
+            </h3>
+        </div>
+        <div class="opcao-dropdown flex-default" (click)="OpenModalUserAuth()">
+            <i class="bi bi-person-lock bi-fontsize"></i>
+            <div class="text-dropdown">Perfil</div>
+        </div>
+        <div class="border-close"></div>
+        <div class="opcao-dropdown flex-default" (click)="FecharDropdown()">
+            <i class="bi bi-x-square"></i>
+            <div class="text-dropdown">Recolher</div>
+        </div>
+    </div>
+</div>

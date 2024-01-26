@@ -1,0 +1,113 @@
+<div class="wrapper d-flex align-items-stretch">
+    <nav id="sidebar" class="{{classMenu}}" *ngIf="mostrarMenu">
+        <h1><a class="logo">{{logoTxt}}</a></h1>
+        <ul class="list-unstyled components mb-4" style="margin-bottom: 0px;">
+            <li class="linha">
+                <a class="link-sidebar" routerLink="/home"><span [class.selectPag]="ValidarRota('home')"
+                        class="fa-solid fa-solid fa-house-chimney-window"></span> Home</a>
+            </li>
+            <li class="linha">
+                <a class="link-sidebar" routerLink="/cliente">
+                    <span [class.selectPag]="ValidarRota('cliente') || ValidarRota('cliente-juridico')"
+                        class="fa fa-users">
+                    </span>
+                    Clientes
+                </a>
+            </li>
+            <li class="linha">
+                <a class="link-sidebar" routerLink="/fornecedor">
+                    <span [class.selectPag]="ValidarRota('fornecedor')" class="fa fa-users"></span>
+                    Forne&#x00AD;cedores
+                </a>
+            </li>
+            <li class="linha" *ngIf="usuarioAutenticado.role == 'Administrador'">
+                <a class="link-sidebar" routerLink="/funcionario">
+                    <span [class.selectPag]="ValidarRota('funcionario')" class="fa fa-users-gear"></span>
+                    Funcio&#x00AD;nários
+                </a>
+            </li>
+            <li class="linha">
+                <a class="link-sidebar" routerLink="/frota">
+                    <span [class.selectPag]="ValidarRota('frota')" class="fa-solid fa-bus"></span>
+                    Frota
+                </a>
+            </li>
+            <li class="linha" style="margin-bottom: 7px;">
+                <a class="link-sidebar" routerLink="/contrato">
+                    <span [class.selectPag]="ValidarRota('contrato')" class="fa fa-handshake"></span>
+                    Contratos
+                </a>
+            </li>
+            <li class="linha">
+                <a class="link-sidebar" (click)="Logout()" style="cursor: pointer;">
+                    <span class="fa fa-right-from-bracket" style="font-size: 14pt;"></span>
+                    Sair
+                </a>
+            </li>
+        </ul>
+        <div class="footer direitos">
+            <p style="text-align: justify; width: 70%;">
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script>
+                <a routerLink="/home" class="text-white" style="text-decoration: underline;">Todos os direitos
+                    reservados.</a>
+                |
+                <a routerLink="/home" class="text-white" style="text-decoration: underline;">Política de uso da
+                    aplicação.</a>
+            </p>
+        </div>
+    </nav>
+    <!-- Page Content  -->
+    <div id="content" class="p-0 p-md-0">
+        <nav class="navbar navbar-expand menu-superior" *ngIf="mostrarMenu">
+            <div class="container-fluid flex-nav">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary btn-collapse"
+                    (click)="sidebarCollapse()">
+                    <i class="fa fa-bars"></i>
+                    <span class="sr-only">Toggle Menu</span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="!larguraMinima">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item linha" *ngIf="usuarioAutenticado.role == 'Administrador'">
+                            <a class="nav-link linkMenu flexpos" routerLink="/dashboard"
+                                [class.selectPag2]="ValidarRota('dashboard')">
+                                <i class="fa-solid fa-chart-simple"></i>
+                                <small>Dashboard</small>
+                            </a>
+                        </li>
+                        <li class="nav-item linha" *ngIf="usuarioAutenticado.role == 'Administrador'">
+                            <a [class.selectPag2]="ValidarRota('financeiro')" class="nav-link linkMenu flexpos"
+                                routerLink="/financeiro">
+                                <i class="fa-solid fa-coins"></i>
+                                <small>Financeiro</small>
+                            </a>
+                        </li>
+                        <li class="nav-item linha" *ngIf="!larguraMinima">
+                            <a class="nav-link linkMenu" style="color: transparent; opacity: 0;">#</a>
+                        </li>
+                        <li class="nav-item linha" *ngIf="!larguraMinima">
+                            <button class="btn user-btn" (click)="OpenDropDown()">
+                                <i class="fa fa-user-tie" style="margin-right: 5px;"></i>
+                                <span *ngIf="!larguraMinima">{{usuarioAutenticado.name}}</span>
+                            </button>
+                        </li>
+                        <li class="nav-item linha" *ngIf="larguraMinima">
+                            <a class="nav-link linkMenu" style="color: transparent; opacity: 0;">#</a>
+                        </li>
+                    </ul>
+                </div>
+                <button type="button" id="sidebarCollapse" class="btn btn-primary btn-collapse" (click)="OpenDropDown()"
+                    *ngIf="larguraMinima">
+                    <i class="fa fa-bars"></i>
+                    <span class="sr-only">Toggle Menu</span>
+                </button>
+            </div>
+        </nav>
+        <router-outlet></router-outlet>
+    </div>
+    <app-dropdown-user [display_dropdown]="display_dropdown" [larguraMinima]="larguraMinima" [usuarioAutenticado]="usuarioAutenticado" (closeDropdown)="closeDropdown()">
+    </app-dropdown-user>
+</div>
+<ng-template #componentLogin>
+    <router-outlet></router-outlet>
+</ng-template>

@@ -1,0 +1,252 @@
+.header {
+    margin: 0;
+    padding: 0;
+}
+
+.header h3 {
+    font-size: 1.3em;
+    font-weight: normal;
+}
+.color-title {
+    margin-bottom: 1px;
+    margin-left: 3px;
+    text-align: center;
+    color: rgba(0, 57, 171, 0.6);
+    border-bottom: 1px solid rgba(0, 57, 171, 0.224) !important;
+    border: none;
+    padding: 0;
+}
+
+.hr {
+    margin: 0;
+    height: 1px;
+    border-radius: 5px;
+    border: none;
+    padding: 0;
+    margin-bottom: 5px !important;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.margin {
+    background: transparent !important;
+    padding: 0 !important;
+    margin-bottom: 30px;
+    padding-top: 5px !important;
+    border-radius: 5px;
+}
+
+.order-card {
+    color: #fff !important;
+}
+
+.bg-c-blue {
+    background: linear-gradient(45deg,#4099ff,#73b4ff);
+}
+
+.bg-c-green {
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+.card {
+    position: relative;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+    border: none;
+    margin-bottom: 10px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.icon-background {
+    top: 32px;
+    right: 6px;
+    position: absolute;
+    z-index: 0;
+    font-size: 72pt;
+    color: rgba(255, 255, 255, 0.14) !important;
+}
+
+.icon-background2 {
+    bottom: 10px;
+    right: 30px;
+    position: absolute;
+    z-index: 0;
+    font-size: 35pt;
+    color: rgba(255, 255, 255, 0.14) !important;
+}
+
+.card .card-block {
+    padding: 25px 10px;
+}
+
+.card .card-block2 {
+    padding: 35px 13px;
+}
+
+.order-card i {
+    color: white;
+}
+
+.data-value {
+    font-size: 12pt;
+    color: rgb(255, 255, 255) !important;
+}
+.fa-coins{
+    font-size: 15pt !important;
+}
+.font-p {
+    text-shadow: 1px 1px 1px rgba(152, 152, 152, 0.259) !important;
+    font-size: 11pt;
+}
+
+.f-left {
+    color: white !important;
+    float: left;
+}
+
+.f-right {
+    color: white !important;
+    float: right;
+}
+
+.title-card {
+    font-size: 12pt;
+    text-shadow: none !important;
+}
+
+
+.table-container {
+    margin: 0;
+    margin-top: 10px;
+    padding: 0;
+}
+
+.title-table {
+    text-align: center;
+}
+
+.table {
+    margin: 0;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(177, 176, 176, 0.5);
+}
+
+.table thead {
+    color: white;
+    height: 40px;
+}
+
+.table th {
+    font-size: 9pt;
+    text-align: center;
+}
+
+.table tr {
+    padding: 20px;
+    text-align: center;
+}
+
+.table .row-hover:hover {
+    background-color: #f7f7f7f7;
+}
+
+.table td {
+    margin: 0;
+    padding: 10px 0;
+    font-size: 10pt;
+    text-align: center;
+}
+
+td {
+    overflow-wrap: break-word
+}
+
+.link {
+    margin: 0 13px;
+}
+
+@media(max-width: 700px) {
+    .pagination li {
+        text-align: center;
+        width: 90%;
+    }
+
+    .table {
+        width: 100%;
+    }
+
+    .table td {
+        font-size: 8pt;
+    }
+
+    .table th {
+        font-size: 7pt;
+    }
+
+    .link {
+        font-size: 8pt;
+    }
+}
+
+.button {
+    margin-top: 10px;
+    margin: 1px;
+    padding: 7px 7px;
+    min-width: 70px;
+    background-color: #8686c4;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: normal;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+    transform: scale(1.04);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+    background-color: #5d5d87;
+    text-decoration: none;
+    color: white;
+}
+
+/*CSS ToolTip*/
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

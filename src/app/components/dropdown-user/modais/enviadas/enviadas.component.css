@@ -1,0 +1,162 @@
+.modal-body {
+    overflow-y: auto;
+    max-height: 368.3px;
+}
+
+.borda-table {
+    margin: 0 !important;
+    padding: 2px !important;
+}
+
+.modal-header {
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+    justify-content: flex-start;
+    align-content: flex-end;
+    display: flex;
+}
+
+.modal-title {
+    margin-left: 15px;
+    margin-top: 10px;
+    font-size: 12pt;
+    font-weight: bold;
+    color: #4e4f6a;
+    text-align: center;
+}
+
+.cor {
+    color: #271976f5
+}
+
+/* Botão de fechar */
+.close-mod {
+    position: absolute;
+    right: 19px;
+    top: 20px;
+    background-color: #e24343;
+    border: none;
+    border-radius: 10px;
+    width: 39px;
+    height: 36px;
+    color: white;
+    transition: 0.5s;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.3) !important;
+}
+
+.close-mod:hover {
+    color: white;
+    background-color: darkred;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.7);
+}
+
+/* Efeito de transição do modal */
+.modal {
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0px;
+    padding: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    margin: 0;
+    gap: 15px;
+}
+
+.item-mensagem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.card-icon {
+    flex-shrink: 0;
+    margin: 0;
+    background-color: rgb(234, 182, 247);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    color: white;
+    font-size: 10pt;
+}
+
+.text-container {
+    align-self: flex-start;
+}
+
+.text {
+    margin: 0;
+    color: #4e4f6a;
+    font-size: 0.967em;
+    text-align: justify;
+}
+
+
+.item-mensagem2 {
+    margin-left: 45px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.text2 {
+    margin: 0;
+    margin-top: 2px;
+    color: #4a4c8b;
+    font-size: 0.917em;
+    text-align: justify;
+}
+
+.trash-enviadas {
+    background: transparent;
+    border: none;
+    font-size: 11pt;
+    color: rgb(255, 48, 48);
+    transition: 0.4s;
+}
+
+.trash-enviadas:hover {
+    color: rgb(111, 0, 0);
+}
+
+@media(max-width: 600px) {
+    .item-mensagem2{
+        margin-left: 37px;
+    }
+    .card-icon {
+        width: 26px;
+        height: 26px;
+    }
+
+    .text {
+        font-size: 10pt;
+    }
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+}

@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h4 class="modal-title"><i class="fa fa-bus"></i> Confirmação - {{funcionario.name.split(' ').slice(0, 2).join(' ')}}</h4>
+  <button type="button" class="close-mod" (click)="activeModal.dismiss()">
+    <i class="fa fa-close"></i>
+  </button>
+</div>
+<div class="modal-body with-shadow">
+  <p>
+    <strong>Deseja realmente {{textStatus}} este funcionário?</strong>
+  </p>
+  <div class="position">
+    <p>
+      <strong>Nome: </strong> {{funcionario.name}}<br>
+
+      <strong>Data de nascimento: </strong> {{ReturnDateFuncionario(funcionario.dataNascimento)}}<br>
+      <strong>E-mail: </strong> {{funcionario.email}}<br>
+      <strong>Endereço: </strong> {{funcionario.logradouro}}, <br> {{funcionario.complementoResidencial}} <br>
+      <strong>Número residencial: </strong> {{funcionario.numeroResidencial}} <br>
+    </p>
+    <p>
+      <strong>Cargo: </strong> {{ReturnCargoFuncionario(funcionario.cargo)}} <br>
+      <strong>CPF: </strong> {{ReturnCpfFormatado(funcionario.cpf)}} <br>
+      <strong>Telefone: </strong> ({{funcionario.ddd}}) {{funcionario.telefone}}<br>
+      <strong>Bairro: </strong> {{funcionario.bairro}}<br>
+      <strong>Cidade: </strong> {{funcionario.cidade}}<br>
+      <strong>Estado: </strong> {{funcionario.estado}}
+    </p>
+  </div>
+</div>
+<div class="modal-footer">
+  <button id="enviar" type="submit" class="btn button blue" (click)="ActionHandler()">Confirmar</button>
+  <button type="button" class="btn button red" (click)="activeModal.dismiss()">Fechar</button>
+</div>

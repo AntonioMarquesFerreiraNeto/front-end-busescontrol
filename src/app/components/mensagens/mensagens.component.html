@@ -1,0 +1,27 @@
+<div *ngIf="mensagensService.mensagem_error != ''">
+    <div class="position-relative">
+        <div class="alert alert-danger" role="alert">
+            <p><i class="fa fa-triangle-exclamation"></i> {{mensagensService.mensagem_error}}</p>
+            <button class="close-error" (click)="CloseMensagemError()"><i class="fa fa-close"></i></button>
+            <div class="error-bar"></div>
+        </div>
+    </div>
+</div>
+<div *ngIf="mensagensService.mensagem_sucesso != ''">
+    <div class="position-relative">
+        <div class="alert alert-success" role="alert">
+            <p><i class="fa fa-square-check"></i> {{mensagensService.mensagem_sucesso}}</p>
+            <button class="close-sucess" (click)="CloseMensagemSucesso()"><i class="fa fa-close"></i></button>
+            <div class="sucess-bar"></div>
+        </div>
+    </div>
+</div>
+<div *ngIf="mensagensService.mensagem_info != ''">
+    <div class="position-relative">
+        <div class="alert alert-info" role="alert">
+            <p><i class="fa fa-clipboard-question"></i> {{mensagensService.mensagem_info}}</p>
+            <button class="close-info" (click)="CloseMensagemInfo()"><i class="fa fa-close"></i></button>
+            <div class="info-bar"></div>
+        </div>
+    </div>
+</div>

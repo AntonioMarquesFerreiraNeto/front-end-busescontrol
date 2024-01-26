@@ -1,0 +1,127 @@
+<div class="container-components">
+    <app-mensagens></app-mensagens>
+    <div class="header">
+        <h3 [class.red-color]="inativosSelect">
+            <i class="fa fa-users"></i>
+            {{tituloPag}}
+        </h3>
+        <hr class="hr">
+        <div class="container-buttons">
+            <div>
+                <button class="btn button grenn" (click)="GetAtivos()"><i class="fa fa-users"></i> <span *ngIf="!larguraMinima"> Ativos</span></button>
+                <button class="btn button red" (click)="GetInativos()"><i class="fa fa-users"></i> <span *ngIf="!larguraMinima"> Inativos</span></button>
+            </div>
+            <div>
+                <a class="btn button blue" routerLink="/cliente"><i class="fa fa-users"></i>
+                    <span *ngIf="!larguraMinima"> Físicos</span></a>
+                <a class="btn button blue" routerLink="/cliente-juridico/newcliente"><i class="fa fa-plus"></i>
+                    <span *ngIf="!larguraMinima"> Cliente</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <div class="pesquisa-container">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fa fa-search"></i>
+                </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Pesquisar cliente." (input)="Pesquisar($event)" required>
+        </div>
+        <div *ngIf="clienteList.length else listnull">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" *ngIf="!larguraMinima">Id</th>
+                        <th scope="col">Razão Social</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col" *ngIf="!larguraMinima">Cidade</th>
+                        <th scope="col" *ngIf="!larguraMinima">Situação</th>
+                        <th scope="col" *ngIf="!larguraMinima">Contratos em curso</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of clienteList">
+                    <tr class="row-hover">
+                        <td *ngIf="!larguraMinima">{{item.id}}</td>
+                        <td>{{item.razaoSocial}}</td>
+                        <td>{{item.telefone}}</td>
+                        <td *ngIf="!larguraMinima">{{item.cidade}}</td>
+                        <td *ngIf="!larguraMinima"><div class="borda-table {{returnCorAdimplencia(item.adimplente!)}}">{{returnAdimplencia(item.adimplente!)}}</div></td>
+                        <td *ngIf="!larguraMinima && trueContratosEmAndamento(item) else noAndamento"><div
+                                class="borda-table verde-borda">Em exercicio</div></td>
+                        <ng-template #noAndamento>
+                            <td *ngIf="!larguraMinima">
+                                <div class="borda-table orange-borda">Não possui</div>
+                            </td>
+                        </ng-template>
+                        <td *ngIf="item.status == 0 else funcionarioInativo" class="td-flex">
+                            <a class="link" routerLink="/cliente-juridico/editcliente/{{item.id}}"><i
+                                    class="fa fa-edit"></i></a>
+                            <a routerLink="/cliente-juridico" class="link link-trash" (click)="AbrirModalGerir(item)"><i
+                                    class="fa fa-trash-alt"></i></a>
+                        </td>
+                        <ng-template #funcionarioInativo>
+                            <td>
+                                <a routerLink="/cliente-juridico" class="link" (click)="AbrirModalGerir(item)"><i
+                                        class="fa fa-user-gear"></i></a>
+                            </td>
+                        </ng-template>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination" *ngIf="!inativosSelect; else paginateInativos">
+                <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualClientePj() == 1">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorAtivosPaginate()"><i
+                            class="fa fa-arrow-left"></i></a>
+                </li>
+                <li class="page-item disabled">
+                    <p class="page-link shadow-sm">
+                        {{compartilhamento.getPaginaAtualClientePj()}}/{{compartilhamento.getTotPaginaClientePj()}}
+                    </p>
+                </li>
+                <li class="page-item proximo"
+                    [class.disabled]="compartilhamento.getPaginaAtualClientePj() == compartilhamento.getTotPaginaClientePj()">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="proximoAtivosPaginate()"><i
+                            class="fa fa-arrow-right"></i></a>
+                </li>
+            </div>
+            <ng-template #paginateInativos>
+                <div class="pagination">
+                    <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualClientePj() == 1">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorInativosPaginate()"><i
+                                class="fa fa-arrow-left"></i></a>
+                    </li>
+                    <li class="page-item disabled">
+                        <p class="page-link shadow-sm">
+                            {{compartilhamento.getPaginaAtualClientePj()}}/{{compartilhamento.getTotPaginaClientePj()}}
+                        </p>
+                    </li>
+                    <li class="page-item proximo"
+                        [class.disabled]="compartilhamento.getPaginaAtualClientePj() == compartilhamento.getTotPaginaClientePj()">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="proximoInativosPaginate()"><i
+                                class="fa fa-arrow-right"></i></a>
+                    </li>
+                </div>
+            </ng-template>
+        </div>
+        <ng-template #listnull>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" *ngIf="!larguraMinima">Id</th>
+                        <th scope="col">Razão Social</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col" *ngIf="!larguraMinima">Cidade</th>
+                        <th scope="col" *ngIf="!larguraMinima">Situação</th>
+                        <th scope="col" *ngIf="!larguraMinima">Contratos em curso</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tr class="row-hover">
+                    <td colspan="7">{{mensagem}}</td>
+                </tr>
+            </table>
+        </ng-template>
+    </div>
+</div>

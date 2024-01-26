@@ -1,0 +1,177 @@
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-bus"></i> Manter substituição</h4>
+    <button type="button" class="close-mod" (click)="modalService.dismiss()">
+        <i class="fa fa-close"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <form class="row" (submit)="submitFormMotorista()" [formGroup]="motoristaSubForm" #formDir="ngForm"
+        *ngIf="!listarOnibus else formOnibus">
+        <div class="col-md-12 input-group form-group form-it">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="bi bi-funnel"></i>
+                </span>
+            </div>
+            <ng-select class="d-flex flex-grow-1" formControlName="funcionarioId"
+                [placeholder]="'Selecione o motorista da substituição'" [notFoundText]="'Nenhum registro encontrado'">
+                <ng-option *ngFor="let item of motoristaList" [value]="item.id">
+                    {{item.name}}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-md-6 input-group form-group form-it">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fas fa-calendar-days"></i>
+                </span>
+            </div>
+            <input type="date" class="form-control" formControlName="dataInicial" data-toggle="toltip"
+                data-placement="top" title="Informe a data inicial">
+        </div>
+        <div class="col-md-6 input-group form-group form-it">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fas fa-calendar-days" style="margin-left: 1px;"></i>
+                </span>
+            </div>
+            <input type="date" class="form-control" formControlName="dataFinal" data-toggle="toltip"
+                data-placement="top" title="Informe a data final">
+        </div>
+        <div class="col-md-12 position-flex">
+            <div class="position-flex">
+                <select class="form-control filt" style="margin: 0 !important; padding: 0 !;"
+                    (input)="AlterarListagem($event)" data-placement="top" title="Altenar função">
+                    <optgroup>
+                        <option selected>Motoristas</option>
+                        <option>Ônibus</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="position-flex">
+                <button type="button" class="btn-modal grenn" data-placement="top" title="Limpar formulário"
+                    (click)="LimparFormulario()">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+                <button class="btn-modal blue" data-placement="top" title="Adicionar substituição">
+                    <i class="fa-regular fa-plus"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    <ng-template #formOnibus>
+        <form class="row" (submit)="submitFormBus()" [formGroup]="onibusSubForm" #formDir="ngForm">
+            <div class="col-md-12 input-group form-group form-it">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="bi bi-funnel"></i>
+                    </span>
+                </div>
+                <ng-select class="d-flex flex-grow-1" formControlName="onibusId"
+                    [placeholder]="'Selecione o ônibus da substituição'" [notFoundText]="'Nenhum registro encontrado'">
+                    <ng-option *ngFor="let item of onibusList" [value]="item.id">
+                        {{item.nameBus}} — {{FormatarPlaca(item.placa)}}
+                    </ng-option>
+                </ng-select>
+            </div>
+            <div class="col-md-6 input-group form-group form-it">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fas fa-calendar-days"></i>
+                    </span>
+                </div>
+                <input type="date" class="form-control" formControlName="dataInicial" data-toggle="toltip"
+                    data-placement="top" title="Informe a data inicial">
+            </div>
+            <div class="col-md-6 input-group form-group form-it">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fas fa-calendar-days" style="margin-left: 1px;"></i>
+                    </span>
+                </div>
+                <input type="date" class="form-control" formControlName="dataFinal" data-toggle="toltip"
+                    data-placement="top" title="Informe a data final">
+            </div>
+            <div class="col-md-12 position-flex">
+                <div class="position-flex">
+                    <select class="form-control filt" style="margin: 0 !important; padding: 0 !;"
+                        (input)="AlterarListagem($event)" data-placement="top" title="Altenar função">
+                        <optgroup>
+                            <option>Motoristas</option>
+                            <option selected>Ônibus</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="position-flex">
+                    <button type="button" class="btn-modal grenn" data-placement="top" title="Limpar formulário"
+                    (click)="LimparFormulario()">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+                <button class="btn-modal blue" data-placement="top" title="Adicionar substituição">
+                    <i class="fa-regular fa-plus"></i>
+                </button>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <div class="table-container body-modal-alt">
+        <table class="table" *ngIf="!listarOnibus else listOnibus">
+            <tbody *ngIf="contrato.subContratoMotoristas!.length != 0 else listnull">
+                <tr class="row-hover" *ngFor="let item of contrato.subContratoMotoristas!">
+                    <td>{{item.funcionario!.name}}</td>
+                    <td>{{ReturnDataFormatada(item.dataInicial)}}</td>
+                    <td>{{ReturnDataFormatada(item.dataFinal)}}</td>
+                    <td>
+                        <a routerLink="/contrato" class="link" (click)="EditGetDados(item.id!)"><i
+                                class="fa-regular fa-pen-to-square"></i></a>
+                        <a routerLink="/contrato" class="link link-trash" (click)="RemoveMotoristaSub(item.id!)"><i
+                                class="fa fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+            <ng-template #listnull>
+                <tbody>
+                    <tr>
+                        <td colspan="3">Nenhum registro encontrado.</td>
+                    </tr>
+                </tbody>
+            </ng-template>
+        </table>
+        <ng-template #listOnibus>
+            <table class="table">
+                <tbody *ngIf="contrato.subContratoOnibus!.length != 0 else listnull">
+                    <tr class="row-hover" *ngFor="let item of contrato.subContratoOnibus!">
+                        <td>{{item.onibus!.nameBus}}</td>
+                        <td>{{FormatarPlaca(item.onibus!.placa)}}</td>
+                        <td>{{ReturnDataFormatada(item.dataInicial)}}</td>
+                        <td>{{ReturnDataFormatada(item.dataFinal)}}</td>
+                        <td>
+                            <a routerLink="/contrato" class="link" (click)="EditGetDados(item.id!)"><i
+                                    class="fa-regular fa-pen-to-square"></i></a>
+                            <a routerLink="/contrato" class="link link-trash" (click)="RemoveMotoristaSub(item.id!)"><i
+                                    class="fa fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+                <ng-template #listnull>
+                    <tbody>
+                        <tr>
+                            <td colspan="3">Nenhum registro encontrado.</td>
+                        </tr>
+                    </tbody>
+                </ng-template>
+            </table>
+        </ng-template>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="alert alert-danger" *ngIf="mensagemError" style="min-width: 180px;">
+        <i class="fa-solid fa-triangle-exclamation"></i> {{mensagemError}}
+        <div class="error-bar"></div>
+    </div>
+    <div class="alert alert-danger color-verde" *ngIf="mensagemSucesso">
+        <i class="fa-regular fa-circle-check"></i> {{mensagemSucesso}}
+        <div class="error-bar verde-bar"></div>
+    </div>
+    &copy; Bus System
+</div>

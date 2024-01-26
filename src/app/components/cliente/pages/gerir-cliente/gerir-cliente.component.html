@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-bus"></i> Confirmação - {{cliente.name.split(' ').slice(0, 2).join(' ')}}</h4>
+    <button type="button" class="close-mod" (click)="modal.dismiss()">
+      <i class="fa fa-close"></i>
+    </button>
+  </div>
+  <div class="modal-body with-shadow">
+    <p>
+      <strong>Deseja realmente {{textStatus}} este cliente?</strong>
+    </p>
+    <div class="position">
+      <p>
+        <strong>Nome: </strong> {{cliente.name}}<br>
+        <strong>CPF: </strong> {{ReturnCpfFormatado(cliente.cpf)}} <br>
+        <strong>E-mail: </strong> {{cliente.email}}<br>
+        <strong>Endereço: </strong> {{cliente.logradouro}}, <br> {{cliente.complementoResidencial}} <br>
+        <strong>Número residencial: </strong> {{cliente.numeroResidencial}} <br>
+      </p>
+      <p>
+        <strong>Data de nascimento: </strong> {{ReturnDateCliente(cliente.dataNascimento)}}<br>
+        <strong>RG: </strong> {{cliente.rg}} <br>
+        <strong>Telefone: </strong> ({{cliente.ddd}}) {{cliente.telefone}}<br>
+        <strong>Bairro: </strong> {{cliente.bairro}}<br>
+        <strong>Cidade: </strong> {{cliente.cidade}} <br>
+        <strong>Estado: </strong> {{cliente.estado}}
+      </p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button id="enviar" type="submit" class="btn button blue" (click)="ActionModal()">Confirmar</button>
+    <button type="button" class="btn button red" (click)="modal.dismiss()">Fechar</button>
+  </div>

@@ -1,0 +1,305 @@
+<div class="container-components">
+    <app-mensagens></app-mensagens>
+    <div class="header">
+        <h3><i class="fa fa-user-plus"></i> Adicionar cliente PJ</h3>
+        <hr class="hr">
+    </div>
+    <div class="container-form">
+        <form id="form-funcionario" (ngSubmit)="submit()" [formGroup]="clienteForm" #formDir="ngForm">
+            <div class="row">
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-user-tie"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Informe o nome fantasia do cliente."
+                        maxlength="60" formControlName="nomeFantasia" id="name" required>
+                    <div class="i" *ngIf="nomeFantasia.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="nomeFantasia.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="nomeFantasia.errors?.['serverError']">{{nomeFantasia.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-user-tie"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Informe a razão social do cliente."
+                        maxlength="60" formControlName="razaoSocial" id="razaoSocial" required>
+                    <div class="i" *ngIf="razaoSocial.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="razaoSocial.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="razaoSocial.errors?.['serverError']">{{razaoSocial.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-address-card"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Informe o CNPJ do cliente." maxlength="18"
+                        formControlName="cnpj" id="cnpj" mask="00.000.000/0000-00"
+                        onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+                    <div class="i" *ngIf="cnpj.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="cnpj.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg" *ngIf="cnpj.errors?.['minlength']">Campo inválido!</small>
+                        <small class="errorMsg"
+                            *ngIf="cnpj.errors?.['serverError']">{{cnpj.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-address-card"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Informe a inscrição estadual do cliente."
+                        maxlength="14" formControlName="inscricaoEstadual" id="inscricaoEstadual"
+                        onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+                    <div class="i" *ngIf="inscricaoEstadual.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="inscricaoEstadual.errors?.['required']">Campo
+                            obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="inscricaoEstadual.errors?.['serverError']">{{inscricaoEstadual.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-12 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-address-card"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Informe a inscrição municipal do cliente."
+                        maxlength="14" formControlName="inscricaoMunicipal" id="inscricaoMunicipal"
+                        onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+                    <div class="i" *ngIf="inscricaoMunicipal.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="inscricaoMunicipal.errors?.['required']">Campo
+                            obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="inscricaoMunicipal.errors?.['serverError']">{{inscricaoMunicipal.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Informe o e-mail do cliente." maxlength="60"
+                        formControlName="email" id="email">
+                    <div class="i" *ngIf="email.invalid && formDir.submitted">
+                        <small class="errorMsg"
+                            *ngIf="email.errors?.['serverError']">{{email.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-phone"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Informe o telefone do cliente." maxlength="10"
+                        formControlName="telefone" id="telefone" mask="00000-0000"
+                        onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+                    <div class="i" *ngIf="telefone.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="telefone.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg" *ngIf="telefone.errors?.['minlength']">Campo inválido!</small>
+                        <small class="errorMsg"
+                            *ngIf="telefone.errors?.['serverError']">{{telefone.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="header-endereco">
+                        <h3>Endereço
+                            <hr id="hr-ende">
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-map-location-dot"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control form-border-radius-none" maxlength="9" placeholder="Informe o CEP."
+                        formControlName="cep" id="cep"
+                        onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;"
+                        asp-for="Cep" mask="00000-000">
+                    <div class="i" *ngIf="cep.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="cep.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg" *ngIf="cep.errors?.['minlength']">Campo inválido!</small>
+                        <small class="errorMsg"
+                            *ngIf="cep.errors?.['serverError']">{{cep.errors?.['serverError'][0]}}</small>
+                    </div>
+                    <button class="btn-cep" type="button" (click)="buscarByCep(cep.value)" title="Buscar endereço por CEP"><i class="fa fa-search"></i></button>
+                </div>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-map-location-dot"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" maxlength="50" placeholder="Complemento residencial."
+                        formControlName="complementoResidencial" id="complementoResidencial">
+                    <div class="i" *ngIf="complementoResidencial.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="complementoResidencial.errors?.['required']">Campo
+                            obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="complementoResidencial.errors?.['serverError']">{{complementoResidencial.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-4 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-map-location-dot"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" maxlength="10" placeholder="Número residencial."
+                        formControlName="numeroResidencial" id="numeroResidencial"
+                        onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+                    <div class="i" *ngIf="numeroResidencial.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="numeroResidencial.errors?.['required']">Campo
+                            obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="numeroResidencial.errors?.['serverError']">{{numeroResidencial.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-4 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-map-location-dot"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" maxlength="50" placeholder="Informe o logradouro."
+                        formControlName="logradouro" id="logradouro">
+                    <div class="i" *ngIf="logradouro.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="logradouro.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="logradouro.errors?.['serverError']">{{logradouro.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-4 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-map-location-dot"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" maxlength="2" placeholder="Informe o DDD."
+                        formControlName="ddd" id="ddd"
+                        onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+                    <div class="i" *ngIf="ddd.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="ddd.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="ddd.errors?.['serverError']">{{ddd.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-4 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-map-location-dot"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" maxlength="50" placeholder="Informe o bairro."
+                        formControlName="bairro" id="bairro">
+                    <div class="i" *ngIf="bairro.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="bairro.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="bairro.errors?.['serverError']">{{bairro.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-4 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-map-location-dot"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" maxlength="50" placeholder="Informe a cidade."
+                        formControlName="cidade" id="cidade">
+                    <div class="i" *ngIf="cidade.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="cidade.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="cidade.errors?.['serverError']">{{cidade.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+                <div class="col-md-4 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-map-location-dot"></i>
+                        </span>
+                    </div>
+                    <ng-select class="d-flex flex-grow-1" formControlName="estado" [placeholder]="'Selecione seu estado.'" [notFoundText]="'Nenhum registro encontrado.'">
+                        <ng-option *ngFor="let item of listEstadoUF" [value]="item.uf">{{item.estado}}</ng-option>
+                    </ng-select>
+                    <div class="i" *ngIf="estado.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="estado.errors?.['required']">Campo obrigatório!</small>
+                        <small class="errorMsg"
+                            *ngIf="estado.errors?.['serverError']">{{estado.errors?.['serverError'][0]}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="container-opcoes">
+                <div>
+
+                </div>
+                <div>
+                    <a href="#" class="btn button red" data-target="#ConfirmSair" data-toggle="modal">
+                        Voltar
+                    </a>
+                    <button id="salvar" class="btn button blue" type="submit">
+                        Salvar
+                    </button>
+                </div>
+            </div>
+            <div id="janelaModalConfirm" class="modal fade" role="dialog" data-dismiss="modal">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><i class="fa fa-bus"></i> Confirmação</h4>
+                            <button type="button" class="close-mod" data-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                Deseja realmente salvar os dados?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn button blue" value="Confirmar">
+                            <button type="button" class="btn button red" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id="ConfirmSair" class="modal fade">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><i class="fa fa-bus"></i> Confirmação</h4>
+                        <button type="button" class="close-mod" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-close"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Deseja realmente sair? Caso tenha alterações não registradas, elas serão
+                            perdidas!
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <a id="enviar" type="submit" routerLink="/cliente-juridico" class="btn button blue"
+                            data-dismiss="modal">Confirmar</a>
+                        <button type="button" class="btn button red" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

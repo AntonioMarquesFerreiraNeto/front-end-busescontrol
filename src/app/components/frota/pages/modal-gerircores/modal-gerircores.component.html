@@ -1,0 +1,55 @@
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-bus"></i> Manter cores da frota</h4>
+    <button type="button" class="close-mod" (click)="closerModal()">
+        <i class="fa fa-close"></i>
+    </button>
+</div>
+<div class="modal-body body-modal-alt">
+    <form [formGroup]="paletaForm" #formDir2="ngForm" (ngSubmit)="submitCor()">
+        <div class="row">
+            <div class="col-md-12 input-group form-group form-it">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-palette"></i>
+                    </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Informe a cor que deseja adicionar."
+                    formControlName="cor" required>
+                <div class="i" *ngIf="cor.invalid && formDir2.submitted">
+                    <small class="errorMsg-modal" *ngIf="cor.errors?.['required']">Campo obrigatório!</small>
+                    <small class="errorMsg-modal" *ngIf="cor.errors?.['minlength']">Campo inválido!</small>
+                    <small class="errorMsg-modal"
+                        *ngIf="cor.errors?.['serverError']">{{cor.errors?.['serverError']}}</small>
+                </div>
+                <button type="submit" class="btn btn-cor grenn"><i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12 input-group form-group form-it">
+            <table class="table" *ngIf="paletas; else paletasnull">
+                <tbody *ngFor="let item of paletas">
+                    <tr class="row-hover">
+                        <td>{{item.cor}}</td>
+                        <td class="op-table"><button class="btn-link link link-trash"
+                                (click)="removeHandlerCor(item)"><i class="fa fa-trash-alt"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #paletasnull>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center; color: black;">
+                                Nenhuma cor registrada!
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-template>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+
+</div>

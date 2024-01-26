@@ -1,0 +1,226 @@
+.modal-body {
+    overflow-y: auto;
+}
+
+.borda-table {
+    margin: 0 !important;
+    padding: 2px !important;
+}
+
+.modal-header {
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+    justify-content: flex-start;
+    align-content: flex-end;
+    display: flex;
+}
+
+.modal-title {
+    margin-left: 16px;
+    margin-top: 10px;
+    font-size: 12pt;
+    font-weight: bold;
+    color: #4e4f6a;
+    text-align: center;
+}
+
+.cor {
+    color: #271976f5
+}
+
+.modal-body p {
+    color: #4e4f6a;
+    font-size: 11pt;
+    text-align: justify;
+}
+
+.position {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Botão de fechar */
+.close-mod {
+    position: absolute;
+    right: 17px;
+    top: 20px;
+    background-color: #e24343;
+    border: none;
+    border-radius: 10px;
+    width: 39px;
+    height: 36px;
+    color: white;
+    transition: 0.5s;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.3) !important;
+}
+
+.close-mod:hover {
+    color: white;
+    background-color: darkred;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.7);
+}
+
+/* Efeito de transição do modal */
+.modal {
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0px;
+    padding: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.button {
+    margin-top: 10px;
+    margin: 1px;
+    padding: 9px 7px;
+    min-width: 170px;
+    background-color: #1f1f33;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4) !important;
+    transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+    background-color: rgb(40, 40, 40);
+    text-decoration: none;
+    color: white;
+}
+
+.font-size {
+    font-size: 10pt;
+}
+
+.sessao-alteracao {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container-alteracao {
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-control {
+    margin-bottom: 17px;
+    font-size: 11pt;
+    border-radius: 0px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    height: 37px !important;
+}
+
+.input-group-prepend span {
+    font-size: 11pt;
+    border-radius: 0px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    height: 37px !important;
+}
+
+.i {
+    position: relative;
+}
+
+.errorMsg {
+    font-size: 10pt;
+    width: auto;
+    position: absolute;
+    color: rgb(233, 88, 35);
+    top: 33px;
+    right: 0px;
+}
+
+@media(max-width: 700px) {
+    .button {
+        min-width: 110px;
+    }
+}
+
+a {
+    font-size: 10pt !important;
+    color: rgb(131, 131, 248) !important;
+    cursor: pointer;
+}
+
+a:hover {
+    color: darkblue !important;
+}
+
+.flex-checkbox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.alert {
+    left: 1px;
+    position: relative !important;
+    padding: 8px 5px;
+    z-index: 1;
+    margin: auto !important;
+    margin-bottom: 5px !important;
+    width: 100%;
+    background-color: #fe5757;
+    color: white;
+    font-size: 10pt;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.error-bar {
+    position: absolute;
+    bottom: 1px;
+    left: 3px;
+    height: 3px;
+    /* altura desejada da barra de erro */
+    border-radius: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+    background-color: red;
+    /* cor da barra de erro */
+    animation: shrink 9.400s forwards;
+    /* tempo de duração da animação */
+}
+
+@keyframes shrink {
+    from {
+        width: 98%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
+.icon-senha {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.icon-senha i {
+    cursor: pointer;
+    font-size: 9pt;
+}

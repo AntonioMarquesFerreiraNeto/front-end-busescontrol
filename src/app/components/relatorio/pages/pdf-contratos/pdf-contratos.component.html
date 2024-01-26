@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-bus"></i> Exportar relatórios</h4>
+    <button type="button" class="close-mod" (click)="modal.dismiss()">
+        <i class="fa fa-close"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-6 input-group form-group form-it" style="margin: 0;">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="bi bi-search"></i>
+                </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Pesquisar contrato por ID." (input)="Pesquisar($event)" required>
+        </div>
+        <form class="col-md-6 input-group form-group form-it" [formGroup]="filtro" #formDir="ngForm">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="bi bi-funnel" style="margin-left: 1px;"></i>
+                </span>
+            </div>
+            <ng-select class="d-flex flex-grow-1" (change)="Filtrar()" formControlName="filtroSelecionado"
+                [placeholder]="'Realize a filtragem por situação'" [notFoundText]="'Nenhum filtro encontrado'">
+                <ng-option *ngFor="let item of filtros" [value]="item.value">
+                    {{item.description}}
+                </ng-option>
+            </ng-select>
+        </form>
+    </div>
+    <div class="table-container body-modal-alt">
+        <table class="table">
+            <tbody *ngIf="contratos && contratos.length != 0 else listnula">
+                <tr class="row-hover" *ngFor="let item of contratos">
+                    <td>{{item.id}}</td>
+                    <td *ngIf="!larguraMinima">{{ReturnDateFormatada(item.dataEmissao)}}</td>
+                    <td *ngIf="!larguraMinima">{{ReturnDateFormatada(item.dataVencimento)}}</td>
+                    <td>{{ReturnDinheiroFormat(item.valorMonetario)}}</td>
+                    <td>
+                        <div class="borda-table {{ReturnCorBordaAndamento(item.andamento!)}}">
+                            {{ReturnAndamento(item.andamento!)}}
+                        </div>
+                    </td>
+                    <td>
+                        <a class="link" routerLink="/relatorio" (click)="BaixarRelatorioContrato(item.id!)" title="Baixar relatório geral do contrato">
+                            <i class="bi bi-cloud-arrow-down"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <ng-template #listnula>
+                <tbody>
+                    <tr>
+                        <td colspan="6">{{mensagem}}</td>
+                    </tr>
+                </tbody>
+            </ng-template>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    &copy; Bus System
+</div>

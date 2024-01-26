@@ -1,0 +1,194 @@
+<div class="container-components" *ngIf="!loudingActive else louding">
+  <app-mensagens></app-mensagens>
+  <div class="header">
+    <h3><i class="fa fa-bus"></i> Atualizar ônibus</h3>
+    <hr class="hr">
+  </div>
+  <div class="container-form">
+    <form id="form" (ngSubmit)="submitEdit()" [formGroup]="onibusForm" #formDir="ngForm">
+      <div class="row">
+        <div class="col-md-6 input-group form-group form-it">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fas fa-bus"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control" id="inputMarca" placeholder="Informe a marca do ônibus."
+            maxlength="40" formControlName="marca" required data-toggle="toltip" data-placement="top" title="Marca">
+          <div class="i" *ngIf="marca.invalid && formDir.submitted">
+            <small class="errorMsg" *ngIf="marca.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg" *ngIf="marca.errors?.['serverError']">{{marca.errors?.['serverError'][0]}}</small>
+          </div>
+        </div>
+        <div class="col-md-6 input-group form-group form-it">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fas fa-bus"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control" id="inputNomeOnibus" placeholder="Informe o nome do ônibus."
+            maxlength="40" formControlName="nameBus" data-toggle="toltip" data-placement="top" title="Modelo">
+          <div class="i" *ngIf="nameBus.invalid && formDir.submitted">
+            <small class="errorMsg" *ngIf="nameBus.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg"
+              *ngIf="nameBus.errors?.['serverError']">{{nameBus.errors?.['serverError'][0]}}</small>
+          </div>
+        </div>
+        <div class="col-md-6 input-group form-group form-it">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fas fa-bus"></i>
+            </span>
+          </div>
+          <ng-select class="d-flex flex-grow-1" formControlName="corBus" [placeholder]="'Informe a cor do ônibus'" [notFoundText]="'Nenhum resultado encontrado'">
+            <ng-option *ngFor="let item of paletas" [value]="item.cor">{{item.cor}}</ng-option>
+          </ng-select>
+          <button class="btn-cores cores" type="button" data-target="#ManterCores" (click)="ShowModalGerirCores()" title="Manter cores da frota">
+            <i class="fa fa-palette"></i>
+          </button>
+          <i class="i" *ngIf="corBus.invalid && formDir.submitted">
+            <small class="errorMsg" *ngIf="corBus.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg" *ngIf="corBus.errors?.['serverError']">{{corBus.errors?.['serverError'][0]}}</small>
+          </i>
+        </div>
+        <div class="col-md-6 input-group form-group form-it">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fas fa-bus"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control" id="inputAnoOnibus" placeholder="Informe o ano de fabricação."
+            maxlength="4" formControlName="dataFabricacao"
+            onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;"
+            data-toggle="toltip" data-placement="top" title="Ano de fabricação">
+          <div class="i" *ngIf="dataFabricacao.invalid && formDir.submitted">
+            <small class="errorMsg" *ngIf="dataFabricacao.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg"
+              *ngIf="dataFabricacao.errors?.['serverError']">{{dataFabricacao.errors?.['serverError'][0]}}</small>
+          </div>
+        </div>
+        <div class="col-md-6 input-group form-group form-it">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fas fa-bus"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control" id="inputRenavam" placeholder="Informe o código renavam."
+            maxlength="11"
+            onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;"
+            formControlName="renavam" data-toggle="toltip" data-placement="top" title="Cod. renavam">
+          <div class="i" *ngIf="renavam.invalid && formDir.submitted">
+            <small class="errorMsg" *ngIf="renavam.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg"
+              *ngIf="renavam.errors?.['serverError']">{{renavam.errors?.['serverError'][0]}}</small>
+          </div>
+        </div>
+        <div class="col-md-6 input-group form-group form-it">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fas fa-bus"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control" id="inputPlaca" placeholder="Informe a placa do ônibus." maxlength="8"
+            formControlName="placa" mask="AAA-0000" data-toggle="toltip" data-placement="top" title="Placa do ônibus">
+          <div class="i" *ngIf="placa.invalid && formDir.submitted">
+            <small class="errorMsg" *ngIf="placa.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg" *ngIf="placa.errors?.['minlength']">Campo inválido!</small>
+            <small class="errorMsg" *ngIf="placa.errors?.['serverError']">{{placa.errors?.['serverError'][0]}}</small>
+          </div>
+        </div>
+        <div class="col-md-6 input-group form-group form-it">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-bus"></i></span>
+          </div>
+          <input type="text" class="form-control" id="inputChassi" placeholder="Informe o número de chassi do ônibus."
+            maxlength="17" formControlName="chassi" data-toggle="toltip" data-placement="top" title="Chassi">
+          <div class="i" *ngIf="chassi.invalid && formDir.submitted">
+            <small class="errorMsg" *ngIf="chassi.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg" *ngIf="chassi.errors?.['serverError']">{{chassi.errors?.['serverError'][0]}}</small>
+          </div>
+        </div>
+        <div class="col-md-6 input-group form-group form-it">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fas fa-bus"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control" id="inputAssento"
+            placeholder="Informe a quantidade de assentos do ônibus." maxlength="3" formControlName="assentos"
+            onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;"
+            data-toggle="toltip" data-placement="top" title="Quantidade de assentos">
+          <div class="i" *ngIf="assentos.invalid && formDir.submitted">
+            <small class="errorMsg" *ngIf="assentos.errors?.['required']">Campo obrigatório!</small>
+            <small class="errorMsg"
+              *ngIf="assentos.errors?.['serverError']">{{assentos.errors?.['serverError'][0]}}</small>
+          </div>
+        </div>
+      </div>
+      <div class="container-opcoes">
+        <div>
+          <a href="#" class="btn button red" data-target="#ConfirmSair" data-toggle="modal">
+            Voltar
+          </a>
+          <button id="salvar" class="btn button blue">
+            Salvar
+          </button>
+        </div>
+      </div>
+      <div id="janelaModalConfirm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title"><i class="fa fa-bus"></i> Confirmação</h4>
+              <button type="button" class="close-mod" data-dismiss="modal" aria-label="Close">
+                <i class="fa fa-close"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Deseja realmente salvar os dados?
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button id="enviar" type="submit" class="btn button blue">Confirmar</button>
+              <button type="button" class="btn button red" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div id="ConfirmSair" class="modal fade">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title"><i class="fa fa-bus"></i> Confirmação</h4>
+            <button type="button" class="close-mod" data-dismiss="modal" aria-label="Close">
+              <i class="fa fa-close"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Deseja realmente sair? Caso tenha alterações não registradas, elas serão
+              perdidas!
+            </p>
+          </div>
+          <div class="modal-footer">
+            <a id="enviar" type="submit" routerLink="/frota" class="btn button blue" data-dismiss="modal">Confirmar</a>
+            <button type="button" class="btn button red" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #louding>
+  <div class="container-components">
+    <div class="main-louding">
+      <div class="louding">
+        <img src="assets/Imagens/logobus.png" alt="espere..." class="logoLouding">
+        <div class="animation-bar"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>

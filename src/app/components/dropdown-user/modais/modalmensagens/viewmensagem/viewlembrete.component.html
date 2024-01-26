@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h4 class="modal-title">Mensagem</h4>
+    <button type="button" class="close-mod" (click)="ReturnModal()">
+        <i class="fa fa-close"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="position">
+        <p>
+            <strong>Remetente: </strong> {{lembrete.remetente?.name}}
+        </p>
+        <p>
+            <strong>Destinatário: </strong> {{ReturnDestinatario()}}
+        </p>
+        <p>
+            <strong>Nível de acesso: </strong> {{ReturnNivelAcesso()}}
+        </p>
+        <p>
+            <strong>Data da publicação: </strong> {{ReturnDatePublication()}}
+        </p>
+        <p style="margin-top: 6px;">
+            <strong>Conteúdo: </strong> {{lembrete.conteudo}}
+        </p>
+    </div>
+</div>
+<div class="modal-footer">
+    <p class="text">Mensagem enviada {{ReturnHoursOrDays()}}.</p>
+</div>

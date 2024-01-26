@@ -1,0 +1,38 @@
+<div class="modal-header" *ngIf="financeiro">
+  <h4 class="modal-title"><i class="fa fa-bus"></i> {{tituloPag}}</h4>
+  <button type="button" class="close-mod" (click)="modal.dismiss()">
+    <i class="fa fa-close"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <p>
+    <strong>{{textoDescricao}}</strong>
+  </p>
+  <div class="position">
+    <p>
+      <strong>Credor/Devedor: </strong> {{returnCredorDevedor()}}<br>
+      <strong>Status do financeiro: </strong> {{returnStatusFinanceiro()}}<br>
+      <strong>Classe de lançamento: </strong> {{returnDespReceita()}}<br>
+      <strong>Valor total: </strong> {{returnDinheiroFormat(financeiro.valorTotDR)}} <br>
+      <strong>Valor da parcela: </strong> {{returnDinheiroFormat(financeiro.valorParcelaDR!)}}<br>
+      <strong>Qt. parcelas: </strong> {{returnQtParcelas()}}<br>
+      <strong>Pagamento: </strong> {{returnPagamento()}}<br>
+      <strong>Tipo de efetuação: </strong> {{returnTypePagamento()}} <br>
+    </p>
+  </div>
+  <div class="position">
+    <p>
+      <strong>Detalhamento: </strong>{{financeiro.detalhamento}}<br>
+    </p>
+  </div>
+</div>
+<div class="modal-footer" *ngIf="financeiro.financeiroStatus != 0 else financeiroInativo">
+  <button id="enviar" type="submit" class="btn button blue" (click)="ActionModal()">Confirmar</button>
+  <button type="button" class="btn button red" (click)="modal.dismiss()">Fechar</button>
+</div>
+<ng-template #financeiroInativo>
+  <div class="modal-footer">
+    <div></div>
+    <button type="button" class="btn button red" (click)="modal.dismiss()">Fechar</button>
+  </div>
+</ng-template>

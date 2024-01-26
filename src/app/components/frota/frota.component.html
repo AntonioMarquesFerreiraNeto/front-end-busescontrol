@@ -1,0 +1,137 @@
+<div class="container-components">
+    <app-mensagens></app-mensagens>
+    <div class="header">
+        <h3 [class.red-color]="inativosSelect">
+            <i class="fa fa-bus"></i>
+            {{tituloPag}}
+        </h3>
+        <hr class="hr">
+        <div class="container-buttons">
+            <div>
+                <button class="btn button grenn" (click)="GetOnibusAtivos()"><i class="fa fa-bus"></i> <span
+                        *ngIf="!larguraMinima"> Ativos</span></button>
+                <button class="btn button red" (click)="GetOnibusInativos()"><i class="fa fa-bus"></i> <span
+                        *ngIf="!larguraMinima"> Inativos</span></button>
+            </div>
+            <div>
+                <a class="btn button blue" routerLink="/frota/newfrota"><i class="fa fa-plus"></i>
+                    <span *ngIf="!larguraMinima"> Ônibus</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <div class="pesquisa-container">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fa fa-search"></i>
+                </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Pesquisar ônibus." required
+                (input)="Pesquisar($event)">
+        </div>
+        <div *ngIf="onibus.length else listnull">
+            <table class="table" #tabela>
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col" *ngIf="!larguraMinima">Mar&shy;ca</th>
+                        <th scope="col">Mod&shy;elo</th>
+                        <th scope="col" *ngIf="!larguraMinima">Cor</th>
+                        <th scope="col" *ngIf="!larguraMinima">Pla&shy;ca</th>
+                        <th scope="col" *ngIf="!larguraMinima">Ano de fab.</th>
+                        <th scope="col">Vinculação</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-hover" *ngFor="let item of onibus">
+                        <td>{{item.id}}</td>
+                        <td *ngIf="!larguraMinima">{{item.marca}}</td>
+                        <td>{{item.nameBus}}</td>
+                        <td *ngIf="!larguraMinima">{{item.corBus}}</td>
+                        <td *ngIf="!larguraMinima">{{FormatarPlaca(item.placa)}}</td>
+                        <td *ngIf="!larguraMinima">{{item.dataFabricacao}}</td>
+
+                        <td *ngIf="trueContratosEmAndamento(item) else noContratosEmAndamento">
+                            <div class="borda-table verde-borda">Vinculado</div>
+                        </td>
+                        <ng-template #noContratosEmAndamento>
+                            <td>
+                                <div class="borda-table roxo-borda">Não vinculado</div>
+                            </td>
+                        </ng-template>
+                        <td *ngIf="item.statusOnibus == 0; else itemInativo" class="td-flex">
+                            <a class="link" routerLink="/frota/edit/{{item.id}}">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a class="link {{ReturnCorDisponibilidade(item.disponibilidade!)}}" (click)="AbrirModalDisponibilidade(item)" routerLink="/frota" title="Gerir disponibilidade para novos contratos">
+                                <i class="{{ReturnIconDisponibilidade(item.disponibilidade!)}}"></i>
+                            </a>
+                            <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link link-trash"><i
+                                    class="fa fa-trash-alt"></i></a>
+                        </td>
+                        <ng-template #itemInativo>
+                            <td>
+                                <a routerLink="/frota" (click)="AbriModalGerir(item)" class="link"><i
+                                        class="fa fa-bus"></i></a>
+                            </td>
+                        </ng-template>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination" *ngIf="!inativosSelect; else paginateInativos">
+                <li class="page-item anterior" [class.disabled]="paginaAtual == 1">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorAtivosPaginate()"><i
+                            class="fa fa-arrow-left"></i></a>
+                </li>
+                <li class="page-item disabled">
+                    <p class="page-link shadow-sm">
+                        {{paginaAtual}}/{{totPaginas}}</p>
+                </li>
+                <li class="page-item proximo" [class.disabled]="paginaAtual == totPaginas">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="proximoAtivosPaginate()"><i
+                            class="fa fa-arrow-right"></i></a>
+                </li>
+            </div>
+            <ng-template #paginateInativos>
+                <div class="pagination">
+                    <li class="page-item anterior" [class.disabled]="paginaAtual == 1">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorInativosPaginate()">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item disabled">
+                        <p class="page-link shadow-sm">
+                            {{paginaAtual}}/{{totPaginas}}
+                        </p>
+                    </li>
+                    <li class="page-item proximo" [class.disabled]="paginaAtual == totPaginas">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="proximoInativosPaginate()">
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                </div>
+            </ng-template>
+        </div>
+        <ng-template #listnull>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col" *ngIf="!larguraMinima">Mar&shy;ca</th>
+                        <th scope="col">Mod&shy;elo</th>
+                        <th scope="col" *ngIf="!larguraMinima">Cor</th>
+                        <th scope="col" *ngIf="!larguraMinima">Pla&shy;ca</th>
+                        <th scope="col" *ngIf="!larguraMinima">Ano de fab.</th>
+                        <th scope="col">Vinculação</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tr class="row-hover">
+                    <td colspan="9">{{mensagem}}</td>
+                </tr>
+            </table>
+        </ng-template>
+    </div>
+</div>

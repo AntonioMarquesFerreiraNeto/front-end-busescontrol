@@ -1,0 +1,37 @@
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-bus"></i> {{tituloPag}}</h4>
+    <button type="button" class="close-mod" (click)="modal.dismiss()">
+      <i class="fa fa-close"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      <strong>{{textoDescricao}}</strong>
+    </p>
+    <div class="position">
+      <p>
+        <strong>Contrato ID: </strong> {{contrato.id}} <br>
+        <strong>Motorista: </strong> {{contrato.motorista!.name}}, <span>CPF:</span> {{ReturnCpf()}} <br>
+        <strong>Ônibus: </strong> {{contrato.onibus!.marca}} - {{contrato.onibus!.nameBus}}, <span>PLACA:</span> {{ReturnPlacaFormatada(contrato.onibus!.placa)}} <br>
+        <strong>Datas: </strong> <span>Emissão:</span> {{ReturnDate(contrato.dataEmissao)}}, <span>Vencimento:</span> {{ReturnDate(contrato.dataVencimento)}} <br>
+        <strong>Pagamento: </strong> {{ReturnPagamento()}} <br>
+        <strong>Qt. de parcelas: </strong>{{ReturnQtParcelas()}}<br>
+        <strong>Valor total: </strong> <span>{{ReturnValor()}} </span>
+      </p>
+    </div>
+    <div class="position">
+       <p>
+        <strong>Detalhamento: </strong> {{contrato.detalhamento}}<br>
+       </p>
+    </div>
+  </div>
+  <div class="modal-footer" *ngIf="contrato.statusContrato == 0 else contratoInativo">
+    <button id="enviar" type="submit" class="btn button blue" (click)="ActionModal()">Confirmar</button>
+    <button type="button" class="btn button red" (click)="modal.dismiss()">Fechar</button>
+  </div>
+  <ng-template #contratoInativo>
+    <div class="modal-footer">
+      <div></div>
+      <button type="button" class="btn button red" (click)="modal.dismiss()">Fechar</button>
+    </div>
+  </ng-template>

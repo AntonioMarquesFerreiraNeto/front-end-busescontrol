@@ -1,0 +1,234 @@
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-user-edit"></i> Fornecedor</h4>
+    <button type="button" class="close-mod" (click)="modal.close()">
+      <i class="fa fa-close"></i>
+    </button>
+  </div>
+  <form [formGroup]="fornecedorForm" #formDir="ngForm" (ngSubmit)="submitEdit()" *ngIf="fornecedorForm">
+    <div class="modal-body body-modal-alt">
+      <div class="container-form">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" [value]="0" name="typePessoa" id="pessoaFisica"
+                formControlName="typePessoa">
+              <label class="form-check-label" for="pessoaFisica">Pessoa Física</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" [value]="1" name="typePessoa" id="pessoaJuridica"
+                formControlName="typePessoa">
+              <label class="form-check-label" for="pessoaJuridica">Pessoa Jurídica</label>
+            </div>
+          </div>       
+
+          <span class="alert alert-danger" *ngIf="mensagemError">
+            <i class="fa fa-triangle-exclamation"></i> {{mensagemError}}
+          </span>
+          
+          <div class="col-md-6 input-group form-group form-it">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-user-tie"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Informe o nome/razão social." maxlength="40"
+              formControlName="nameOrRazaoSocial" id="name" required>
+            <i *ngIf="formDir.submitted && nameOrRazaoSocial.invalid">
+              <span class="errorMsg" *ngIf="nameOrRazaoSocial.errors?.['required']">Obrigatório!</span>
+              <span class="errorMsg"
+                *ngIf="nameOrRazaoSocial.errors?.['serverError']">{{nameOrRazaoSocial.errors?.['serverError'][0]}}
+              </span>
+            </i>
+          </div>
+          <div class="col-md-6 input-group form-group form-it">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-calendar-days"></i>
+              </span>
+            </div>
+            <input type="date" class="form-control" placeholder="Informe a data do fornecedor."
+              formControlName="dataFornecedor" id="dataNascimento">
+            <i *ngIf="formDir.submitted && dataFornecedor.invalid">
+              <span class="errorMsg" *ngIf="dataFornecedor.errors?.['required']">Obrigatório!</span>
+              <span class="errorMsg"
+                *ngIf="dataFornecedor.errors?.['serverError']">{{dataFornecedor.errors?.['serverError'][0]}}</span>
+            </i>
+          </div>
+          <div class="col-md-6 input-group form-group form-it" *ngIf="typePessoa.value == 0; else containerCNPJ">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-address-card"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Informe o CPF do fornecedor." maxlength="14"
+              formControlName="cpf" id="cpf" mask="000.000.000-00"
+              onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+            <div>
+              <span class="errorMsg" *ngIf="cpf.errors?.['required']">Obrigatório!</span>
+              <span class="errorMsg" *ngIf="cpf.errors?.['minlength']">Campo inválido!</span>
+              <span class="errorMsg" *ngIf="cpf.errors?.['serverError']">{{cpf.errors?.['serverError'][0]}}
+              </span>
+            </div>
+          </div>
+          <ng-template #containerCNPJ>
+            <div class="col-md-6 input-group form-group form-it">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-address-card"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control" placeholder="Informe o CNPJ do fornecedor" maxlength="18"
+                formControlName="cnpj" id="cnpj" mask="00.000.000/0000-00"
+                onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+              <div class="i" *ngIf="cnpj.invalid && formDir.submitted">
+                <small class="errorMsg" *ngIf="cnpj.errors?.['required']">Obrigatório!</small>
+                <small class="errorMsg" *ngIf="cnpj.errors?.['minlength']">Campo inválido!</small>
+                <small class="errorMsg" *ngIf="cnpj.errors?.['serverError']">{{cnpj.errors?.['serverError'][0]}}</small>
+              </div>
+            </div>
+          </ng-template>
+          <div class="col-md-6 input-group form-group form-it">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Informe o e-mail do fornecedor." maxlength="60"
+              formControlName="email" id="email">
+            <i *ngIf="formDir.submitted && email.invalid">
+              <span class="errorMsg" *ngIf="email.errors?.['required']">Obrigatório!</span>
+              <span class="errorMsg" *ngIf="email.errors?.['serverError']">{{email.errors?.['serverError'][0]}}</span>
+            </i>
+          </div>
+          <div class="col-md-12 input-group form-group form-it">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-phone"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Informe o telefone do fornecedor." maxlength="10"
+              formControlName="telefone" id="telefone" mask="00000-0000"
+              onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+            <i *ngIf="formDir.submitted && telefone.invalid">
+              <span class="errorMsg" *ngIf="telefone.errors?.['required']">Obrigatório!</span>
+              <span class="errorMsg" *ngIf="telefone.errors?.['minlength']">Campo inválido!</span>
+              <span class="errorMsg"
+                *ngIf="telefone.errors?.['serverError']">{{telefone.errors?.['serverError'][0]}}</span>
+            </i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 input-group form-group form-it">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-map-location-dot"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control form-border-radius-none" maxlength="9" placeholder="Informe o CEP." formControlName="cep" title="Cep"
+              id="cep"
+              onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;"
+              asp-for="Cep" mask="00000-000">
+            <i *ngIf="formDir.submitted && cep.invalid">
+              <span class="errorMsg position-error" *ngIf="cep.errors?.['required']">Obrigatório!</span>
+              <span class="errorMsg position-error" *ngIf="cep.errors?.['minlength']">Campo inválido!</span>
+              <span class="errorMsg position-error" *ngIf="cep.errors?.['serverError']">{{cep.errors?.['serverError'][0]}}</span>
+            </i>
+            <button class="btn-cep" type="button" (click)="buscarByCep(cep.value)" title="Buscar endereço por CEP"><i class="fa fa-search"></i></button>
+          </div>
+          <div class="col-md-4 input-group form-group form-it">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-map-location-dot"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" maxlength="10" placeholder="Número residencial." title="Número residencial"
+              formControlName="numeroResidencial" id="numeroResidencial"
+              onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+            <i *ngIf="formDir.submitted && numeroResidencial.invalid">
+              <span class="errorMsg" *ngIf="numeroResidencial.errors?.['required']">Obrigatório!</span>
+              <span class="errorMsg"
+                *ngIf="numeroResidencial.errors?.['serverError']">{{numeroResidencial.errors?.['serverError'][0]}}
+              </span>
+            </i>
+          </div>
+          <div class="col-md-4 input-group form-group form-it">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-map-location-dot"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" maxlength="50" placeholder="Informe o logradouro." title="Logradouro"
+              formControlName="logradouro" id="logradouro">
+            <i *ngIf="formDir.submitted && logradouro.invalid">
+              <span class="errorMsg" *ngIf="logradouro.errors?.['required']">Obrigatório!</span>
+              <span class="errorMsg" *ngIf="logradouro.errors?.['serverError']">{{logradouro.errors?.['serverError'][0]}}
+              </span>
+            </i>
+  
+          </div>
+          <div class="col-md-4 input-group form-group form-it">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-map-location-dot"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" maxlength="2" placeholder="Informe o DDD." formControlName="ddd" title="Ddd"
+              id="ddd"
+              onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+            <i *ngIf="formDir.submitted && ddd.invalid">
+              <span class="errorMsg" *ngIf="ddd.errors?.['required']">Obrigatório!</span>
+              <span class="errorMsg" *ngIf="ddd.errors?.['serverError']">{{ddd.errors?.['serverError'][0]}}
+              </span>
+            </i>
+          </div>
+          <div class="col-md-12 input-group form-group form-it">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-map-location-dot"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" maxlength="50" placeholder="Informe o bairro." title="Bairro"
+              formControlName="bairro" id="bairro">
+            <i *ngIf="formDir.submitted && bairro.invalid">
+              <span class="errorMsg" *ngIf="bairro.errors?.['required']">Obrigatório!</span>
+              <span class="errorMsg" *ngIf="bairro.errors?.['serverError']">{{bairro.errors?.['serverError'][0]}}
+              </span>
+            </i>
+          </div>
+          <div class="col-md-6 input-group form-group form-it">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-map-location-dot"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" maxlength="50" placeholder="Informe a cidade." title="Cidade"
+              formControlName="cidade" id="cidade">
+            <i *ngIf="formDir.submitted && cidade.invalid">
+              <span class="errorMsg" *ngIf="cidade.errors?.['required']">Obrigatório</span>
+              <span class="errorMsg" *ngIf="cidade.errors?.['serverError']">{{cidade.errors?.['serverError'][0]}}
+              </span>
+            </i>
+          </div>
+          <div class="col-md-6 input-group form-group form-it">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-map-location-dot"></i>
+              </span>
+            </div>
+            <ng-select class="d-flex flex-grow-1" formControlName="estado" [placeholder]="'Selecione o estado.'" [notFoundText]="'Registro não encontrado.'">
+              <ng-option *ngFor="let item of listEstadoUf" [value]="item.uf">{{item.estado}}</ng-option>
+            </ng-select>
+            <i *ngIf="formDir.submitted && estado.invalid">
+              <span class="errorMsg" *ngIf="estado.errors?.['required']">Obrigatório!</span>
+              <span class="errorMsg" *ngIf="estado.errors?.['serverError']">{{estado.errors?.['serverError'][0]}}
+              </span>
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button id="enviar" type="submit" class="btn button blue">Salvar</button>
+      <button type="button" class="btn button red" (click)="modal.dismiss()">Fechar</button>
+    </div>
+  </form>

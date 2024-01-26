@@ -1,0 +1,298 @@
+<div *ngIf="relatorio else louding">
+    <div class="container-components">
+        <app-mensagens></app-mensagens>
+        <div class="header">
+            <h3><i class="fa-solid fa-chart-simple"></i> DASHBOARD</h3>
+            <hr class="hr">
+        </div>
+        <div class="row margin">
+            <div class="col-md-4">
+                <div class="card bg-c-blue order-card">
+                    <i class="fa-solid fa-server icon-background"></i>
+                    <div class="card-block2">
+                        <h6 class="title-card"> Receita</h6>
+                        <h2 class="text-right data-value">
+                            <i class="fa-solid fa-clipboard-check f-left"></i>
+                            <span>{{ReturnDinheiroFormat(relatorio.valTotReceitas)}}</span>
+                        </h2>
+                        <p class="font-p">Valor efetuado<span class="f-right">{{ReturnDinheiroFormat(relatorio.valTotEfetuadoReceita)}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-c-pink order-card">
+                    <i class="fa-solid fa-server icon-background"></i>
+                    <div class="card-block2">
+                        <h6 class="title-card">Despesa</h6>
+                        <h2 class="text-right data-value">
+                            <i class="fa-solid fa-clipboard-check f-left"></i>
+                            <span>{{ReturnDinheiroFormat(relatorio.valTotDespesas)}}</span>
+                        </h2>
+                        <p class="font-p">Valor efetuado<span class="f-right">{{ReturnDinheiroFormat(relatorio.valTotEfetuadoDespesa)}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-c-green order-card">
+                    <i class="fa-solid fa-server icon-background"></i>
+                    <div class="card-block2">
+                        <h6 class="title-card">Balancete financeiro</h6>
+                        <h2 class="text-right data-value">
+                            <i class="fa fa-refresh f-left"></i>
+                            <span>{{ReturnBalancete()}}</span>
+                        </h2>
+                        <p class="font-p">Base usada<span class="f-right">Receita e despesa</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin">
+            <div class="col-md-12">
+                <div class="header" style="display: flex; justify-content: space-between; margin-bottom: 4px; align-items: flex-end; align-content: flex-end;">
+                    <h3 class="color-title">
+                        Contratos
+                    </h3>
+                    <button class="btn button" (click)="AbrirModalContratos()" title="Relatórios">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-download" viewBox="0 0 16 16">
+                            <path
+                                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                            <path
+                                d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-c-green order-card">
+                    <i class="fa-solid fa fa-handshake icon-background2"></i>
+                    <div class="card-block">
+                        <h6 class="title-card">Balanço</h6>
+                        <h2 class="text-right data-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line-fill f-left" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+                            </svg>
+                            <span>{{ReturnDinheiroFormat(relatorio.valTotPendente)}}</span>
+                        </h2>
+                        <p class="font-p">Efetuado<span class="f-right">{{ReturnDinheiroFormat(relatorio.valTotPago)}} ({{ReturnPercentualContratoDinheiro(relatorio.valTotPago)}})</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-c-green order-card">
+                    <i class="fa-solid fa fa-handshake icon-background2"></i>
+                    <div class="card-block">
+                        <h6 class="title-card">Aprovados</h6>
+                        <h2 class="text-right data-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line-fill f-left" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+                            </svg>
+                            <span>{{ReturnDinheiroFormat(relatorio.valTotAprovados)}}</span>
+                        </h2>
+                        <p class="font-p">Qt. de contratos<span class="f-right">{{relatorio.qtContratosAprovados}} de {{relatorio.qtContratos}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-c-green order-card">
+                    <i class="fa-solid fa fa-handshake icon-background2"></i>
+                    <div class="card-block">
+                        <h6 class="title-card">Em análise</h6>
+                        <h2 class="text-right data-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line-fill f-left" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+                            </svg>
+                            <span>{{ReturnDinheiroFormat(relatorio.valTotEmAnalise)}}</span>
+                        </h2>
+                        <p class="font-p">Qt. de contratos<span class="f-right">{{relatorio.qtContratosEmAnalise}} de {{relatorio.qtContratos}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-c-green order-card">
+                    <i class="fa-solid fa fa-handshake icon-background2"></i>
+                    <div class="card-block">
+                        <h6 class="title-card">Reprovados</h6>
+                        <h2 class="text-right data-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line-fill f-left" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+                            </svg>
+                            <span>{{ReturnDinheiroFormat(relatorio.valTotReprovados)}}</span>
+                        </h2>
+                        <p class="font-p">Qt. de contratos<span class="f-right">{{relatorio.qtContratosNegados}} de {{relatorio.qtContratos}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin">
+            <div class="col-md-12">
+                <div class="header" style="display: flex; justify-content: space-between; margin-bottom: 4px; align-items: flex-end; align-content: flex-end;">
+                    <h3 class="color-title">
+                        Clientes
+                    </h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-c-blue order-card">
+                    <i class="fa-solid fa-users icon-background2"></i>
+                    <div class="card-block">
+                        <h6 class="title-card">Clientes ativos</h6>
+                        <h2 class="text-right data-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line-fill f-left" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+                            </svg>
+                            <span>{{relatorio.qtClientes}}</span>
+                        </h2>
+                        <p class="font-p">Em percentual<span class="f-right">100%</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-c-blue order-card">
+                    <i class="fa-solid fa-users icon-background2"></i>
+                    <div class="card-block">
+                        <h6 class="title-card">Com contratos aprovados</h6>
+                        <h2 class="text-right data-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line-fill f-left" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+                            </svg>
+                            <span>{{relatorio.qtClientesVinculados}}</span>
+                        </h2>
+                        <p class="font-p">Em percentual<span class="f-right">{{ReturnPercentualClient(relatorio.qtClientesVinculados)}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-c-blue order-card">
+                    <i class="fa-solid fa-users icon-background2"></i>
+                    <div class="card-block">
+                        <h6 class="title-card">Clientes adimplentes</h6>
+                        <h2 class="text-right data-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line-fill f-left" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+                            </svg>
+                            <span>{{relatorio.qtClientesAdimplente}}</span>
+                        </h2>
+                        <p class="font-p">Em percentual<span class="f-right">{{ReturnPercentualClient(relatorio.qtClientesAdimplente)}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-c-blue order-card">
+                    <i class="fa-solid fa-users icon-background2"></i>
+                    <div class="card-block">
+                        <h6 class="title-card">Clientes inadimplentes</h6>
+                        <h2 class="text-right data-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line-fill f-left" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+                            </svg>
+                            <span>{{relatorio.qtClientesInadimplente}}</span>
+                        </h2>
+                        <p class="font-p">Em percentual<span class="f-right">{{ReturnPercentualClient(relatorio.qtClientesInadimplente)}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin">
+            <div class="col-md-12">
+                <div class="header" style="display: flex; justify-content: space-between; margin-bottom: 4px; align-items: flex-end; align-content: flex-end;">
+                    <h3 class="color-title">Motoristas & Frota</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-c-green order-card">
+                    <i class="fa-solid fa-bus icon-background2"></i>
+                    <div class="card-block">
+                        <h6 class="title-card">Ônibus ativos</h6>
+                        <h2 class="text-right data-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line-fill f-left" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+                            </svg>
+                            <span>{{relatorio.qtOnibus}}</span>
+                        </h2>
+                        <p class="font-p">Em percentual<span class="f-right">100%</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-c-green order-card">
+                    <i class="fa-solid fa-bus icon-background2"></i>
+                    <div class="card-block">
+                        <h6 class="title-card">Ônibus vinculados</h6>
+                        <h2 class="text-right data-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line-fill f-left" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+                            </svg>
+                            <span>{{relatorio.qtOnibusVinculado}}</span>
+                        </h2>
+                        <p class="font-p">Em percentual<span class="f-right">{{ReturnPercentualOnibus(relatorio.qtOnibusVinculado)}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-c-green order-card">
+                    <i class="fa-solid fa-users-gear icon-background2"></i>
+                    <div class="card-block">
+                        <h6 class="title-card">Motoristas ativos</h6>
+                        <h2 class="text-right data-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line-fill f-left" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+                            </svg>
+                            <span>{{relatorio.qtMotorista}}</span>
+                        </h2>
+                        <p class="font-p">Em percentual<span class="f-right">100%</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-c-green order-card">
+                    <i class="fa-solid fa-users-gear icon-background2"></i>
+                    <div class="card-block">
+                        <h6 class="title-card">Motoristas vinculados</h6>
+                        <h2 class="text-right data-value">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bar-chart-line-fill f-left" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+                            </svg>
+                            <span>{{relatorio.qtMotoristaVinculado}}</span>
+                        </h2>
+                        <p class="font-p">Em percentual<span class="f-right">{{ReturnPercentualMotorista(relatorio.qtMotoristaVinculado)}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #louding>  
+    <div class="container-components">
+        <div class="main-louding">
+            <div class="louding">
+                <img src="assets/Imagens/logobus.png" alt="espere..." class="logoLouding">
+                <div class="animation-bar"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>

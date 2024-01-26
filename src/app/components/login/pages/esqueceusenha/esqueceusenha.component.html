@@ -1,0 +1,59 @@
+<div class="container-auth" *ngIf="!loudingActive else louding">
+    <form class="card" (ngSubmit)="Submit()" [formGroup]="esqueceuSenhaForm" #formDir="ngForm" method="post">
+        <app-mensagens></app-mensagens>
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+            <div class="input-group form-group">
+                <div class="input-group-prepend2">
+                    <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Informe seu CPF." maxlength="14"
+                    onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;"
+                    asp-for="Cpf" mask="000.000.000-00" formControlName="cpf">
+                <i class="i" *ngIf="formDir.submitted && cpf.invalid">
+                    <small class="errorMsg" *ngIf="cpf.errors?.['required']">
+                        Obrigatório!
+                    </small>
+                    <small class="errorMsg" *ngIf="cpf.errors?.['minlength']">Campo inválido!</small>
+                </i>
+            </div>
+            <div class="input-group form-group">
+                <div class="input-group-prepend2">
+                    <span class="input-group-text"><i class="fa-solid fa-cake-candles"></i></span>
+                </div>
+                <input type="date" class="form-control" placeholder="Informe sua data de nascimento." maxlength="70" asp-for="Cpf" formControlName="dataNascimento">
+                <i class="i" *ngIf="formDir.submitted && dataNascimento.invalid">
+                    <small class="errorMsg" *ngIf="dataNascimento.errors?.['required']">
+                        Obrigatório!
+                    </small>
+                </i>
+            </div>
+            <div class="input-group form-group">
+                <div class="input-group-prepend2">
+                    <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Informe seu e-mail." maxlength="70" asp-for="Cpf" formControlName="email">
+                <i class="i" *ngIf="formDir.submitted && email.invalid">
+                    <small class="errorMsg" *ngIf="email.errors?.['required']">
+                        Obrigatório!
+                    </small>
+                </i>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn button">Recuperar senha</button>
+            <a routerLink="/login" class="link">Efetuar login?</a>
+        </div>
+    </form>
+</div>
+<ng-template #louding>  
+    <div class="container-auth">
+        <div class="main-louding">
+            <div class="louding">
+                <img src="assets/Imagens/logobus.png" alt="espere..." class="logoLouding">
+                <div class="animation-bar"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>

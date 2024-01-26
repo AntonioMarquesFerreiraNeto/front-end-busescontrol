@@ -1,0 +1,241 @@
+<div class="container-components">
+    <app-mensagens></app-mensagens>
+    <div class="header">
+        <h3 [class.red-color]="inativosSelect">
+            <i class="fa-solid fa-clipboard-list" style="font-size: 13pt;"></i> {{tituloPag}}
+        </h3>
+        <hr class="hr">
+    </div>
+    <div class="container-buttons">
+        <div>
+            <button class="btn button grenn" (click)="GetContratosAtivos()">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span *ngIf="!larguraMinima"> Ativos</span>
+            </button>
+            <button class="btn button red" (click)="GetContratosInativos()">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span *ngIf="!larguraMinima"> Inativos</span>
+            </button>
+        </div>
+        <div>
+            <a class="btn button grenn" routerLink="/contrato" data-target="#gerarRelatorio" data-toggle="modal">
+                <i class="fa fa-print"></i> 
+                <span *ngIf="!larguraMinima"> Gerar docs </span>
+            </a>
+            <a class="btn button blue" routerLink="/contrato/newcontrato">
+                <i class="fa fa-plus"></i> 
+                <span *ngIf="!larguraMinima"> Contrato</span>
+            </a>
+        </div>
+    </div>
+    <div class="table-container">
+        <div class="pesquisa-container">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fa fa-search"></i>
+                </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Pesquisar contrato por ID." required (input)="Pesquisar($event)">
+            <select class="form-control filt" *ngIf="!inativosSelect" (input)="Filtrar($event)">
+                <optgroup label="Filtra por...">
+                    <option value="6" [selected]="compartilhamento.getFiltroContrato() == 6">Todos</option>
+                    <option value="2" [selected]="compartilhamento.getFiltroContrato() == 2">Aprovados</option>
+                    <option value="1" [selected]="compartilhamento.getFiltroContrato() == 1">Reprovado</option>
+                    <option value="0" [selected]="compartilhamento.getFiltroContrato() == 0">Em análise</option>
+                    <option value="3" [selected]="compartilhamento.getFiltroContrato() == 3">Em tramitação</option>
+                    <option value="4" [selected]="compartilhamento.getFiltroContrato() == 4">Em andamento</option>
+                    <option value="5" [selected]="compartilhamento.getFiltroContrato() == 5">Encerrados</option>
+                </optgroup>
+            </select>
+            <select class="form-control filt2" *ngIf="!inativosSelect && !larguraMinima" (input)="TabelaSize($event)">
+                <optgroup>
+                    <option value="5" [selected]="compartilhamento.getPageSizeContrato() == 5">5</option>
+                    <option value="10" [selected]="compartilhamento.getPageSizeContrato() == 10">10</option>
+                    <option value="20" [selected]="compartilhamento.getPageSizeContrato() == 20">20</option>
+                    <option value="30" [selected]="compartilhamento.getPageSizeContrato() == 30">30</option>
+                </optgroup>
+            </select>
+        </div>
+        <div *ngIf="contratoList.length else listnull">
+            <table class="table" #tabela>
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col" *ngIf="!larguraMinima">Clientes</th>
+                        <th scope="col" *ngIf="!larguraMinima">Qt. clien&shy;tes</th>
+                        <th scope="col" *ngIf="!larguraMinima">Emissão</th>
+                        <th scope="col" *ngIf="!larguraMinima">Vencimento</th>
+                        <th scope="col">Valor total</th>
+                        <th scope="col" *ngIf="!larguraMinima">Pagamento</th>
+                        <th scope="col">Aprovação</th>
+                        <th scope="col" *ngIf="!larguraMinima">Andamento</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-hover" *ngFor="let item of contratoList">
+                        <td>{{item.id!}}</td>
+                        <td *ngIf="!larguraMinima">
+                            <a routerLink="/contrato" class="link" (click)="consultClientes(item)">
+                                <i class="fa fa-users"></i>
+                            </a>
+                        </td>
+                        <td *ngIf="!larguraMinima">{{item.clientesContrato!.length}}</td>
+                        <td *ngIf="!larguraMinima">{{returnDataFormatada(item.dataEmissao)}}</td>
+                        <td *ngIf="!larguraMinima">{{returnDataFormatada(item.dataVencimento)}}</td>
+                        <td>{{returnDinheiro(item.valorMonetario)}}</td>
+                        <td *ngIf="!larguraMinima">{{returnTypePagamento(item.pagament!)}}</td>
+                        <td>
+                            <div class="borda-table" ngClass="{{returnCorAprovacao(item.aprovacao!)}}">
+                                {{returnAprovacao(item.aprovacao!)}}
+                            </div>
+                        </td>
+                        <td *ngIf="!larguraMinima">
+                            <div class="borda-table" ngClass="{{returnCorAndamento(item.andamento!)}}">
+                                {{returnAndamento(item.andamento!)}}
+                            </div>
+                        </td>
+                        <td *ngIf="item.statusContrato == 0; else itemInativo" class="td-flex">
+                            <a *ngIf="item.aprovacao != 2; else aprovadoedit" class="link"
+                                routerLink="/contrato/edit/{{item.id}}" data-toggle="tooltip" data-placement="top"
+                                title="Editar contrato">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <ng-template #aprovadoedit>
+                                <a *ngIf="item.andamento == 1 else encerradoicon" routerLink="/contrato" class="link link-azulclaro" data-toggle="tooltip" data-placement="top" title="Substituições motoristas/ônibus" (click)="substituicoes(item)"><i class="fa-solid fa-circle-plus"></i></a>
+                                <ng-template #encerradoicon>
+                                    <a class="link disabled">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </ng-template>
+                            </ng-template>
+                            <a routerLink="/contrato" class="link link-trash" (click)="gerirContrato(item)"
+                                data-toggle="tooltip" data-placement="top" title="Inativar contrato">
+                                <i class="fa fa-trash-alt"></i>
+                            </a>
+                            <a routerLink="/contrato" class="link link-roxo" *ngIf="item.andamento == 1 && usuarioAutenticado.role == 'Administrador'"
+                                (click)="impressoes(item)" data-toggle="tooltip" data-placement="top"
+                                title="Impressões e rescisões">
+                                <i class="fa fa-print"></i>
+                            </a>
+                            <a *ngIf="item.andamento == 2 && usuarioAutenticado.role != 'Assistente'" class="link disabled">
+                                <i class="fa fa-print"></i>
+                            </a>
+                            <a routerLink="/contrato" class="link link-green" *ngIf="item.aprovacao === 0 && usuarioAutenticado.role == 'Administrador'"
+                                (click)="aprovacaoContrato(item)" data-toggle="tooltip" data-placement="top"
+                                title="gerir aprovação">
+                                <i class="fa fa-sliders"></i>
+                            </a>
+                            <a routerLink="/contrato" class="link link-verde" *ngIf="item.aprovacao === 1 && usuarioAutenticado.role == 'Administrador'"
+                                (click)="aprovacaoContrato(item)" data-toggle="tooltip" data-placement="top"
+                                title="aprovar">
+                                <i class="fa fa-circle-check"></i>
+                            </a>
+                            <a routerLink="/contrato" class="link link-roxo" *ngIf="item.aprovacao != 2 && item.statusContrato == 0 || usuarioAutenticado.role != 'Administrador' else aprovado" (click)="impressoes(item)" data-toggle="tooltip" data-placement="top" title="Contratos de clientes">
+                                <i class="fa fa-download"></i>
+                            </a>
+                            <ng-template #aprovado>
+                                <a class="link disabled" *ngIf="item.aprovacao == 2">
+                                    <i class="fa fa-download"></i>
+                                </a>
+                            </ng-template>
+                        </td>
+                        <ng-template #itemInativo>
+                            <td class="td-flex">
+                                <a routerLink="/contrato" class="link" (click)="gerirContrato(item)"
+                                    data-toggle="tooltip" data-placement="top" title="Visualizar">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </td>
+                        </ng-template>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination" *ngIf="!inativosSelect; else paginateInativos">
+                <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualContrato() == 1">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorAtivosPaginate()">
+                        <i class="fa fa-arrow-left"></i>
+                    </a>
+                </li>
+                <li class="page-item disabled">
+                    <p class="page-link shadow-sm">
+                        {{compartilhamento.getPaginaAtualContrato()}}/{{compartilhamento.getTotPaginaContrato()}}
+                    </p>
+                </li>
+                <li class="page-item proximo"
+                    [class.disabled]="compartilhamento.getPaginaAtualContrato() == compartilhamento.getTotPaginaContrato()">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="proximoAtivosPaginate()">
+                        <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+            </div>
+            <ng-template #paginateInativos>
+                <div class="pagination">
+                    <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualContrato() == 1">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorInativosPaginate()">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item disabled">
+                        <p class="page-link shadow-sm">
+                            {{compartilhamento.getPaginaAtualContrato()}}/{{compartilhamento.getTotPaginaContrato()}}
+                        </p>
+                    </li>
+                    <li class="page-item proximo"
+                        [class.disabled]="compartilhamento.getPaginaAtualContrato() == compartilhamento.getTotPaginaContrato()">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="proximoInativosPaginate()">
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                </div>
+            </ng-template>
+        </div>
+        <ng-template #listnull>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col" *ngIf="!larguraMinima">Clientes</th>
+                        <th scope="col" *ngIf="!larguraMinima">Qt. clien&shy;tes</th>
+                        <th scope="col" *ngIf="!larguraMinima">Vencimento</th>
+                        <th scope="col">Valor total</th>
+                        <th scope="col" *ngIf="!larguraMinima">Pagamento</th>
+                        <th scope="col">Aprovação</th>
+                        <th scope="col" *ngIf="!larguraMinima">Andamento</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tr class="row-hover">
+                    <td colspan="9">{{mensagem}}</td>
+                </tr>
+            </table>
+        </ng-template>
+    </div>
+    <div id="gerarRelatorio" class="modal fade">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-bus fa-bounce"></i> Gerar relatórios</h4>
+                    <button type="button" class="close-mod" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p style="font-size: 11pt !important; text-align: justify;">
+                        Baixe os dados em planilhas Excel ou emita relatórios em PDF para potencializar seu negócio.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn button blue" data-dismiss="modal" (click)="RelatorioPdf()">
+                        <i class="fa fa-file-export"></i> 
+                        Pdf
+                    </button>
+                    <button class="btn button grenn" data-dismiss="modal" (click)="RelatorioExcel()">
+                        <i class="fa fa-file-excel"></i> 
+                        Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

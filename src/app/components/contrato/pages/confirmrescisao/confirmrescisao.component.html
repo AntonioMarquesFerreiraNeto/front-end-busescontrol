@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-bus"></i> Confirmação de rescisão</h4>
+    <button type="button" class="close-mod" (click)="modal.dismiss()">
+        <i class="fa fa-close"></i>
+    </button>
+</div>
+<div class="modal-body body-modal-alt">
+    <p>
+        <strong>Deseja realmente rescendir este cliente do contrato?</strong>
+    </p>
+    <div class="position">
+        <div class="borda-body"></div>
+        <p>
+            <strong>Contrato ID: </strong> {{clientesContrato.contrato!.id}} <br>
+            <strong>Valor total do contrato: </strong> {{ReturnDinheiroFormat(clientesContrato.contrato!.valorMonetario)}}<br>
+            <strong>Valor total por cliente: </strong> R$ {{ReturnDinheiroFormat(clientesContrato.contrato!.valorParcelaContratoPorCliente! * clientesContrato.contrato!.qtParcelas)}} <br>
+            <strong>Valor da multa de rescisão: </strong> {{ReturnValorMulta(clientesContrato.contrato!.valorParcelaContratoPorCliente!)}} <br>
+        </p>
+    </div>
+    <div class="position">
+        <div class="borda-body"></div>
+        <p *ngIf="clientesContrato.pessoaFisica else isPessoaJuridica">
+            <strong>Nome do cliente: </strong> {{clientesContrato.pessoaFisica!.name}}<br>
+            <strong>CPF/CNPJ: </strong> {{ReturnCpfFormat(clientesContrato.pessoaFisica!.cpf)}}<br>
+        </p>
+        <ng-template #isPessoaJuridica>
+            <p>
+                <strong>Razão social: </strong>{{clientesContrato.pessoaJuridica!.razaoSocial}}<br>
+                <strong>Nome fantasia: </strong>{{clientesContrato.pessoaJuridica!.nomeFantasia}}<br>
+                <strong>CNPJ: </strong> {{ReturnCnpjFormat(clientesContrato.pessoaJuridica!.cnpj)}}
+            </p>
+        </ng-template>
+    </div>
+</div>
+<div class="modal-footer">
+    <button id="enviar" type="button" class="btn button grenn" (click)="ActionConfirm()">Confirmar</button>
+    <button type="button" class="btn button red" (click)="modal.dismiss()">Fechar</button>
+</div>

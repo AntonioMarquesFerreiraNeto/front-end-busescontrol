@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h4 class="modal-title">Confirmação</h4>
+    <button type="button" class="close-mod" (click)="ReturnEnviadas()">
+        <i class="fa fa-close"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <p>
+        Deseja realmente excluir esta mensagem publicada {{ReturnHoursOrDate(lembrete.data!)}} por você?
+    </p>
+    <div class="position">
+        <p>
+            <strong>Remetente: </strong> {{lembrete.remetente?.name}} <br>
+            <strong>Destinatário: </strong> {{ReturnNameDestinatario()}} <br>
+            <strong>Nivel de acesso: </strong> {{ReturnNivelAcesso()}} <br>
+            <strong>Data de publicação: </strong> {{ReturnDateFormatada()}}
+        </p>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" (click)="ExcluirMensagem()" class="btn button blue" data-dismiss="modal">Sim</button>
+    <button type="button" class="btn button red" (click)="ReturnEnviadas()">Não</button>
+</div>

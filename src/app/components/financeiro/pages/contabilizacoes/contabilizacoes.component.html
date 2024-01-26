@@ -1,0 +1,165 @@
+<div class="container-components" *ngIf="financeiro else louding">
+    <app-mensagens></app-mensagens>
+    <div class="header">
+        <h3>
+            <i class="bi bi-coin"></i>
+            {{tituloPag}} - {{ ReturnNamePessoa() }}
+        </h3>
+        <hr class="hr">
+        <div class="container-buttons">
+            <div>
+                <button class="btn button blue" routerLink="/financeiro/{{refPageNumber}}/{{refFiltro}}/{{refPageSize}}/{{refPesquisa}}" title="Voltar">
+                    <i class="fa fa-circle-left"></i>
+                    <span *ngIf="!larguraMinima"> Voltar</span>
+                </button>
+            </div>
+            <div>
+                <button class="btn button grenn" data-target="#gerarRelatorio" data-toggle="modal" title="Gerar docs">
+                    <i class="fa fa-print"></i> <span *ngIf="!larguraMinima"> Gerar docs</span>
+                </button>
+                <button *ngIf="clienteResponsavel" class="btn button blue" data-toggle="toltip" data-placement="top" title="Cliente responsável" (click)="ConsultarClienteResponsavel()">
+                    <i class="fa fa-user"></i> <span *ngIf="!larguraMinima"> Responsável</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <div>
+            <div class="pesquisa-container">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+                <input (input)="filtrar($event)" type="text" class="form-control select-pesquisa" placeholder="Pesquisar por parcela." required>
+                <select class="form-control filt2" title="Quantidade de registros por página" (input)="TabelaSize($event)">
+                    <optgroup>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                    </optgroup>
+                </select>
+            </div>
+            <table class="table" #tabela>
+                <thead>
+                    <tr>
+                        <th scope="col" *ngIf="!larguraMinima">Id</th>
+                        <th scope="col">Par&shy;cela</th>
+                        <th scope="col" *ngIf="!larguraMinima">Situação</th>
+                        <th scope="col">Valor da parcela</th>
+                        <th scope="col" *ngIf="!larguraMinima">Taxa de juros</th>
+                        <th scope="col">Data de vencimento</th>
+                        <th scope="col" *ngIf="!larguraMinima">Data de efetuação</th>
+                        <th scope="col">Contabi&shy;lizar</th>
+                    </tr>
+                </thead>
+                <tr *ngIf="!larguraMinima else minidashtemp" class="tr-color">
+                    <td colspan="3">
+                        <div class="borda-table verde-borda largura-borda">Valor total:
+                            {{returnDinheiroFormat(financeiro.valorTotDR)}}</div>
+                    </td>
+                    <td colspan="3">
+                        <div class="borda-table azul-borda largura-borda">Valor efetuado:
+                            {{returnDinheiroFormat(financeiro.valorTotalPago!)}}</div>
+                    </td>
+                    <td colspan="2">
+                        <div class="borda-table roxo-borda largura-borda">Taxa de juros:
+                            {{returnDinheiroFormat(financeiro.valorTotTaxaJurosPaga!)}}</div>
+                    </td>
+                </tr>
+                <ng-template #minidashtemp>
+                    <tr class="tr-color">
+                        <td colspan="1">
+                            <div class="borda-table verde-borda largura-borda">Valor total:
+                                {{returnDinheiroFormat(financeiro.valorTotDR)}}</div>
+                        </td>
+                        <td colspan="2">
+                            <div class="borda-table azul-borda largura-borda">Valor efetuado:
+                                {{returnDinheiroFormat(financeiro.valorTotalPago!)}}</div>
+                        </td>
+                        <td colspan="1">
+                            <div class="borda-table roxo-borda largura-borda">Taxa de juros:
+                                {{returnDinheiroFormat(financeiro.valorTotTaxaJurosPaga!)}}</div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <tbody *ngIf="financeiro.parcelas  && financeiro.parcelas.length else nullList">
+                    <tr *ngFor="let item of financeiro.parcelas" class="row-hover">
+                        <td *ngIf="!larguraMinima">{{item.id}}</td>
+                        <td>{{item.nomeParcela}}º Parcela</td>
+                        <td *ngIf="!larguraMinima">
+                            <div class="borda-table {{returnCorSituacao(item.statusPagamento!)}}">
+                                {{returnSituacao(item.statusPagamento!)}}</div>
+                        </td>
+                        <td>{{returnDinheiroFormat(financeiro.valorParcelaDR!)}}</td>
+                        <td *ngIf="!larguraMinima">{{returnDinheiroFormat(item.valorJuros!)}}</td>
+                        <td>{{returnDateFormat(item.dataVencimentoParcela)}}</td>
+                        <td *ngIf="!larguraMinima">{{(item.dataEfetuacao)? returnDateFormat(item.dataEfetuacao!) : "Não possui"}}</td>
+                        <td class="td-efetuar">
+                            <a routerLink="financeiro/parcela/" *ngIf="item.statusPagamento != 1 else pagamentoEfetuado"
+                                (click)="Contabilizar(item.id!)" class="efetuar">
+                                <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                            </a>
+                            <ng-template #pagamentoEfetuado>
+                                <a class="efetuado" href="#"><i class="fa fa-circle-check"></i></a>
+                            </ng-template>
+                        </td>
+                    </tr>
+                </tbody>
+                <ng-template #nullList>
+                    <tbody>
+                        <tr class="row-hover">
+                            <td colspan="8">{{mensagem}}</td>
+                        </tr>
+                    </tbody>
+                </ng-template>
+            </table>
+            <div class="pagination" *ngIf="financeiro.parcelas">
+                <li class="page-item anterior" [class.disabled]="pageNumber == 1">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="paginaAnterior()"><i
+                            class="fa fa-arrow-left"></i></a>
+                </li>
+                <li class="page-item disabled">
+                    <p class="page-link shadow-sm"> {{pageNumber}}/{{qtPaginas}} </p>
+                </li>
+                <li class="page-item proximo" [class.disabled]="qtPaginas <= pageNumber">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="proximaPagina()"><i
+                            class="fa fa-arrow-right"></i></a>
+                </li>
+            </div>
+        </div>
+    </div>
+    <div id="gerarRelatorio" class="modal fade">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-bus fa-bounce"></i> Gerar relatórios</h4>
+                    <button type="button" class="close-mod" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Baixe os dados em planilhas Excel ou emita relatórios em PDF para potencializar seu negócio.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn button blue" (click)="baixarPdf()" data-dismiss="modal"><i
+                            class="fa fa-file-export"></i> PDF</button>
+                    <button class="btn button grenn" (click)="baixarExcel()" data-dismiss="modal"><i
+                            class="fa fa-file-excel"></i> Excel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #louding>
+    <div class="container-components">
+        <div class="main-louding">
+            <div class="louding">
+                <img src="assets/Imagens/logobus.png" alt="espere..." class="logoLouding">
+                <div class="animation-bar"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>

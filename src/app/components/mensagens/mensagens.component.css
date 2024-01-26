@@ -1,0 +1,215 @@
+.position-relative {
+    position: relative;
+}
+
+.alert {
+    position: absolute;
+    z-index: 1;
+    min-width: 360px;
+    max-width: 520px;
+    min-height: 56px;
+    top: -1.9em;
+    border-radius: 7px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+}
+
+@media(max-width: 499px) {
+    .alert {
+        min-width: 80%;
+    }
+
+    .alert p {
+        font-size: 10pt !important;
+    }
+}
+
+.alert-danger {
+    background-color: #fe5757;
+}
+
+.alert-success {
+    background-color: rgb(0, 151, 0);
+}
+
+.alert-info {
+    background-color: rgb(170, 202, 249);
+}
+
+.alert-info p {
+    color: rgb(255, 255, 255) !important;
+}
+
+.alert p {
+    display: flex;
+    align-items: center;
+    text-align: justify;
+    margin: 0px;
+    font-size: 11pt;
+    padding: 0px;
+    color: #ffff;
+    font-weight: normal;
+}
+
+.fa-triangle-exclamation {
+    align-self: flex-start;
+    margin-right: 6px;
+}
+
+.fa-square-check {
+    font-size: 17pt;
+    align-self: center;
+    margin-right: 6px;
+}
+
+.fa-clipboard-question {
+    font-size: 17pt;
+    align-self: center;
+    margin-right: 6px;
+}
+
+.fa-close {
+    font-size: 12pt !important;
+}
+
+i {
+    align-items: center;
+    font-weight: bold;
+    font-size: 16pt;
+}
+
+.close-error {
+    position: absolute;
+    top: -13px;
+    right: -11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(249, 69, 69);
+    border: none;
+    z-index: 0;
+    border-radius: 10px;
+    width: 33px;
+    height: 34px;
+    color: rgb(255, 255, 255);
+    transition: 0.5s;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.5);
+}
+
+.close-error:hover {
+    transform: translateY(-2px);
+    color: white;
+    background-color: darkred;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.7);
+}
+
+.close-sucess {
+    position: absolute;
+    top: -13px;
+    right: -11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(20, 171, 0);
+    z-index: 0;
+    border: none;
+    border-radius: 10px;
+    width: 33px;
+    height: 34px;
+    color: rgb(255, 255, 255);
+    transition: 0.5s;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.5);
+}
+
+.close-sucess:hover {
+    transform: translateY(-2px);
+    color: white;
+    background-color: rgb(1, 148, 79);
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.7);
+}
+
+.close-info {
+    position: absolute;
+    top: -13px;
+    right: -11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(110, 168, 255);
+    z-index: 0;
+    border: none;
+    border-radius: 10px;
+    width: 33px;
+    height: 34px;
+    color: rgb(255, 255, 255);
+    transition: 0.5s;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.5);
+}
+
+.close-info:hover {
+    transform: translateY(-2px);
+    color: white;
+    background-color: rgb(66, 142, 255);
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.7);
+}
+
+
+.error-bar {
+    position: absolute;
+    bottom: 1px;
+    left: 3px;
+    height: 3px;
+    /* altura desejada da barra de erro */
+    border-radius: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+    background-color: red;
+    /* cor da barra de erro */
+    animation: shrink 9.400s forwards;
+    /* tempo de duração da animação */
+}
+
+.sucess-bar {
+    position: absolute;
+    bottom: 1px;
+    left: 3px;
+    height: 3px;
+    /* altura desejada da barra de sucesso */
+    margin: auto;
+    border-radius: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+    background-color: rgb(24, 205, 0);
+    /* cor da barra de sucesso */
+    animation: shrink 9.400s forwards;
+    /* tempo de duração da animação */
+}
+
+.info-bar {
+    position: absolute;
+    bottom: 1px;
+    left: 3px;
+    height: 3px;
+    /* altura desejada da barra de sucesso */
+    margin: auto;
+    border-radius: 10px;
+    margin-left: 1px;
+    margin-right: 2px;
+    background-color: rgb(110, 168, 255);
+    /* cor da barra de sucesso */
+    animation: shrink 9.400s forwards;
+    /* tempo de duração da animação */
+}
+
+@keyframes shrink {
+    from {
+        width: 98%;
+    }
+
+    to {
+        width: 0%;
+    }
+}

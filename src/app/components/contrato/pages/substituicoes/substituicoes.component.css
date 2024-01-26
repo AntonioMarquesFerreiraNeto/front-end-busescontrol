@@ -1,0 +1,340 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
+
+.bi {
+    font-size: 1.07em;
+}
+
+.modal-header {
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+    justify-content: flex-start;
+    align-content: flex-end;
+    display: flex;
+}
+
+.borda-table {
+    margin: auto;
+    padding: 2px !important;
+    width: 115px;
+}
+
+.modal-title {
+    margin-left: 16px;
+    margin-top: 10px;
+    font-size: 12pt;
+    font-weight: bold;
+    color: #4e4f6a;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.modal-body p {
+    color: #4e4f6a;
+    font-size: 11pt;
+    text-align: justify;
+}
+
+/* Botão de fechar */
+.close-mod {
+    position: absolute;
+    right: 16px;
+    top: 20px;
+    background-color: #e24343;
+    border: none;
+    border-radius: 10px;
+    width: 39px;
+    height: 36px;
+    color: white;
+    transition: 0.5s;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.3) !important;
+}
+
+.close-mod:hover {
+    color: white;
+    background-color: darkred;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.7);
+}
+
+/* Efeito de transição do modal */
+.modal {
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
+}
+
+.modal-footer {
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0px;
+    padding: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.button {
+    margin-top: 10px;
+    margin: 1px;
+    padding: 9px 7px;
+    min-width: 170px;
+    background-color: #1f1f33;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+    background-color: rgb(40, 40, 40);
+    text-decoration: none;
+    color: white;
+}
+
+.table-container {
+    margin: 0;
+    margin-top: 20px;
+    padding: 0;
+}
+
+.table {
+    margin: 0;
+    width: 100%;
+    border-radius: 0px !important;
+}
+
+tbody {
+    border-radius: 0px !important;
+}
+
+.body-modal-alt {
+    margin-top: 1px;
+    margin-bottom: 10px;
+    max-height: 278.3px;
+    overflow-y: auto;
+    box-shadow: 0 0 3px rgba(177, 176, 176, 0.5) !important;
+}
+
+/* Barra de rolagem */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+ng-select {
+    margin-top: 0px;
+    margin-left: 0px;
+    border-radius: 0 !important;
+}
+
+.col-md-6 {
+    margin-top: 2px !important;
+    margin-bottom: 1px !important;
+}
+
+.col-md-12 {
+    margin-bottom: 3px !important;
+}
+
+.form-control {
+    height: 36px !important;
+    border-color: rgb(232, 230, 230) !important;
+    color: gainsboro;
+    margin-top: 0px !important;
+    margin-bottom: 4px !important;
+}
+
+.input-group-prepend span {
+    background-color: #4da350 !important;
+    margin-top: 0px !important;
+    height: 36px !important;
+}
+
+.filt {
+    height: 36px !important;
+}
+
+thead {
+    color: white;
+    height: 40px;
+}
+
+.table th {
+    font-size: 9pt;
+    text-align: center;
+}
+
+.table tr {
+    padding: 10px;
+    text-align: center;
+}
+
+.table .row-hover:hover {
+    background-color: #f7f7f7f7;
+}
+
+.table td {
+    margin: 0;
+    padding: 12px 3px;
+    font-size: 10pt;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.684);
+    background-color: white !important;
+}
+
+
+.link {
+    font-size: 11pt;
+    margin: 0 13px;
+}
+
+.link-trash {
+    font-size: 10pt;
+    color: rgb(254, 68, 68);
+    transition: .4s;
+}
+
+.link-trash:hover {
+    color: darkred;
+}
+
+
+@media(max-width: 700px) {
+    .button {
+        min-width: 110px;
+    }
+}
+
+.position-flex {
+    display: flex;
+    gap: 2px;
+    justify-content: space-between;
+    margin-top: 1px;
+    margin-bottom: 2px;
+}
+
+.btn-modal {
+    display: flex;
+    font-weight: normal;
+    justify-content: center;
+    align-self: center;
+    width: 70px;
+    align-content: center;
+    align-items: center;
+    height: 32px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.326);
+    color: white;
+    gap: 3px;
+    border: none;
+    border-radius: 5px;
+    font-size: 9pt;
+}
+
+.btn-blue {
+    background: #73b4ff;
+}
+
+.btn-blue:hover {
+    background: #69a5ea;
+}
+
+.col-md-6 {
+    margin: 0;
+    display: flex;
+    gap: 0px;
+}
+
+.font-edit {
+    font-size: 10pt !important;
+}
+
+.i {
+    position: relative;
+}
+
+.descinput {
+    min-width: 75px;
+    font-style: normal;
+    font-size: 10pt;
+    position: absolute !important;
+    top: 6px;
+    right: 35px;
+    color: rgb(53, 53, 53);
+}
+
+.container-alert {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.alert {
+    right: 15px;
+    gap: 2px;
+    bottom: -9px;
+    position: absolute !important;
+    padding: 10px 10px;
+    z-index: 1;
+    width: 320px;
+    background-color: #ffffff;
+    color: #fe5757;
+    font-size: 10pt;
+    border-color: #fe5757;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+@media(max-width: 700px) {
+    .alert {
+        width: 330px !important;
+    }
+}
+
+.error-bar {
+    position: absolute;
+    bottom: 3px;
+    left: 3px;
+    height: 0.134em;
+    /* altura desejada da barra de erro */
+    border-radius: 10px;
+    margin-left: 7px;
+    margin-right: 2px;
+    background-color: #fe5757;
+    /* cor da barra de erro */
+    animation: shrink 6.400s forwards;
+    /* tempo de duração da animação */
+}
+
+.verde-bar {
+    background-color: #4da350 !important;
+}
+
+.color-verde {
+    color: #4da350 !important;
+    border-color: #4da350 !important;
+}
+
+@keyframes shrink {
+    from {
+        width: 98%;
+    }
+
+    to {
+        width: 0%;
+    }
+}

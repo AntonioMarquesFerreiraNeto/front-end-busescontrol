@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title"><i class="fa fa-bus"></i> Confirmação - {{usuario.name.split(' ').slice(0, 2).join(' ')}}</h4>
+  <button type="button" class="close-mod" (click)="activeModal.dismiss()">
+    <i class="fa fa-close"></i>
+  </button>
+</div>
+<div class="modal-body with-shadow">
+  <p>
+    <strong>Deseja realmente {{textStatus}} este usuário?</strong>
+  </p>
+  <div class="position">
+    <p>
+      <strong>Nome: </strong> {{usuario.name}}<br>
+      <strong>Cargo: </strong> {{ReturnCargoFuncionario(usuario.cargo)}} <br>
+      <strong>CPF: </strong> {{ReturnCpfFormatado(usuario.cpf)}} <br>
+      <strong>Data de nascimento: </strong> {{ReturnDateFuncionario(usuario.dataNascimento)}}<br>
+      <strong>Telefone: </strong> ({{usuario.ddd}}) {{usuario.telefone}}<br>
+      <strong>E-mail: </strong> {{usuario.email}}<br>
+    </p>
+  </div>
+</div>
+<div class="modal-footer">
+  <button id="enviar" type="submit" class="btn button blue" (click)="ActionHandler()">Confirmar</button>
+  <button type="button" class="btn button red" (click)="activeModal.dismiss()">Fechar</button>
+</div>

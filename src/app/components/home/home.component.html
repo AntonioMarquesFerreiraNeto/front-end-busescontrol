@@ -1,0 +1,91 @@
+<div class="container-components">
+    <app-mensagens></app-mensagens>
+    <div class="header">
+        <h3>
+            <i class="fa-solid fa-solid fa-house-chimney-window"></i>
+            Página principal
+        </h3>
+        <hr class="hr">
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="assets/Imagens/financeiro.PNG" alt="espere..." class="imagem-card">
+                <div class="card-body altura-minima-container">
+                    <h3 class="card-title">
+                        Financeiro
+                    </h3>
+                    <p class="card-text">
+                        Este módulo abrange a gestão financeira completa da empresa, incluindo receitas de contratos de
+                        clientes e despesas com fornecedores. Oferece um controle abrangente para que todas as
+                        ações de crédito e débito sejam registradas adequadamente, evitando esquecimentos.
+                    </p>
+                    <div class="card-flex">
+                        <a *ngIf="usuarioAutenticado.role == 'Administrador'" routerLink="/financeiro"
+                            class="btn button">
+                            Consultar</a>
+                    </div>
+                    <br *ngIf="usuarioAutenticado.role == 'Assistente'">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="assets/Imagens/contrato.png" alt="espere..." class="imagem-card">
+                <div class="card-body altura-minima-container">
+                    <h3 class="card-title">
+                        Contratos
+                    </h3>
+                    <p class="card-text">
+                        Este módulo do sistema abrange todo o processo do contrato de alocação de frota, desde o
+                        preenchimento de informações e descrição da rota até a impressão do contrato para obtenção de
+                        assinaturas. Ele também inclui a aprovação do contrato, processos de rescisão e muito mais.
+                    </p>
+                    <div class="card-flex">
+                        <a routerLink="/contrato" class="btn button">Consultar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="assets/Imagens/financeiro.PNG" alt="espere..." class="imagem-card">
+                <div class="card-body altura-minima-container">
+                    <h3 class="card-title">
+                        Dashboard
+                    </h3>
+                    <p class="card-text">
+                        Neste módulo, você terá acesso a recursos de geração de relatórios em PDF e muito mais,
+                        incluindo dashboards de clientes, fornecedores, contratos, financeiro e assim por diante.
+                        Personalize seus relatórios usando filtros das tabelas de contratos, financeiro e frota em cada
+                        módulo e central.
+                    </p>
+                    <div class="card-flex">
+                        <a *ngIf="usuarioAutenticado.role == 'Administrador'" routerLink="/dashboard"
+                            class="btn button">
+                            Consultar</a>
+                        <br *ngIf="usuarioAutenticado.role == 'Assistente'">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Descrição sobre o suporte ao sistema &copy; Buses Control
+                    </h3>
+                    <p class="card-text">
+                        Qualquer problema encontrado no sistema ou sugestão de melhorias, entre em contato com a equipe
+                        de suporte do sistema. Nos quais, os canais de comunicação serão informados logo abaixo. Mas não
+                        esqueça de comunicar seu superior sobre o conflito ou problema.
+                        <br>
+                        E-mail: busescontrolmensagem@outlook.com,
+                        <br>
+                        Celular: +55 (62)98573-0236.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

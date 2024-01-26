@@ -1,0 +1,126 @@
+<div class="container-components">
+    <app-mensagens></app-mensagens>
+    <div class="header">
+        <h3 [class.red-color]="inativosSelect">
+            <i class="fa fa-users-gear"></i>
+            {{tituloPag}}
+        </h3>
+        <hr class="hr">
+        <div class="container-buttons">
+            <div>
+                <button class="btn button grenn" (click)="listAtivos()"><i class="fa fa-users-gear"></i> <span *ngIf="!larguraMinima"> Ativos</span></button>
+                <button class="btn button red" (click)="listInativos()"><i class="fa fa-users-gear"></i> <span *ngIf="!larguraMinima"> Inativos</span></button>
+            </div>
+            <div>
+                <a class="btn button blue" routerLink="/funcionario/newfuncionario"><i class="fa fa-plus"></i>
+                    <span *ngIf="!larguraMinima"> Funcionário</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <div class="pesquisa-container">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fa fa-search"></i>
+                </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Pesquisar funcionário."
+                required (input)="Pesquisa($event)">
+        </div>
+        <div *ngIf="funcionarioList.length else listnull">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" *ngIf="!larguraMinima">Id</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col" *ngIf="!larguraMinima">Telefone</th>
+                        <th scope="col" *ngIf="!larguraMinima">E-mail</th>
+                        <th scope="col">Cargo</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of funcionarioList">
+                    <tr class="row-hover">
+                        <td *ngIf="!larguraMinima">{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td *ngIf="!larguraMinima">{{item.telefone}}</td>
+                        <td *ngIf="!larguraMinima">{{item.email}}</td>
+                        <td><div class="borda-table"
+                                ngClass="{{ReturnCorCargo(item.cargo)}}">{{ReturnCargoFuncionario(item.cargo)}}</div>
+                        </td>
+                        <td *ngIf="item.status == 0 else funcionarioInativo" class="td-flex">
+                            <a class="link" routerLink="/funcionario/editfuncionario/{{item.id}}"><i
+                                    class="fa fa-edit"></i></a>
+                            <a routerLink="/funcionario" class="link link-trash"><i class="fa fa-trash-alt"
+                                    (click)="ModalGerirFuncionario(item)"></i></a>
+                            <a class="link disabled" *ngIf="item.cargo == 0" style="color: gray;"><i
+                                    class="fa fa-user-times"></i></a>
+                            <a routerLink="/funcionario" (click)="ModalGerirUsuario(item)" class="link link-orange"
+                                *ngIf="item.statusUsuario == 1 && item.cargo != 0" data-toggle="tooltip" data-placement="top" title="Inativar usuário"><i class="fa fa-user-times"></i></a>
+                            <a routerLink="/funcionario" (click)="ModalGerirUsuario(item)" class="link link-green"
+                                *ngIf="item.statusUsuario == 0 && item.cargo != 0" data-toggle="tooltip" data-placement="top" title="Ativar usuário"><i class="fa fa-user-check"></i></a>
+                        </td>
+                        <ng-template #funcionarioInativo>
+                            <td>
+                                <a routerLink="/funcionario" (click)="ModalGerirFuncionario(item)" class="link"><i
+                                        class="fa fa-user-gear"></i></a>
+                            </td>
+                        </ng-template>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination" *ngIf="!inativosSelect; else paginateInativos">
+                <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualFuncionario() == 1">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorAtivosPaginate()"><i
+                            class="fa fa-arrow-left"></i></a>
+                </li>
+                <li class="page-item disabled">
+                    <p class="page-link shadow-sm">
+                        {{compartilhamento.getPaginaAtualFuncionario()}}/{{compartilhamento.getTotPaginaFuncionario()}}
+                    </p>
+                </li>
+                <li class="page-item proximo"
+                    [class.disabled]="compartilhamento.getPaginaAtualFuncionario() == compartilhamento.getTotPaginaFuncionario()">
+                    <a class="page-link shadow-sm" tabindex="-1" (click)="proximoAtivosPaginate()"><i
+                            class="fa fa-arrow-right"></i></a>
+                </li>
+            </div>
+            <ng-template #paginateInativos>
+                <div class="pagination">
+                    <li class="page-item anterior" [class.disabled]="compartilhamento.getPaginaAtualFuncionario() == 1">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="anteriorInativosPaginate()"><i
+                                class="fa fa-arrow-left"></i></a>
+                    </li>
+                    <li class="page-item disabled">
+                        <p class="page-link shadow-sm">
+                            {{compartilhamento.getPaginaAtualFuncionario()}}/{{compartilhamento.getTotPaginaFuncionario()}}
+                        </p>
+                    </li>
+                    <li class="page-item proximo"
+                        [class.disabled]="compartilhamento.getPaginaAtualFuncionario() == compartilhamento.getTotPaginaFuncionario()">
+                        <a class="page-link shadow-sm" tabindex="-1" (click)="proximoInativosPaginate()"><i
+                                class="fa fa-arrow-right"></i></a>
+                    </li>
+                </div>
+            </ng-template>
+        </div>
+        <ng-template #listnull>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" *ngIf="!larguraMinima">Id</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col" *ngIf="!larguraMinima">Telefone</th>
+                        <th scope="col" *ngIf="!larguraMinima">E-mail</th>
+                        <th scope="col">Cargo</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tr class="row-hover">
+                    <td colspan="7">{{mensagem}}</td>
+                </tr>
+            </table>
+        </ng-template>
+    </div>
+</div>

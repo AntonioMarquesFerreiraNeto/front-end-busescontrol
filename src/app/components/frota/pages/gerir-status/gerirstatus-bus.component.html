@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h4 class="modal-title"><i class="fa fa-bus"></i> Confirmação</h4>
+  <button type="button" class="close-mod" (click)="activeModal.dismiss()">
+    <i class="fa fa-close"></i>
+  </button>
+</div>
+<div class="modal-body with-shadow">
+  <p>
+    <strong>Deseja realmente {{textStatus}} este veículo?</strong>
+  </p>
+  <div class="position">
+    <p>
+      <strong>Status: </strong> {{ReturnStatusBus(bus.statusOnibus!)}} <br>
+      <strong>Marca: </strong> {{bus.marca}} <br>
+      <strong>Modelo: </strong> {{bus.nameBus}} <br>
+      <strong>Cor: </strong> {{bus.corBus}} <br>
+    </p>
+    <p>
+      <strong>Placa: </strong> {{ReturnPlacaFormatada(bus.placa)}} <br>
+      <strong>Cod. Renavam: </strong> {{bus.renavam}} <br>
+      <strong>Nº de Chassi: </strong> {{bus.chassi}} <br>
+      <strong>Nº de assentos: </strong> {{bus.assentos}}
+    </p>
+  </div>
+</div>
+<div class="modal-footer">
+  <button id="enviar" type="submit" class="btn button blue" (click)="ActionHandler(bus)">Confirmar</button>
+  <button type="button" class="btn button red" (click)="activeModal.dismiss()">Fechar</button>
+</div>

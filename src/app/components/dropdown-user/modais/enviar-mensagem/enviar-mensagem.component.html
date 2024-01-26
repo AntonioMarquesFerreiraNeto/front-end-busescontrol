@@ -1,0 +1,50 @@
+<form (ngSubmit)="submit()" [formGroup]="mensagemForm" #formDir="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title">Enviar mensagem</h4>
+        <button type="button" class="close-mod" (click)="modalService.dismiss()">
+            <i class="fa fa-close"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12 input-group form-group form-it">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa-regular fa-rectangle-list"></i>
+                    </span>
+                </div>
+                <ng-select formControlName="nivelAcesso" class="d-flex flex-grow-1" [placeholder]="'Alvo da mensagem'" [notFoundText]="'Nenhum registro encontrado'" title="Alvo da mensagem">
+                    <ng-option *ngFor="let item of nivelAcessoList" [value]="item.enum">{{item.acess}}</ng-option>
+                </ng-select>
+                <div class="i" *ngIf="formDir.submitted && mensagemForm.invalid">
+                    <span class="errorMsg" *ngIf="nivelAcesso.errors?.['required']">Obrigatório!</span>
+                </div>
+            </div>
+            <div class="col-md-12 input input-group form-group form-it">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-user"></i>
+                    </span>
+                </div>
+                <ng-select [readonly]="nivelAcesso.value != 0" formControlName="funcionarioId" class="d-flex flex-grow-1" [placeholder]="'Usuário destinatário'" [notFoundText]="'Nenhum registro encontrado'" title="Usuário destinatário">
+                    <ng-option *ngFor="let item of listUsuarios" [value]="item.id">{{item.name}}</ng-option>
+                </ng-select>
+                <div class="i" *ngIf="formDir.submitted && funcionarioId.invalid">
+                    <span class="errorMsg" *ngIf="funcionarioId.errors?.['required']">Obrigatório!</span>
+                </div>
+            </div>
+            <div class="col-md-12 input-group form-group form-it">
+                <textarea formControlName="conteudo" class="form-control control2" placeholder="Informe sua mensagem." maxlength="1000" title="Mensagem"></textarea>
+                <div class="i" *ngIf="formDir.submitted && conteudo.invalid">
+                    <span class="errorMsg textareaerror" *ngIf="conteudo.errors?.['required']">Obrigatório!</span>
+                    <span class="errorMsg textareaerror" *ngIf="conteudo.errors?.['minlength']">Inválido!</span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn button blue">Enviar</button>
+        <button type="button" class="btn button red" (click)="modalService.dismiss()">Fechar</button>
+    </div>
+</form>

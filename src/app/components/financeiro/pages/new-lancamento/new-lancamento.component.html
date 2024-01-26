@@ -1,0 +1,166 @@
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa-regular fa-square-plus"></i> Lançamento</h4>
+    <button type="button" class="close-mod" (click)="modal.close()">
+        <i class="fa fa-close"></i>
+    </button>
+</div>
+<form (ngSubmit)="submit()" [formGroup]="lancamentoForm" #formDir="ngForm" *ngIf="lancamentoForm">
+    <div class="modal-body body-modal-alt">
+        <div class="container-form">
+            <div class="row">
+                <div class="col-md-12 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa-regular fa-rectangle-list"></i>
+                        </span>
+                    </div>
+                    <ng-select class="d-flex flex-grow-1" formControlName="despesaReceita" [placeholder]="'Informe o tipo do lançamento.'" [notFoundText]="'Nenhum tipo encontrado.'">
+                        <ng-option *ngFor="let item of listTypeLancamento" [value]="item.enum">{{item.texto}}</ng-option>
+                    </ng-select>
+                    <div class="i" *ngIf="formDir.submitted && despesaReceita.invalid">
+                        <small class="errorMsg" *ngIf="despesaReceita.errors?.['required']">Obrigatório!</small>
+                    </div>
+                </div>
+                <span class="alert alert-danger" *ngIf="mensagemError">
+                    <i class="fa fa-triangle-exclamation"></i> 
+                    {{mensagemError}}
+                </span>
+                <div class="col-md-12 input-group form-group form-it" *ngIf="despesaReceita.value == 1 else listFornecedores">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa-regular fa-circle-check"></i>
+                        </span>
+                    </div>
+                    <ng-select class="d-flex flex-grow-1"  formControlName="clienteId" [placeholder]="'Informe o cliente'" [notFoundText]="'Nenhum registro encontrado.'">
+                        <ng-option *ngFor="let item of listClientesPF" [value]="item.id">{{item.name}}</ng-option>
+                        <ng-option *ngFor="let item of listClientesPJ" [value]="item.id">{{item.razaoSocial}}</ng-option>
+                    </ng-select>
+                    <div *ngIf="clienteId.invalid && formDir.submitted" class="i">
+                        <small class="errorMsg" *ngIf="clienteId.errors?.['required']">Obrigatório!</small>
+                        <small class="errorMsg" *ngIf="clienteId.errors?.['serverError']">
+                            {{clienteId.errors?.['serverError'][0]}}
+                        </small>
+                    </div>
+                </div>
+                <ng-template #listFornecedores>
+                    <div class="col-md-12 input-group form-group form-it">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa-regular fa-circle-check"></i>
+                            </span>
+                        </div>
+                        <ng-select class="d-flex flex-grow-1"  formControlName="fornecedorId" [placeholder]="'Informe o fornecedor'" [notFoundText]="'Nenhum registro encontrado.'">
+                            <ng-option *ngFor="let item of listFornecedoresAll" [value]="item.id">{{item.nameOrRazaoSocial}}</ng-option>
+                        </ng-select>
+                        <div *ngIf="fornecedorId.invalid && formDir.submitted" class="i">
+                            <small class="errorMsg" *ngIf="fornecedorId.errors?.['required']">Obrigatório!</small>
+                            <small class="errorMsg" *ngIf="fornecedorId.errors?.['serverError']">
+                                {{fornecedorId.errors?.['serverError'][0]}}
+                            </small>
+                        </div>
+                    </div>
+                </ng-template>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-handshake"></i>
+                        </span>
+                    </div>
+                    <ng-select class="d-flex flex-grow-1" formControlName="pagament" [placeholder]="'Informe o modelo de pagamento'" [notFoundText]="'Nenhum registro encontrado.'">
+                        <ng-option *ngFor="let item of listModelsPagament" [value]="item.enum">{{item.texto}}</ng-option>
+                    </ng-select>
+                    <div class="i" *ngIf="formDir.submitted && pagament.invalid">
+                        <small class="errorMsg" *ngIf="pagament.errors?.['required']">Obrigatório!</small>
+                    </div>
+                </div>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-credit-card"></i>
+                        </span>
+                    </div>
+                    <ng-select class="d-flex flex-grow-1" formControlName="typeEfetuacao" [placeholder]="'Informe o tipo de pagamento'" [notFoundText]="'Nenhum registro encontrado.'">
+                        <ng-option *ngFor="let item of listTypeEfetuacao" [value]="item.enum">{{item.texto}}</ng-option>
+                    </ng-select>
+                    <div class="i" *ngIf="formDir.submitted && typeEfetuacao.invalid">
+                        <small class="errorMsg" *ngIf="pagament.errors?.['required']">Obrigatório!</small>
+                    </div>
+                </div>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-brazilian-real-sign"></i>
+                        </span>
+                    </div>
+                    <input class="form-control" type="text" placeholder="Informe o valor monetário do lançamento."
+                        mask="separator.2" thousandSeparator="." decimalMarker="," formControlName="valorTotDR">
+                    <div class="i" *ngIf="valorTotDR.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="valorTotDR.errors?.['required']">Obrigatório!</small>
+                        <small class="errorMsg" *ngIf="valorTotDR.errors?.['serverError']">
+                            {{valorTotDR.errors?.['serverError'][0]}}
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-file-signature" style="margin-left: 2px;"></i>
+                        </span>
+                    </div>
+                    <input formControlName="qtParcelas" [readonly]="pagament.value == 1" class="form-control"
+                        type="text" placeholder="Informe a quantidade de parcelas." maxlength="2"
+                        onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+                    <div class="i" *ngIf="qtParcelas.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="qtParcelas.errors?.['serverError']">
+                            {{qtParcelas.errors?.['serverError'][0]}}
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-calendar-days" style="margin-left: 2px;"></i>
+                        </span>
+                    </div>
+                    <input class="form-control" type="date" formControlName="dataEmissao" readonly>
+                </div>
+                <div class="col-md-6 input-group form-group form-it">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-calendar-days" style="margin-left: 2px;"></i>
+                        </span>
+                    </div>
+                    <input class="form-control" type="date" formControlName="dataVencimento">
+                    <div class="i" *ngIf="dataVencimento.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="dataVencimento.errors?.['required']">Obrigatório!</small>
+                        <small class="errorMsg" *ngIf="dataVencimento.errors?.['serverError']">
+                            {{dataVencimento.errors?.['serverError'][0]}}
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-12 input-group form-group form-it">
+                    <div class="input-group-prepend form-textarea">
+                        <span class="input-group-text">
+                            <i class="fa fa-road" style="margin-left: 2px;"></i>
+                        </span>
+                    </div>
+                    <textarea type="text" class="form-control form-textarea" rows="4" style="resize: none"
+                        placeholder="Informe a descrição do lançamento." maxlength="355"
+                        formControlName="detalhamento">
+                    </textarea>
+                    <div class="i" *ngIf="detalhamento.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="detalhamento.errors?.['required']">Obrigatório!</small>
+                        <small class="errorMsg" *ngIf="detalhamento.errors?.['minlength']">Campo inválido!</small>
+                        <small class="errorMsg" *ngIf="detalhamento.errors?.['serverError']">
+                            {{detalhamento.errors?.['serverError'][0]}}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button id="enviar" type="submit" class="btn button blue">Salvar</button>
+        <button type="button" class="btn button red" (click)="modal.dismiss()">Fechar</button>
+    </div>
+</form>

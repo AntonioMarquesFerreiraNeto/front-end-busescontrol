@@ -1,0 +1,81 @@
+<form style="margin: 0;" (ngSubmit)="submitUser()" [formGroup]="userAuthForm" #formDir="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title"><i class="fa fa-user-tie"></i> {{usuarioAutenticado.name}}</h4>
+        <button type="button" class="close-mod" (click)="modalConfig.dismiss()">
+            <i class="fa fa-close"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p *ngIf="!viewSessaoAlterar">
+            <strong>Perfil: </strong> <span class="borda-table {{ReturnCorRole(usuarioAutenticado.role)}}">{{usuarioAutenticado.role}}</span> <br>
+            <strong>Nome:</strong> {{usuarioAutenticado.name}} <br>
+            <strong>E-mail:</strong> {{usuarioAutenticado.email}}  <br>
+            <strong>Data de nascimento: </strong> {{usuarioAutenticado.birthdate}} <br>
+        </p>
+        <div class="alert alert-danger" *ngIf="mensagemError">
+            {{mensagemError}}
+            <div class="error-bar"></div>
+        </div>
+        <div class="sessao-alteracao" *ngIf="viewSessaoAlterar">
+            <div class="container-alteracao">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-key"></i>
+                    </span>
+                </div>
+                <input type="password" id="senha" class="form-control" placeholder="Informe a senha atual." formControlName="senhaAtual">
+                <div class="i">
+                    <small class="icon-senha" *ngIf="iconSenhaEye else senhaElse" (click)="MostrarOcultarSenhaAtual()"><i class="fa-regular fa-eye"></i></small>
+                    <ng-template #senhaElse><small class="icon-senha" (click)="MostrarOcultarSenhaAtual()"><i class="fa-regular fa-eye-slash"></i></small></ng-template>
+                </div>
+                <div class="i" *ngIf="formDir.submitted && senhaAtual.invalid">
+                    <small class="errorMsg" *ngIf="senhaAtual.errors?.['required']">Obrigatório!</small>
+                    <small class="errorMsg" *ngIf="senhaAtual.errors?.['minlength']">Inválido!</small>
+                    <small class="errorMsg" *ngIf="senhaAtual.errors?.['serverError']">{{senhaAtual.errors?.['serverError'][0]}}</small>
+                </div>
+            </div>
+            <div class="container-alteracao">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-key"></i>
+                    </span>
+                </div>
+                <input type="password" id="newsenha" class="form-control" placeholder="Informe a nova senha." formControlName="newSenha">
+                <div class="i">
+                    <small class="icon-senha" *ngIf="iconNewsenhaEye else newsenhaElse" (click)="MostrarOcultarNewSenha()"><i class="fa-regular fa-eye"></i></small>
+                    <ng-template #newsenhaElse><small class="icon-senha" (click)="MostrarOcultarNewSenha()"><i class="fa-regular fa-eye-slash"></i></small></ng-template>
+                </div>
+                <div class="i" *ngIf="formDir.submitted && newSenha.invalid">
+                    <small class="errorMsg" *ngIf="newSenha.errors?.['required']">Obrigatório!</small>
+                    <small class="errorMsg" *ngIf="newSenha.errors?.['minlength']">Inválido!</small>
+                    <small class="errorMsg" *ngIf="newSenha.errors?.['serverError']">{{newSenha.errors?.['serverError'][0]}}</small>
+                </div>
+            </div>
+            <div class="container-alteracao">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-key"></i>
+                    </span>
+                </div>
+                <input type="password" id="confirm_senha" class="form-control" placeholder="Confirme a nova senha." formControlName="confirmSenha">
+                <div class="i">
+                    <small class="icon-senha" *ngIf="iconConfirmsenhaEye else confirmsenhaElse" (click)="MostrarOcultarConfirmSenha()"><i class="fa-regular fa-eye"></i></small>
+                    <ng-template #confirmsenhaElse><small class="icon-senha" (click)="MostrarOcultarConfirmSenha()"><i class="fa-regular fa-eye-slash"></i></small></ng-template>
+                </div>
+                <div class="i" *ngIf="formDir.submitted && confirmSenha.invalid">
+                    <small class="errorMsg" *ngIf="confirmSenha.errors?.['required']">Obrigatório!</small>
+                    <small class="errorMsg" *ngIf="confirmSenha.errors?.['minlength']">Inválido!</small>
+                    <small class="errorMsg" *ngIf="confirmSenha.errors?.['serverError']">{{confirmSenha.errors?.['serverError'][0]}}</small>
+                </div>
+            </div>
+            <div class="flex-checkbox">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button (click)="MostrarSessaoAlterar()" id="enviar" type="button" class="btn button grenn" *ngIf="!viewSessaoAlterar">Alterar senha</button>
+        <button id="enviar" type="submit" class="btn button blue" *ngIf="viewSessaoAlterar">Salvar</button>
+        <button type="button" class="btn button red" (click)="MostrarSessaoAlterar()" *ngIf="viewSessaoAlterar">Voltar</button>
+        <button type="button" class="btn button red" (click)="modalConfig.dismiss()" *ngIf="!viewSessaoAlterar">Fechar</button>
+    </div>
+</form>

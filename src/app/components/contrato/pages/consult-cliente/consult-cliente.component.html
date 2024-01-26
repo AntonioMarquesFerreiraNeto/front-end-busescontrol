@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-bus"></i> Consultar cliente</h4>
+    <button type="button" class="close-mod" (click)="activeModal.dismiss()">
+        <i class="fa fa-close"></i>
+    </button>
+</div>
+<div class="modal-body body-modal-alt" *ngIf="clienteJuridico">
+    <p>
+        <strong>Cliente consultado: </strong>
+    </p>
+    <div class="position" *ngIf="clienteJuridico">
+        <p>
+            <strong>Razão social: </strong> {{clienteJuridico.razaoSocial}}<br>
+            <strong>CNPJ: </strong> {{ ReturnCnpjFormatado(clienteJuridico.cnpj)}} <br>
+            <strong>E-mail: </strong> {{clienteJuridico.email}}<br>
+            <strong>Endereço: </strong> {{clienteJuridico.logradouro}}, <br> {{clienteJuridico.complementoResidencial}}
+            <br>
+            <strong>Número residencial: </strong> {{clienteJuridico.numeroResidencial}} <br>
+        </p>
+        <p>
+            <strong>Inscrição municipal: </strong> {{clienteJuridico.inscricaoMunicipal}} <br>
+            <strong>Inscrição estadual: </strong> {{clienteJuridico.inscricaoEstadual}} <br>
+            <strong>Telefone: </strong> ({{clienteJuridico.ddd}}) {{ReturnTelFormatado(clienteJuridico.telefone)}}<br>
+            <strong>Bairro: </strong> {{clienteJuridico.bairro}}<br>
+            <strong>Cidade: </strong> {{clienteJuridico.cidade}} <br>
+            <strong>Estado: </strong> {{clienteJuridico.estado}}
+        </p>
+    </div>
+</div>
+<div class="modal-body body-modal-alt" *ngIf="clienteFisico">
+    <p>
+      <strong>Cliente consultado:  </strong>
+    </p>
+    <div class="position">
+      <p>
+        <strong>Nome: </strong> {{clienteFisico.name}}<br>
+        <strong>CPF: </strong> {{ReturnCpfFormatado(clienteFisico.cpf)}} <br>
+        <strong>E-mail: </strong> {{clienteFisico.email}}<br>
+        <strong>Endereço: </strong> {{clienteFisico.logradouro}}, <br> {{clienteFisico.complementoResidencial}} <br>
+        <strong>Número residencial: </strong> {{clienteFisico.numeroResidencial}} <br>
+      </p>
+      <p>
+        <strong>Data de nascimento: </strong> {{ReturnDateCliente(clienteFisico.dataNascimento)}}<br>
+        <strong>RG: </strong> {{clienteFisico.rg}} <br>
+        <strong>Telefone: </strong> ({{clienteFisico.ddd}}) {{ReturnTelFormatado(clienteFisico.telefone)}}<br>
+        <strong>Bairro: </strong> {{clienteFisico.bairro}}<br>
+        <strong>Cidade: </strong> {{clienteFisico.cidade}} <br>
+        <strong>Estado: </strong> {{clienteFisico.estado}}
+      </p>
+    </div>
+  </div>
+<div class="modal-footer">
+    <button type="button" class="btn button red" (click)="activeModal.dismiss()">Fechar</button>
+</div>

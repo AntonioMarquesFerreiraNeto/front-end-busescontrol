@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h4 class="modal-title">Mensagens</h4>
+    <button type="button" class="close-mod" (click)="modalService.close()">
+        <i class="fa fa-close"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="list" *ngIf="listMensagens.length else notfound">
+        <div *ngFor="let item of listMensagens">
+            <div class="item-mensagem">
+                <div class="card-icon"><i class="fa-regular fa-envelope-open"></i></div>
+                <div class="text-container">
+                    <p class="text">
+                       {{item.conteudo}}
+                    </p>
+                </div>
+            </div>
+            <div class="item-mensagem2">
+                <p class="text2">{{item.remetente?.name}}, {{ReturnHoursOrDays(item.data!)}}.</p>
+                <button class="link-consult" title="Abrir mensagem" (click)="VisualizarMensagem(item)"><i class="fa-regular fa-envelope-open"></i></button>
+            </div>
+        </div>
+    </div>
+    <ng-template #notfound>
+        <p class="text" style="text-align: center;">{{txtMensagem}}</p>
+    </ng-template>
+</div>
+<div class="modal-footer">
+    <p style="font-size: 10pt;" class="text" *ngIf="listMensagens.length > 0">
+        {{ReturnQtsLembretes()}}
+    </p>
+</div>

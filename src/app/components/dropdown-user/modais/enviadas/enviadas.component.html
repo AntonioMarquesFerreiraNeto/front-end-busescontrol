@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h4 class="modal-title">Mensagens enviadas</h4>
+    <button type="button" class="close-mod" (click)="modal.close()">
+        <i class="fa fa-close"></i>
+</button>
+</div>
+<div class="modal-body">
+    <div class="list" *ngIf="listEnviadas.length else notFoundList">
+        <div *ngFor="let item of listEnviadas">
+            <div class="item-mensagem">
+                <div class="card-icon">
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+                <div class="text-container">
+                    <p class="text">{{item.conteudo}}</p>
+                </div>
+            </div>
+            <div class="item-mensagem2">
+                <p class="text2" *ngIf="item.nivelAcesso == 0 else nivelAcessPlural">
+                    Para {{item.funcionario!.name!.split(' ').slice(0, 2).join(' ')}}, {{ReturnDatePost(item.data!)}}.
+                </p>
+                <ng-template #nivelAcessPlural>
+                    <p class="text2">
+                        Para {{ReturnNivelAcesso(item.nivelAcesso)}}, {{ReturnDatePost(item.data!)}}.
+                    </p>
+                </ng-template>
+                <button (click)="ExcluirMensagem(item)" class="trash-enviadas" title="excluir"><i class="fa-regular fa-trash-can"></i></button>
+            </div>
+        </div>
+    </div>
+    <ng-template #notFoundList>
+        <div class="list">
+            <p class="text" style="text-align: center;">{{mensagem}}</p>
+        </div>
+    </ng-template>
+</div>
+<div class="modal-footer">
+    <p style="font-size: 10pt;" class="text" *ngIf="listCount > 0">
+        {{ReturnCountEnviadas()}}
+    </p>
+</div>
