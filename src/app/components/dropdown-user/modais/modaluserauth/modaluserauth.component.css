@@ -173,13 +173,13 @@ a:hover {
 .alert {
     left: 1px;
     position: relative !important;
-    padding: 8px 5px;
+    padding: 15px 5px;
     z-index: 1;
     margin: auto !important;
     margin-bottom: 5px !important;
     width: 100%;
-    background-color: #fe5757;
-    color: white;
+    background-color: #ffffff;
+    color: #fe5757;
     font-size: 10pt;
     border-radius: 5px;
     font-family: 'Poppins', sans-serif;
@@ -191,14 +191,14 @@ a:hover {
 
 .error-bar {
     position: absolute;
-    bottom: 1px;
+    bottom: 4px;
     left: 3px;
-    height: 3px;
+    height: 1px;
     /* altura desejada da barra de erro */
     border-radius: 10px;
     margin-left: 2px;
     margin-right: 2px;
-    background-color: red;
+    background-color: #fe5757;
     /* cor da barra de erro */
     animation: shrink 9.400s forwards;
     /* tempo de duração da animação */
