@@ -173,22 +173,29 @@ a:hover {
 .alert {
     left: 1px;
     position: relative !important;
-    padding: 15px 5px;
+    padding: 13px 5px;
     z-index: 1;
     margin: auto !important;
-    margin-bottom: 5px !important;
+    margin-bottom: 15px !important;
     width: 100%;
     background-color: #ffffff;
     color: #fe5757;
     font-size: 10pt;
-    border-radius: 5px;
+    border-radius: 4px;
     font-family: 'Poppins', sans-serif;
     font-weight: normal;
+    gap: 5px;
     display: flex;
     align-items: center;
     align-content: center;
 }
-
+.alert p{
+    color: #fe5757;
+    font-size: 10pt !important;
+}
+.alert i{
+    font-size: 11pt;
+}
 .error-bar {
     position: absolute;
     bottom: 4px;

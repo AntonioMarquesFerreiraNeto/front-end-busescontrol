@@ -13,6 +13,7 @@
             <strong>Data de nascimento: </strong> {{usuarioAutenticado.birthdate}} <br>
         </p>
         <div class="alert alert-danger" *ngIf="mensagemError">
+            <i class="fa fa-triangle-exclamation"></i>
             {{mensagemError}}
             <div class="error-bar"></div>
         </div>

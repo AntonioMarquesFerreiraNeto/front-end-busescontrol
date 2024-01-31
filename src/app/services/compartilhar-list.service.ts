@@ -28,7 +28,7 @@ export class CompartilharListService {
   totPaginasContrato!: number;
   pesquisaContrato: string = "";
   filtroContrato: number = 6;
-  pageSizeContrato: number = 10;
+  pageSizeContrato: number = 20;
 
   apiCorreios = "https://viacep.com.br/ws/";
 
