@@ -10,9 +10,11 @@ i {
     margin: 0;
     padding: 0;
 }
-.fa-house-chimney-window{
+
+.fa-house-chimney-window {
     font-size: 13pt;
 }
+
 .imagem-card {
     border-top-right-radius: 7px;
     border-top-left-radius: 7px;
@@ -56,12 +58,13 @@ body {
 
 .altura-minima-container {
     min-height: 210px;
+    padding-bottom: 12px;
 }
 
 .card {
     margin: auto;
     background-color: white;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border-radius: 7px;
     border: none !important;
     color: rgba(16, 15, 18, 0.755);
@@ -70,10 +73,11 @@ body {
 }
 
 .card-title {
-    font-size: 11pt;
+    font-size: 1.05em;
     font-weight: normal;
     text-transform: uppercase;
     color: rgba(71, 67, 81, 0.873);
+    margin-bottom: 2px;
 }
 
 .font-min {
@@ -88,7 +92,7 @@ body {
 
 .card-text {
     text-align: justify;
-    font-size: 0.998em;
+    font-size: 0.9643em;
 }
 
 .btn-outline-primary {
@@ -197,15 +201,15 @@ input:focus {
     align-items: center;
     align-content: center;
     gap: 2px;
-    margin-top: 10px;
     margin: 1px;
+    margin-top: 0px;
     height: 30px;
     min-width: 100px;
     border: 1px solid #5a5aba8b;
     color: #5a5abaca;
     background-color: transparent;
     border-radius: 5px;
-    font-size: 0.88em !important;
+    font-size: 0.84em !important;
     font-weight: normal;
     cursor: pointer;
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3) !important;

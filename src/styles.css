@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
 @import "~@ng-select/ng-select/themes/default.theme.css";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&display=swap');
 
 .container-opcoes .button {
   margin-bottom: 8px !important;
@@ -9,6 +10,7 @@ ng-select {
   margin-top: 4px;
   margin-left: 0px;
   border-radius: 0 !important;
+  font-family: 'Arial', sans-serif;
 }
 
 .ng-select .ng-select-container {
@@ -51,7 +53,6 @@ tbody {
   font-size: 1.1em !important;
   text-transform: uppercase;
   color: #4646ab;
-  font-family: "Poppins", sans-serif;
 }
 
 .modal-title {
@@ -82,8 +83,6 @@ thead {
   vertical-align: middle;
   font-size: 9pt !important;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&display=swap');
 
 .borda-table {
   margin: auto;
@@ -161,6 +160,7 @@ thead {
   align-items: flex-end;
   align-content: flex-end;
   justify-content: flex-end;
+  font-family: 'Arial', sans-serif;
 }
 
 @media(max-width: 570px) {
@@ -505,6 +505,10 @@ a {
   border-top-right-radius: 5px !important;
   border-bottom-right-radius: 5px !important;
   font-family: 'Arial', sans-serif !important;
+}
+
+::placeholder {
+  color: rgb(136, 136, 136) !important;
 }
 
 .form-border-radius-none {
@@ -1034,7 +1038,7 @@ pre code {
   margin-left: -15px;
 }
 
-.modal{
+.modal {
   font-family: 'Arial', sans-serif;
 }
 
@@ -1401,5 +1405,33 @@ a[data-toggle="collapse"] {
   -o-transition: all 0.3s;
   transition: all 0.3s;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

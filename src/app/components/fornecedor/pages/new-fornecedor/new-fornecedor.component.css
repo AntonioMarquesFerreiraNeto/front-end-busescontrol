@@ -355,6 +355,7 @@
 .close-mod span {
   font-size: 12pt;
 }
+
 .close-mod:hover {
   color: white;
   background-color: darkred;

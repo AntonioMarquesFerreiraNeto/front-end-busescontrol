@@ -77,7 +77,7 @@
                   <i class="fas fa-address-card"></i>
                 </span>
               </div>
-              <input type="text" class="form-control" placeholder="Informe o CNPJ do fornecedor" maxlength="18"
+              <input type="text" class="form-control" placeholder="Informe o CNPJ do fornecedor." maxlength="18"
                 formControlName="cnpj" id="cnpj" mask="00.000.000/0000-00"
                 onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
               <div class="i" *ngIf="cnpj.invalid && formDir.submitted">

@@ -69,6 +69,7 @@ import { EnviarMensagemComponent } from './components/dropdown-user/modais/envia
 import { EnviadasComponent } from './components/dropdown-user/modais/enviadas/enviadas.component';
 import { ConfirmexclusaoComponent } from './components/dropdown-user/modais/enviadas/confirmexclusao/confirmexclusao.component';
 import { ViewlembreteComponent } from './components/dropdown-user/modais/modalmensagens/viewmensagem/viewlembrete.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -136,7 +137,8 @@ import { ViewlembreteComponent } from './components/dropdown-user/modais/modalme
     ReactiveFormsModule,
     NgxMaskModule.forRoot(
       { dropSpecialCharacters: true }
-    )
+    ),
+    BrowserAnimationsModule
   ],
   providers: [
     DatePipe, UserauthService, AuthGuard, AdminGuard,

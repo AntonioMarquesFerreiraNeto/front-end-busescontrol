@@ -7,6 +7,7 @@
     font-size: 1.3em;
     font-weight: normal;
 }
+
 .color-title {
     margin-bottom: 1px;
     margin-left: 3px;
@@ -45,15 +46,15 @@ body {
 }
 
 .bg-c-blue {
-    background: linear-gradient(45deg,#4099ff,#73b4ff);
+    background: linear-gradient(45deg, #4099ff, #73b4ff);
 }
 
 .bg-c-green {
-    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+    background: linear-gradient(45deg, #2ed8b6, #59e0c5);
 }
 
 .bg-c-pink {
-    background: linear-gradient(45deg,#FF5370,#ff869a);
+    background: linear-gradient(45deg, #FF5370, #ff869a);
 }
 
 .card {
@@ -101,9 +102,11 @@ body {
     font-size: 12pt;
     color: rgb(255, 255, 255) !important;
 }
-.fa-coins{
+
+.fa-coins {
     font-size: 15pt !important;
 }
+
 .font-p {
     text-shadow: 1px 1px 1px rgba(152, 152, 152, 0.259) !important;
     font-size: 11pt;
@@ -122,6 +125,7 @@ body {
 .title-card {
     font-size: 12pt;
     text-shadow: none !important;
+    font-weight: normal;
 }
 
 
