@@ -15,6 +15,7 @@
     align-items: center;
     align-content: center;
     justify-content: space-between;
+    font-family: sans-serif;
 }
 
 @media(max-width: 499px) {
