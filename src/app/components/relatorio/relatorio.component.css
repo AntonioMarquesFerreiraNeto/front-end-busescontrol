@@ -101,15 +101,18 @@ body {
 .data-value {
     font-size: 12pt;
     color: rgb(255, 255, 255) !important;
+    font-family: sans-serif;
 }
 
 .fa-coins {
     font-size: 15pt !important;
+    font-family: sans-serif;
 }
 
 .font-p {
     text-shadow: 1px 1px 1px rgba(152, 152, 152, 0.259) !important;
     font-size: 11pt;
+    font-family: sans-serif;
 }
 
 .f-left {
@@ -126,6 +129,7 @@ body {
     font-size: 12pt;
     text-shadow: none !important;
     font-weight: normal;
+    font-family: sans-serif;
 }
 
 

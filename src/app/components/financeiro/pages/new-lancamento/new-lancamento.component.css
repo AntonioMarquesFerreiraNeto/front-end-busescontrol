@@ -20,8 +20,9 @@
   align-items: center;
   align-content: center;
 }
-@media(max-width: 500px){
-  .alert{
+
+@media(max-width: 500px) {
+  .alert {
     min-width: 80% !important;
   }
 }
@@ -80,7 +81,7 @@
   font-size: 10px;
   font-weight: normal;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.3px !important;
   cursor: pointer;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease-in-out;
@@ -298,9 +299,11 @@
   transition: 0.5s;
   box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.3) !important;
 }
+
 .close-mod span {
   font-size: 12pt;
 }
+
 .close-mod:hover {
   color: white;
   background-color: darkred;
