@@ -128,7 +128,7 @@ tbody {
 
 /* Barra de rolagem */
 ::-webkit-scrollbar {
-    width: 7px;
+    width: 5px;
 }
 
 ng-select {

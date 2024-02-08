@@ -48,7 +48,7 @@
 
 /* Barra de rolagem */
 .body-modal-alt::-webkit-scrollbar {
-  width: 7px;
+  width: 5px;
 }
 
 .row{

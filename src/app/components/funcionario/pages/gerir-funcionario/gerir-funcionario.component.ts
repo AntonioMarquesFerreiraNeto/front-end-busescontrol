@@ -6,6 +6,7 @@ import { MensagensService } from 'src/app/services/mensagens.service';
 import { Funcionario } from 'src/app/interfaces/Funcionario';
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LembreteService } from 'src/app/services/lembrete.service';
 @Component({
   selector: 'app-gerir-funcionario',
   templateUrl: './gerir-funcionario.component.html',
@@ -15,7 +16,7 @@ export class GerirFuncionarioComponent implements OnInit {
   textStatus!: string;
   @Input() funcionario!: Funcionario;
   @Output() onSubmitted: EventEmitter<void> = new EventEmitter<void>();
-  constructor(public activeModal: NgbActiveModal, private funcionarioService: FuncionarioService, private mensagemService: MensagensService, private compartilharService: CompartilharListService, private datePipe: DatePipe) {
+  constructor(public activeModal: NgbActiveModal, private funcionarioService: FuncionarioService, private mensagemService: MensagensService, private lembreteService: LembreteService, private datePipe: DatePipe) {
 
   }
 
@@ -43,6 +44,7 @@ export class GerirFuncionarioComponent implements OnInit {
         this.funcionarioService.AtivarFuncionario(this.funcionario.id!).subscribe({
           next: () => {
             this.mensagemService.addMensagemSucesso("Ativado com sucesso!");
+            this.lembreteService.NotificarEvento("start");
             this.onSubmitted.emit();
           },
           error: (error: HttpErrorResponse) => {

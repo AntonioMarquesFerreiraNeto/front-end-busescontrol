@@ -20,12 +20,9 @@
                         clientes e despesas com fornecedores. Oferece um controle abrangente para que todas as
                         ações de crédito e débito sejam registradas adequadamente, evitando esquecimentos.
                     </p>
-                    <div class="card-flex">
-                        <a *ngIf="usuarioAutenticado.role == 'Administrador'" routerLink="/financeiro"
-                            class="btn button">
-                            Consultar</a>
+                    <div class="card-flex" *ngIf="usuarioAutenticado.role == 'Administrador'">
+                        <a routerLink="/financeiro" class="btn button">Consultar</a>
                     </div>
-                    <br *ngIf="usuarioAutenticado.role == 'Assistente'">
                 </div>
             </div>
         </div>
@@ -39,9 +36,9 @@
                     <p class="card-text">
                         Este módulo do sistema abrange todo o processo do contrato de alocação de frota, desde o
                         preenchimento de informações e descrição da rota até a impressão do contrato para obtenção de
-                        assinaturas. Ele também inclui a aprovação do contrato, processos de rescisão e muito mais.
+                        assinaturas. Ele também inclui a aprovação do contrato, processos e pdfs de rescisões e entre outros.
                     </p>
-                    <div class="card-flex">
+                    <div class="card-flex" *ngIf="usuarioAutenticado.role == 'Administrador'">
                         <a routerLink="/contrato" class="btn button">Consultar</a>
                     </div>
                 </div>
@@ -60,11 +57,8 @@
                         Personalize seus relatórios usando filtros das tabelas de contratos, financeiro e frota em cada
                         módulo e central.
                     </p>
-                    <div class="card-flex">
-                        <a *ngIf="usuarioAutenticado.role == 'Administrador'" routerLink="/dashboard"
-                            class="btn button">
-                            Consultar</a>
-                        <br *ngIf="usuarioAutenticado.role == 'Assistente'">
+                    <div class="card-flex" *ngIf="usuarioAutenticado.role == 'Administrador'">
+                        <a routerLink="/dashboard" class="btn button">Consultar</a>
                     </div>
                 </div>
             </div>

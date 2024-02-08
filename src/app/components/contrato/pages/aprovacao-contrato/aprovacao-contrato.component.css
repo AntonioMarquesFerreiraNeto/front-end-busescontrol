@@ -22,7 +22,7 @@
 }
 /* Barra de rolagem */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 5px;
 }
 span {
   color: rgb(17, 105, 164);

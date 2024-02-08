@@ -1020,24 +1020,6 @@ pre code {
   }
 }
 
-.container-fluid {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.row {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-}
-
 .modal {
   font-family: 'Arial', sans-serif;
 }
@@ -1205,8 +1187,6 @@ h5,
 .h4,
 .h5 {
   line-height: 1.5;
-  font-weight: 400;
-  color: #000;
 }
 
 .navbar {

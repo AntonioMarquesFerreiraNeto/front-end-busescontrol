@@ -15,7 +15,6 @@
     align-items: center;
     align-content: center;
     justify-content: space-between;
-    font-family: sans-serif;
 }
 
 @media(max-width: 499px) {
@@ -49,7 +48,8 @@
     align-items: center;
     text-align: justify;
     margin: 0px;
-    font-size: 11pt;
+    margin-left: -13px;
+    font-size: 10.6pt;
     padding: 0px;
     color: #ffff;
     font-weight: normal;
@@ -61,13 +61,13 @@
 }
 
 .fa-square-check {
-    font-size: 17pt;
+    font-size: 15pt;
     align-self: center;
     margin-right: 6px;
 }
 
 .fa-clipboard-question {
-    font-size: 17pt;
+    font-size: 15pt;
     align-self: center;
     margin-right: 6px;
 }
@@ -157,11 +157,10 @@ i {
     box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.7);
 }
 
-
 .error-bar {
     position: absolute;
-    bottom: 1px;
-    left: 3px;
+    bottom: 4px;
+    left: 6px;
     height: 3px;
     /* altura desejada da barra de erro */
     border-radius: 10px;
@@ -175,8 +174,8 @@ i {
 
 .sucess-bar {
     position: absolute;
-    bottom: 1px;
-    left: 3px;
+    bottom: 4px;
+    left: 5px;
     height: 3px;
     /* altura desejada da barra de sucesso */
     margin: auto;
@@ -191,8 +190,8 @@ i {
 
 .info-bar {
     position: absolute;
-    bottom: 1px;
-    left: 3px;
+    bottom: 4px;
+    left: 5px;
     height: 3px;
     /* altura desejada da barra de sucesso */
     margin: auto;

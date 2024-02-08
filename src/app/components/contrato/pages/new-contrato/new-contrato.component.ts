@@ -13,6 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConsultClienteComponent } from '../consult-cliente/consult-cliente.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { LembreteService } from 'src/app/services/lembrete.service';
 
 @Component({
   selector: 'app-new-contrato',
@@ -30,7 +31,7 @@ export class NewContratoComponent implements OnInit {
   clienteContrato?: ClientesContrato;
   clientesContratoList: ClientesContrato[] = [];
 
-  constructor(private router: Router, private mensagemService: MensagensService, private contratoService: ContratoService, private modal: NgbModal, private datePipe: DatePipe) {
+  constructor(private router: Router, private mensagemService: MensagensService, private contratoService: ContratoService, private modal: NgbModal, private datePipe: DatePipe, private lembreteService: LembreteService) {
 
   }
   ngOnInit(): void {
@@ -117,6 +118,7 @@ export class NewContratoComponent implements OnInit {
     this.contratoService.AdicionarContrato(contrato, this.clientesContratoList).subscribe({
       next: () => {
         this.mensagemService.addMensagemSucesso("Contrato registrado com sucesso!");
+        this.lembreteService.NotificarEvento("start");
         this.router.navigate(["contrato/"]);
       },
       error: (error: HttpErrorResponse) => {

@@ -3,6 +3,11 @@
     max-height: 368.3px;
 }
 
+/* Barra de rolagem */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
 .borda-table {
     margin: 0 !important;
     padding: 2px !important;
@@ -99,9 +104,11 @@
     color: white;
     font-size: 10pt;
 }
-.text-container{
+
+.text-container {
     align-self: flex-start;
 }
+
 .text {
     margin: 0;
     color: #4e4f6a;
@@ -124,12 +131,13 @@
     text-align: justify;
 }
 
-@media(max-width: 600px){
-    .card-icon{
+@media(max-width: 600px) {
+    .card-icon {
         width: 26px;
         height: 26px;
     }
-    .text{
+
+    .text {
         font-size: 10pt;
     }
 }
