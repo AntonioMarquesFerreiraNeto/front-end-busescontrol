@@ -132,7 +132,7 @@
                             <i class="fas fa-users" style="margin-left: -2px;"></i>
                         </span>
                     </div>
-                    <ng-select title="Clientes - Pessoa física" formControlName="clientesPfSelect" class="d-flex flex-grow-1" [notFoundText]="'Nenhum registro encontrado.'" [placeholder]="'Selecione clientes pessoas físicas.'" [multiple]="true">
+                    <ng-select title="Clientes - Pessoa física" formControlName="clientesPfSelect" class="d-flex flex-grow-1" [hideSelected]="true" [notFoundText]="'Nenhum registro encontrado.'" [placeholder]="'Selecione clientes pessoas físicas.'" [multiple]="true">
                         <ng-option *ngFor="let item of clienteFisicoList" [value]="item.id">{{item.name}}</ng-option>
                     </ng-select>
                 </div>
@@ -142,8 +142,8 @@
                             <i class="fas fa-users" style="margin-left: -2px;"></i>
                         </span>
                     </div>
-                    <ng-select title="Clientes - Pessoa jurídica" formControlName="clientesPjSelect" class="d-flex flex-grow-1" [notFoundText]="'Nenhum registro encontrado.'" [placeholder]="'Selecione clientes pessoas jurídicas.'" [multiple]="true">
-                        <ng-option *ngFor="let item of clienteJuridicoList" [value]="item.id">{{item.razaoSocial}}</ng-option>
+                    <ng-select title="Clientes - Pessoa jurídica" formControlName="clientesPjSelect" class="d-flex flex-grow-1" [hideSelected]="true" [notFoundText]="'Nenhum registro encontrado.'" [placeholder]="'Selecione clientes pessoas jurídicas.'" [multiple]="true">
+                        <ng-option *ngFor="let item of clienteJuridicoList" [value]="item.id">{{item.nomeFantasia}}</ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-12 input-group form-group form-it">

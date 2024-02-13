@@ -117,12 +117,12 @@
                             <i class="fa fa-users" style="margin-left: -2px;"></i>
                         </span>
                     </div>
-                    <ng-select class="d-flex flex-grow-1" [notFoundText]="'Nenhum cliente encontrado.'" [placeholder]="'Selecione os clientes do contrato.'" [multiple]="true" formControlName="clientesSelected">
+                    <ng-select class="d-flex flex-grow-1" [hideSelected]="true" [notFoundText]="'Nenhum cliente encontrado.'" [placeholder]="'Selecione os clientes do contrato.'" [multiple]="true" formControlName="clientesSelected">
                         <ng-option *ngFor="let item of clienteFisicoList" [value]="item">
                             {{item.name}}
                         </ng-option>
                         <ng-option *ngFor="let item of clienteJuridicoList" [value]="item">
-                            {{item.razaoSocial}}
+                            {{item.nomeFantasia}}
                         </ng-option>
                     </ng-select>
                     <div class="i" *ngIf="clientesSelected.invalid && formDir.submitted">
