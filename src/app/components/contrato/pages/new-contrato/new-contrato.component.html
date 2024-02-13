@@ -9,10 +9,12 @@
             <div class="row">
                 <div class="col-md-12 display-button">
                     <div class="btn-group">
-                        <input formControlName="pagament" type="radio" class="btn-check" name="pagament" id="option1" autocomplete="off" [value]="1"/>
+                        <input formControlName="pagament" type="radio" class="btn-check" name="pagament" id="option1"
+                            autocomplete="off" [value]="1" />
                         <label class="btn radio" for="option1" id="op1" (click)="alternarOpcao() ">À vista</label>
 
-                        <input formControlName="pagament" type="radio" class="btn-check" name="pagament" id="option2" autocomplete="off" [value]="0"/>
+                        <input formControlName="pagament" type="radio" class="btn-check" name="pagament" id="option2"
+                            autocomplete="off" [value]="0" />
                         <label class="btn radio" for="option2" id="op2" (click)="alternarOpcao() ">Parcelado</label>
                     </div>
                 </div>
@@ -22,7 +24,8 @@
                             <i class="fa fa-bus"></i>
                         </span>
                     </div>
-                    <ng-select class="d-flex flex-grow-1" formControlName="onibusId" [placeholder]="'Selecione o ônibus da locação.'" [notFoundText]="'Nenhum registro encontrado'">
+                    <ng-select class="d-flex flex-grow-1" formControlName="onibusId"
+                        [placeholder]="'Selecione o ônibus da locação.'" [notFoundText]="'Nenhum registro encontrado'">
                         <ng-option *ngFor="let item of onibusList" [value]="item.id">
                             {{item.nameBus}} — {{FormatarPlaca(item.placa)}}
                         </ng-option>
@@ -39,7 +42,9 @@
                             <i class="fas fa-user-gear"></i>
                         </span>
                     </div>
-                    <ng-select class="d-flex flex-grow-1" formControlName="motoristaId" [placeholder]="'Selecione o motorista da locação.'" [notFoundText]="'Nenhum registro encontrado'">
+                    <ng-select class="d-flex flex-grow-1" formControlName="motoristaId"
+                        [placeholder]="'Selecione o motorista da locação.'"
+                        [notFoundText]="'Nenhum registro encontrado'">
                         <ng-option *ngFor="let item of motoristaList" [value]="item.id">{{item.name}}</ng-option>
                     </ng-select>
                     <i class="i" *ngIf="motoristaId.invalid && formDir.submitted">
@@ -70,7 +75,8 @@
                     </div>
                     <input type="text" class="form-control" placeholder="Informe a quantidade de parcelas de pagamento."
                         maxlength="2" formControlName="qtParcelas"
-                        onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;" [readonly]="pagamentAvista">
+                        onkeypress=" if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;"
+                        [readonly]="pagamentAvista">
                     <div class="i" *ngIf="qtParcelas.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="qtParcelas.errors?.['required']">Campo obrigatório!</small>
                         <small class="errorMsg"
@@ -105,6 +111,26 @@
                             *ngIf="dataVencimento.errors?.['serverError']">{{dataVencimento.errors?.['serverError'][0]}}</small>
                     </div>
                 </div>
+                <div class="col-md-12 input-group form-group form-it ng-select-costumizado-display">
+                    <div class="input-group-prepend position-sticky">
+                        <span class="input-group-text">
+                            <i class="fa fa-users" style="margin-left: -2px;"></i>
+                        </span>
+                    </div>
+                    <ng-select class="d-flex flex-grow-1" [notFoundText]="'Nenhum cliente encontrado.'" [placeholder]="'Selecione os clientes do contrato.'" [multiple]="true" formControlName="clientesSelected">
+                        <ng-option *ngFor="let item of clienteFisicoList" [value]="item">
+                            {{item.name}}
+                        </ng-option>
+                        <ng-option *ngFor="let item of clienteJuridicoList" [value]="item">
+                            {{item.razaoSocial}}
+                        </ng-option>
+                    </ng-select>
+                    <div class="i" *ngIf="clientesSelected.invalid && formDir.submitted">
+                        <small class="errorMsg" *ngIf="clientesSelected.errors?.['required']">
+                            Informe os clientes!
+                        </small>
+                    </div>
+                </div>
                 <div class="col-md-12 input-group form-group form-it">
                     <div class="input-group-prepend form-textarea">
                         <span class="input-group-text">
@@ -112,7 +138,7 @@
                         </span>
                     </div>
                     <textarea type="text" class="form-control form-textarea" rows="4" style="resize: none"
-                        placeholder="Informe o detalhadamente a rota da locação." maxlength="355"
+                        placeholder="Informe o detalhadamente a rota da locação." maxlength="1000"
                         formControlName="detalhamento"></textarea>
                     <div class="i" *ngIf="detalhamento.invalid && formDir.submitted">
                         <small class="errorMsg" *ngIf="detalhamento.errors?.['required']">Campo obrigatório!</small>
@@ -120,68 +146,6 @@
                             *ngIf="detalhamento.errors?.['serverError']">{{detalhamento.errors?.['serverError'][0]}}</small>
                     </div>
                 </div>
-                <form (ngSubmit)="selecionarCliente()" [formGroup]="selectCliente" #formDir2="ngForm"
-                    class="col-md-12 input-group form-group form-it">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="fa-regular fa-circle-check"></i>
-                        </span>
-                    </div>
-                    <ng-select class="d-flex flex-grow-1" formControlName="clienteId" [placeholder]="'Selecione os clientes contratantes'" [notFoundText]="'Nenhum registro encontrado.'">
-                        <ng-option *ngFor="let item of clienteFisicoList" [value]="item.id">{{item.name}}</ng-option>
-                        <ng-option *ngFor="let item of clienteJuridicoList" [value]="item.id">{{item.razaoSocial}}</ng-option>
-                    </ng-select>
-                    <button type="submit" class="btn btn-cor grenn"><i class="fa fa-plus"></i></button>
-                </form>
-            </div>
-            <div class="table-scroll">
-                <table class="table" *ngIf="clientesContratoList.length > 0; else clientesnull">
-                    <thead>
-                        <th scope="col">Nome/Razão social</th>
-                        <th scope="col">CPF/CNPJ</th>
-                        <th scope="col" style="padding-right: 20px;">Opções</th>
-                    </thead>
-                    <tbody>
-                        <tr class="row-hover" *ngFor="let item of clientesContratoList">
-                            <td> {{ item.pessoaFisica?.name ?? item.pessoaJuridica?.razaoSocial }}</td>
-                            <td>{{item.pessoaFisica?.cpf ? FormatarCpf(item.pessoaFisica!.cpf) :
-                                FormatarCnpj(item.pessoaJuridica!.cnpj)}}</td>
-                            <td *ngIf="item.pessoaJuridica; else pessoaFisica">
-                                <button class="btn-link link link-trash"
-                                    (click)="deleteClienteJuridico(item?.pessoaJuridicaId!)" type="button">
-                                    <i class="fa fa-trash-alt"></i>
-                                </button>
-                                <button class="btn-link link" type="button" (click)="ConsultarClienteJuridico(item?.pessoaJuridica!)">
-                                    <i class="fa fa-magnifying-glass"></i>
-                                </button>
-                            </td>
-                            <ng-template #pessoaFisica>
-                                <td>
-                                    <button class="btn-link link link-trash"
-                                        (click)="deleteClienteFisico(item?.pessoaFisicaId!)" type="button">
-                                        <i class="fa fa-trash-alt"></i>
-                                    </button>
-                                    <button class="btn-link link" type="button" (click)="ConsultarClienteFisico(item?.pessoaFisica!)">
-                                        <i class="fa fa-magnifying-glass"></i>
-                                    </button>
-                                </td>
-                            </ng-template>
-                        </tr>
-                    </tbody>
-                </table>
-                <ng-template #clientesnull>
-                    <table class="table">
-                        <thead>
-                            <th scope="col">Nome/Razão social</th>
-                            <th scope="col">CPF/CNPJ</th>
-                            <th scope="col" style="padding-right: 20px;">Opções</th>
-                        </thead>
-                        <tr>
-                            <td colspan="3" style="text-align: center; padding: 15px;">Selecione o cliente para
-                                registrar o contrato.</td>
-                        </tr>
-                    </table>
-                </ng-template>
             </div>
             <div class="container-opcoes">
                 <div></div>

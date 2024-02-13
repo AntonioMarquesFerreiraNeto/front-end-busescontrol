@@ -42,6 +42,12 @@ export class ContratoService {
   getClientesPjList(): Observable<ClienteJuridico[]> {
     return this.http.get<ClienteJuridico[]>(`${this.apiURL}/ClienteJuridico/ClientesAutorizados`);
   }
+  getClientesContractEditPfList(contratoId: number): Observable<ClienteFisico[]> {
+    return this.http.get<ClienteFisico[]>(`${this.apiURL}/Cliente/ClientesAdimplentesContratoEdit/${contratoId}`);
+  }
+  getClientesContractEditPjList(contratoId: number): Observable<ClienteJuridico[]> {
+    return this.http.get<ClienteJuridico[]>(`${this.apiURL}/ClienteJuridico/ClientesAdimplentesContratoEdit/${contratoId}`);
+  }
 
   //Métodos de contrato. 
   AdicionarContrato(contrato: Contrato, lista: ClientesContrato[]): Observable<any> {

@@ -11,7 +11,6 @@ import { ClienteJuridico } from 'src/app/interfaces/ClienteJuridico';
 import { ClientesContrato } from 'src/app/interfaces/ClientesContrato';
 import { Contrato } from 'src/app/interfaces/Contrato';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConsultClienteComponent } from '../consult-cliente/consult-cliente.component';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -31,7 +30,7 @@ export class EditContratoComponent implements OnInit {
   clienteFisicoList: ClienteFisico[] = [];
   clienteJuridicoList: ClienteJuridico[] = [];
   clienteContrato?: ClientesContrato;
-  clientesContratoList: ClientesContrato[] = [];
+  clientesContratoList: ClientesContrato[]= [];
 
   constructor(private route: ActivatedRoute, private contratoService: ContratoService, private router: Router,
     private mensagemService: MensagensService, private modal: NgbModal, private datePipe: DatePipe) {
@@ -49,6 +48,10 @@ export class EditContratoComponent implements OnInit {
         this.contrato = contrato;
         const dataEmissao = this.datePipe.transform(contrato.dataEmissao, "yyyy-MM-dd");
         const dataVencimento = this.datePipe.transform(contrato.dataVencimento, "yyyy-MM-dd");
+        const clientesPfIds = contrato.clientesContrato?.map(x => x.pessoaFisica?.id) || [];
+        const clientesPjIds = contrato.clientesContrato?.map(x => x.pessoaJuridica?.id) || [];  
+        const clientesPfIdsFiltered = clientesPfIds.filter(id => id !== undefined).map(Number);
+        const clientesPjIdsFiltered = clientesPjIds.filter(id => id !== undefined).map(Number);
         this.pagamentAvista = (contrato.pagament == 0) ? false : true;
         this.contratoForm = new FormGroup({
           id: new FormControl(id),
@@ -59,21 +62,17 @@ export class EditContratoComponent implements OnInit {
           dataEmissao: new FormControl(dataEmissao, [Validators.required]),
           dataVencimento: new FormControl(dataVencimento, [Validators.required]),
           qtParcelas: new FormControl(contrato.qtParcelas),
-          detalhamento: new FormControl(contrato.detalhamento, [Validators.required])
+          detalhamento: new FormControl(contrato.detalhamento, [Validators.required]),
+          clientesPfSelect: new FormControl(clientesPfIdsFiltered),
+          clientesPjSelect: new FormControl(clientesPjIdsFiltered)
         });
-
-        this.selectCliente = new FormGroup({
-          clienteId: new FormControl(null, [Validators.required]),
-        });
-
         this.contratoService.getMotoritasList().subscribe((x) => this.motoristaList = x);
         this.contratoService.getOnibusList().subscribe((x) => {
           this.onibusList = x;
           this.IncluirOnibusIndisponivel(contrato.onibus!);
         });
-        this.contratoService.getClientesPfList().subscribe((x) => this.clienteFisicoList = x);
-        this.contratoService.getClientesPjList().subscribe((x) => this.clienteJuridicoList = x);
-        this.clientesContratoList = contrato.clientesContrato!;
+        this.contratoService.getClientesContractEditPfList(contrato.id!).subscribe((x) => this.clienteFisicoList = x);
+        this.contratoService.getClientesContractEditPjList(contrato.id!).subscribe((x) => this.clienteJuridicoList = x);
         this.loudingActive = false;
       },
       error: (error: HttpErrorResponse) => {
@@ -115,20 +114,23 @@ export class EditContratoComponent implements OnInit {
   get pagament() {
     return this.contratoForm.get('pagament')!;
   }
-  get clienteId() {
-    return this.selectCliente.get('clienteId')!;
+  get clientesPfSelect() {
+    return this.contratoForm.get('clientesPfSelect')!;
+  }
+  get clientesPjSelect() {
+    return this.contratoForm.get('clientesPjSelect')!;
   }
 
   submit() {
     if (this.contratoForm.invalid) {
       return;
     }
-    if (this.clientesContratoList.length < 1 || !this.clientesContratoList) {
+    if (this.contratoForm.get("clientesPfSelect")?.value == '' && this.contratoForm.get("clientesPjSelect")?.value == '') {
       this.mensagemService.addMensagemError("Não foi selecionado nenhum cliente!");
       return;
     }
-
     const contrato: Contrato = this.contratoForm.value;
+    this.setClientesSelecionados();
     if (this.pagamentAvista) {
       contrato.qtParcelas = 1;
     }
@@ -136,9 +138,7 @@ export class EditContratoComponent implements OnInit {
       this.mensagemService.addMensagemError("Quantidade de parcelas inválida!");
       return;
     }
-
     contrato.pagament = Number(contrato.pagament);
-
     this.loudingActive = true;
     this.contratoService.UpdateContrato(contrato, this.clientesContratoList).subscribe({
       next: () => {
@@ -158,7 +158,6 @@ export class EditContratoComponent implements OnInit {
           Object.keys(listErros).forEach((itemErro) => {
             const formControl = this.contratoForm.get(this.lowerFirstCaracter(itemErro));
             const erro = { atributo: itemErro, mensagem: listErros[itemErro] };
-            console.log(erro);
             erros.push(erro);
             formControl?.setErrors({ serverError: listErros[itemErro] });
           });
@@ -166,48 +165,31 @@ export class EditContratoComponent implements OnInit {
       }
     })
   }
+
   lowerFirstCaracter(str: string): string {
     const [_, secondWord] = str.split('.');
     return secondWord.charAt(0).toLowerCase() + secondWord.slice(1);
   }
 
-  selecionarCliente() {
-    if (this.selectCliente.valid) {
-      const id = Number(this.selectCliente.get('clienteId')?.value);
-      const clienteExistente = this.clientesContratoList.some(x => x.pessoaFisicaId === id || x.pessoaJuridicaId === id);
-
-      if (clienteExistente) {
-        this.mensagemService.addMensagemError("Cliente já selecionado.");
-        return;
-      }
-
-      const clienteFisico = this.clienteFisicoList.find(x => x.id === id);
-      if (clienteFisico) {
-        const clientesContrato: ClientesContrato = {
-          pessoaFisica: clienteFisico,
-          pessoaFisicaId: clienteFisico.id
-        };
-        this.clientesContratoList.push(clientesContrato);
-      } else {
-        const clienteJuridico = this.clienteJuridicoList.find(x => x.id === id);
-        if (clienteJuridico) {
-          const clientesContrato: ClientesContrato = {
-            pessoaJuridica: clienteJuridico,
-            pessoaJuridicaId: clienteJuridico.id
-          };
-          this.clientesContratoList.push(clientesContrato);
-        }
-      }
+  setClientesSelecionados() {
+    const clientesPfSelect = this.contratoForm.get("clientesPfSelect")?.value;
+    const clientesPjSelect = this.contratoForm.get("clientesPjSelect")?.value;
+    for (const item of clientesPfSelect) {
+      const clientesContrato: ClientesContrato = {
+        pessoaFisicaId: item,
+        contratoId: this.contrato.id
+      };
+      this.clientesContratoList.push(clientesContrato);
+    }
+    for (const item of clientesPjSelect) {
+      const clientesContrato: ClientesContrato = {
+        pessoaJuridicaId: item,
+        contratoId: this.contrato.id
+      };
+      this.clientesContratoList.push(clientesContrato);
     }
   }
-  deleteClienteFisico(id: number) {
-    this.clientesContratoList = this.clientesContratoList.filter((x) => x.pessoaFisicaId != id);
-  }
-  deleteClienteJuridico(id: number) {
-    console.log(id);
-    this.clientesContratoList = this.clientesContratoList.filter((x) => x.pessoaJuridicaId != id);
-  }
-
+  
   alternarOpcao() {
     if (this.pagamentAvista) {
       this.pagamentAvista = false;
@@ -221,26 +203,5 @@ export class EditContratoComponent implements OnInit {
     const numeros = placa.substring(0, 3);
     const letras = placa.substring(3);
     return `${numeros}-${letras}`;
-  }
-  FormatarCpf(cpf: string) {
-    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-  }
-  FormatarCnpj(cnpj: string) {
-    return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
-  }
-
-  ConsultarClienteFisico(clienteFisico: ClienteFisico) {
-    const styleModal = {
-      size: 'lg'
-    }
-    const modalRef = this.modal.open(ConsultClienteComponent, styleModal);
-    modalRef.componentInstance.clienteFisico = clienteFisico;
-  }
-  ConsultarClienteJuridico(cliente: ClienteJuridico) {
-    const styleModal = {
-      size: 'lg'
-    }
-    const modalRef = this.modal.open(ConsultClienteComponent, styleModal);
-    modalRef.componentInstance.clienteJuridico = cliente;
   }
 }

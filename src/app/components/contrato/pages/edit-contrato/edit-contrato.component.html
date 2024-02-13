@@ -126,6 +126,26 @@
                         </small>
                     </div>
                 </div>
+                <div class="col-md-6 input-group form-group form-it ng-select-costumizado-display">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-users" style="margin-left: -2px;"></i>
+                        </span>
+                    </div>
+                    <ng-select title="Clientes - Pessoa física" formControlName="clientesPfSelect" class="d-flex flex-grow-1" [notFoundText]="'Nenhum registro encontrado.'" [placeholder]="'Selecione clientes pessoas físicas.'" [multiple]="true">
+                        <ng-option *ngFor="let item of clienteFisicoList" [value]="item.id">{{item.name}}</ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-md-6 input-group form-group form-it ng-select-costumizado-display">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-users" style="margin-left: -2px;"></i>
+                        </span>
+                    </div>
+                    <ng-select title="Clientes - Pessoa jurídica" formControlName="clientesPjSelect" class="d-flex flex-grow-1" [notFoundText]="'Nenhum registro encontrado.'" [placeholder]="'Selecione clientes pessoas jurídicas.'" [multiple]="true">
+                        <ng-option *ngFor="let item of clienteJuridicoList" [value]="item.id">{{item.razaoSocial}}</ng-option>
+                    </ng-select>
+                </div>
                 <div class="col-md-12 input-group form-group form-it">
                     <div class="input-group-prepend form-textarea">
                         <span class="input-group-text">
@@ -133,7 +153,7 @@
                         </span>
                     </div>
                     <textarea type="text" class="form-control form-textarea" rows="4" style="resize: none"
-                        placeholder="Informe o detalhadamente a rota da locação." maxlength="355"
+                        placeholder="Informe o detalhadamente a rota da locação." maxlength="1000"
                         formControlName="detalhamento" data-toggle="toltip" data-placement="top"
                         title="Detalhamento da rota">
                     </textarea>
@@ -144,73 +164,6 @@
                         </small>
                     </div>
                 </div>
-                <form (ngSubmit)="selecionarCliente()" [formGroup]="selectCliente" #formDir2="ngForm"
-                    class="col-md-12 input-group form-group form-it">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="fa-regular fa-circle-check"></i>
-                        </span>
-                    </div>
-                    <ng-select class="d-flex flex-grow-1" formControlName="clienteId"
-                        [placeholder]="'Selecione os clientes contratantes'"
-                        [notFoundText]="'Nenhum registro encontrado.'">
-                        <ng-option *ngFor="let item of clienteFisicoList" [value]="item.id">{{item.name}}</ng-option>
-                        <ng-option *ngFor="let item of clienteJuridicoList" [value]="item.id">{{item.razaoSocial}}
-                        </ng-option>
-                    </ng-select>
-                    <button type="submit" class="btn btn-cor grenn"><i class="fa fa-plus"></i></button>
-                </form>
-            </div>
-            <div class="table-scroll">
-                <table class="table" *ngIf="clientesContratoList.length > 0; else clientesnull">
-                    <thead>
-                        <th scope="col">Nome/Razão social</th>
-                        <th scope="col">CPF/CNPJ</th>
-                        <th scope="col" style="padding-right: 20px;">Opções</th>
-                    </thead>
-                    <tbody>
-                        <tr class="row-hover" *ngFor="let item of clientesContratoList">
-                            <td> {{ item.pessoaFisica?.name ?? item.pessoaJuridica?.razaoSocial }}</td>
-                            <td>{{item.pessoaFisica?.cpf ? FormatarCpf(item.pessoaFisica!.cpf) :
-                                FormatarCnpj(item.pessoaJuridica!.cnpj)}}</td>
-                            <td *ngIf="item.pessoaJuridica; else pessoaFisica">
-                                <button class="btn-link link link-trash"
-                                    (click)="deleteClienteJuridico(item?.pessoaJuridicaId!)" type="button">
-                                    <i class="fa fa-trash-alt"></i>
-                                </button>
-                                <button class="btn-link link" type="button"
-                                    (click)="ConsultarClienteJuridico(item?.pessoaJuridica!)">
-                                    <i class="fa fa-magnifying-glass"></i>
-                                </button>
-                            </td>
-                            <ng-template #pessoaFisica>
-                                <td>
-                                    <button class="btn-link link link-trash"
-                                        (click)="deleteClienteFisico(item?.pessoaFisicaId!)" type="button">
-                                        <i class="fa fa-trash-alt"></i>
-                                    </button>
-                                    <button class="btn-link link" type="button"
-                                        (click)="ConsultarClienteFisico(item?.pessoaFisica!)">
-                                        <i class="fa fa-magnifying-glass"></i>
-                                    </button>
-                                </td>
-                            </ng-template>
-                        </tr>
-                    </tbody>
-                </table>
-                <ng-template #clientesnull>
-                    <table class="table">
-                        <thead>
-                            <th scope="col">Nome/Razão social</th>
-                            <th scope="col">CPF/CNPJ</th>
-                            <th scope="col" style="padding-right: 20px;">Opções</th>
-                        </thead>
-                        <tr>
-                            <td colspan="3" style="text-align: center; padding: 15px;">Selecione o cliente para
-                                registrar o contrato.</td>
-                        </tr>
-                    </table>
-                </ng-template>
             </div>
             <div class="container-opcoes">
                 <div></div>
