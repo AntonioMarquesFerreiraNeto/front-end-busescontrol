@@ -8,11 +8,15 @@
     font-weight: normal;
 }
 
+.header-subtitle{
+    display: flex !important; justify-content: space-between !important; margin-bottom: 4px !important; align-items: flex-end !important; align-content: flex-end !important;
+}
+
 .color-title {
     margin-bottom: 1px;
     margin-left: 3px;
     text-align: center;
-    color: rgba(0, 57, 171, 0.6);
+    color: #4646ab;
     border-bottom: 1px solid rgba(0, 57, 171, 0.224) !important;
     border: none;
     padding: 0;
@@ -41,6 +45,13 @@ body {
     border-radius: 5px;
 }
 
+.margin-chartjs {
+    background: transparent !important;
+    padding: 0 !important;
+    margin-top: -30px;
+    margin-bottom: 30px;
+}
+
 .order-card {
     color: #fff !important;
 }
@@ -60,8 +71,7 @@ body {
 .card {
     position: relative;
     border-radius: 8px;
-    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-    box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+    box-shadow: 0px 0px 8px rgba(4, 26, 55, 0.119) !important;
     border: none;
     margin-bottom: 10px;
     -webkit-transition: all 0.3s ease-in-out;
@@ -77,21 +87,8 @@ body {
     color: rgba(255, 255, 255, 0.14) !important;
 }
 
-.icon-background2 {
-    bottom: 10px;
-    right: 30px;
-    position: absolute;
-    z-index: 0;
-    font-size: 35pt;
-    color: rgba(255, 255, 255, 0.14) !important;
-}
-
 .card .card-block {
-    padding: 25px 10px;
-}
-
-.card .card-block2 {
-    padding: 35px 13px;
+    padding: 40px 13px;
 }
 
 .order-card i {
@@ -132,94 +129,24 @@ body {
     font-family: sans-serif;
 }
 
-
-.table-container {
-    margin: 0;
-    margin-top: 10px;
-    padding: 0;
-}
-
-.title-table {
-    text-align: center;
-}
-
-.table {
-    margin: 0;
-    width: 100%;
-    box-shadow: 0 0 10px rgba(177, 176, 176, 0.5);
-}
-
-.table thead {
-    color: white;
-    height: 40px;
-}
-
-.table th {
-    font-size: 9pt;
-    text-align: center;
-}
-
-.table tr {
-    padding: 20px;
-    text-align: center;
-}
-
-.table .row-hover:hover {
-    background-color: #f7f7f7f7;
-}
-
-.table td {
-    margin: 0;
-    padding: 10px 0;
-    font-size: 10pt;
-    text-align: center;
-}
-
-td {
-    overflow-wrap: break-word
-}
-
-.link {
-    margin: 0 13px;
-}
-
-@media(max-width: 700px) {
-    .pagination li {
-        text-align: center;
-        width: 90%;
-    }
-
-    .table {
-        width: 100%;
-    }
-
-    .table td {
-        font-size: 8pt;
-    }
-
-    .table th {
-        font-size: 7pt;
-    }
-
-    .link {
-        font-size: 8pt;
-    }
-}
-
 .button {
     margin-top: 10px;
     margin: 1px;
-    padding: 7px 7px;
-    min-width: 70px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: 30px;
+    min-width: 60px;
     background-color: #8686c4;
     color: #ffffff;
     border: none;
-    border-radius: 8px;
+    border-radius: 7px;
     font-size: 10px;
     font-weight: normal;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 8px rgba(4, 26, 55, 0.344) !important;
     transition: all 0.3s ease-in-out;
 }
 
@@ -229,32 +156,4 @@ td {
     background-color: #5d5d87;
     text-decoration: none;
     color: white;
-}
-
-/*CSS ToolTip*/
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-    /* If you want dots under the hoverable text */
-}
-
-/* Tooltip text */
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-
-    /* Position the tooltip text - see examples below! */
-    position: absolute;
-    z-index: 1;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-    visibility: visible;
 }

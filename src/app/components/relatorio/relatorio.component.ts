@@ -64,25 +64,4 @@ export class RelatorioComponent implements OnInit {
     };
     return resultadoFinanceiro.toLocaleString("pt-BR", styleMoeda);
   }
-
-  ReturnPercentualClient(value: number){
-    if(value == 0 || this.relatorio.qtClientes == 0) return "0%";
-    value = (value/this.relatorio.qtClientes) * 100;
-    return `${value.toFixed(2)}%`;
-  }
-  ReturnPercentualOnibus(value: number){
-    if(value == 0 || this.relatorio.qtOnibus == 0) return "0%";
-    const result = (value/this.relatorio.qtOnibus) * 100;
-    return `${result.toFixed(2)}%`;
-  }
-  ReturnPercentualMotorista(value: number){
-    if(value == 0 || this.relatorio.qtMotorista == 0) return "0%";
-    const result = (value/this.relatorio.qtMotorista) * 100;
-    return `${result.toFixed(2)}%`;
-  }
-  ReturnPercentualContratoDinheiro(value: number){
-    if(value == 0 || this.relatorio.valTotAprovados == 0) return "0%";
-    const result = (value/this.relatorio.valTotAprovados) * 100;
-    return `${result.toFixed(2)}%`
-  }
 }

@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { registerLocaleData } from '@angular/common';
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
 import localePT from '@angular/common/locales/pt';
 registerLocaleData(localePT);
 
@@ -70,6 +72,10 @@ import { EnviadasComponent } from './components/dropdown-user/modais/enviadas/en
 import { ConfirmexclusaoComponent } from './components/dropdown-user/modais/enviadas/confirmexclusao/confirmexclusao.component';
 import { ViewlembreteComponent } from './components/dropdown-user/modais/modalmensagens/viewmensagem/viewlembrete.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GraficoContratosComponent } from './components/relatorio/pages/grafico-contratos/grafico-contratos.component';
+import { GraficoMoneycontratoComponent } from './components/relatorio/pages/grafico-moneycontrato/grafico-moneycontrato.component';
+import { GraficoClientesComponent } from './components/relatorio/pages/grafico-clientes/grafico-clientes.component';
+import { GraficoPercentualclienteComponent } from './components/relatorio/pages/grafico-percentualcliente/grafico-percentualcliente.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +132,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EnviarMensagemComponent,
     EnviadasComponent,
     ConfirmexclusaoComponent,
-    ViewlembreteComponent
+    ViewlembreteComponent,
+    GraficoContratosComponent,
+    GraficoMoneycontratoComponent,
+    GraficoClientesComponent,
+    GraficoPercentualclienteComponent
   ],
   imports: [
     NgSelectModule,
