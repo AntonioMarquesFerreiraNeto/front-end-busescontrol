@@ -7,7 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { registerLocaleData } from '@angular/common';
-import {NgApexchartsModule} from 'ng-apexcharts'
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 import localePT from '@angular/common/locales/pt';
@@ -145,7 +144,6 @@ import { FinanceiroBaranalyticsComponent } from './components/relatorio/pages/fi
   ],
   imports: [
     NgSelectModule,
-    NgApexchartsModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
