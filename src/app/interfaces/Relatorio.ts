@@ -1,3 +1,5 @@
+import { SimpleAnalytics } from "./SimpleAnalytics";
+
 export interface Relatorio {
     valTotAprovados: number;
     valTotEmAnalise: number;
@@ -7,6 +9,8 @@ export interface Relatorio {
     valTotPendente: number;
     valTotReceitas: number;
     valTotDespesas: number;
+    valorJurosAndMultas: number;
+    valorReceitasComuns: number;
     valTotEfetuadoReceita: number;
     valTotEfetuadoDespesa: number;
     qtContratosEncerrados: number;
@@ -21,4 +25,5 @@ export interface Relatorio {
     percentQtContratos: string;
     percentValorContratoAprovado: string;
     percentCliente: string;
+    simpleAnalytics: SimpleAnalytics[];
 }

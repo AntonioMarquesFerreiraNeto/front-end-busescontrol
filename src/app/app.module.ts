@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { registerLocaleData } from '@angular/common';
+import {NgApexchartsModule} from 'ng-apexcharts'
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 import localePT from '@angular/common/locales/pt';
@@ -76,6 +77,8 @@ import { GraficoContratosComponent } from './components/relatorio/pages/grafico-
 import { GraficoMoneycontratoComponent } from './components/relatorio/pages/grafico-moneycontrato/grafico-moneycontrato.component';
 import { GraficoClientesComponent } from './components/relatorio/pages/grafico-clientes/grafico-clientes.component';
 import { GraficoPercentualclienteComponent } from './components/relatorio/pages/grafico-percentualcliente/grafico-percentualcliente.component';
+import { FinanceiroAnalyticsComponent } from './components/relatorio/pages/financeiro-analytics/financeiro-analytics.component';
+import { FinanceiroBaranalyticsComponent } from './components/relatorio/pages/financeiro-baranalytics/financeiro-baranalytics.component';
 
 @NgModule({
   declarations: [
@@ -136,10 +139,13 @@ import { GraficoPercentualclienteComponent } from './components/relatorio/pages/
     GraficoContratosComponent,
     GraficoMoneycontratoComponent,
     GraficoClientesComponent,
-    GraficoPercentualclienteComponent
+    GraficoPercentualclienteComponent,
+    FinanceiroAnalyticsComponent,
+    FinanceiroBaranalyticsComponent
   ],
   imports: [
     NgSelectModule,
+    NgApexchartsModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,

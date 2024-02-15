@@ -22,6 +22,7 @@ export class RelatorioComponent implements OnInit {
     this.dashboardService.GetRelatorioDash().subscribe({
       next: (item) => {
         this.relatorio = item;
+        console.log(this.relatorio);
       }, 
       error: (error: HttpErrorResponse) => {
         if(error.status == 0){

@@ -8,8 +8,12 @@
     font-weight: normal;
 }
 
-.header-subtitle{
-    display: flex !important; justify-content: space-between !important; margin-bottom: 4px !important; align-items: flex-end !important; align-content: flex-end !important;
+.header-subtitle {
+    display: flex !important;
+    justify-content: space-between !important;
+    margin-bottom: 4px !important;
+    align-items: flex-end !important;
+    align-content: flex-end !important;
 }
 
 .color-title {
@@ -46,10 +50,24 @@ body {
 }
 
 .margin-chartjs {
+    display: flex !important;
+    flex-direction: row !important;
     background: transparent !important;
     padding: 0 !important;
     margin-top: -30px;
     margin-bottom: 30px;
+}
+
+@media(max-width: 848px) {
+    .margin-chartjs {
+        gap: 10px !important;
+        flex-direction: column !important;
+        align-content: center;
+    }
+
+    .col-md-6 {
+        flex: 1 !important;
+    }
 }
 
 .order-card {

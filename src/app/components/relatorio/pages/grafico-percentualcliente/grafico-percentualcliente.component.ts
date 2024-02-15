@@ -26,21 +26,14 @@ export class GraficoPercentualclienteComponent implements OnInit {
         labels: ['Clientes em percentual'],
         datasets: [
           {
-            label: 'Com contratos aprovados %',
-            backgroundColor: 'rgba(0, 245, 0, 0.2)',
-            borderColor: 'rgba(0, 255, 0, 0.9)',
-            borderWidth: 1,
-            data: [this.ReturnPercentualClient(this.relatorioInput.qtClientesVinculados)]
-          },
-          {
-            label: 'Clientes adimplentes %',
+            label: 'Adimplentes %',
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgb(54, 162, 235)',
             borderWidth: 1,
             data: [this.ReturnPercentualClient(this.relatorioInput.qtClientesAdimplente)]
           },
           {
-            label: 'Clientes inadimplentes %',
+            label: 'Inadimplentes %',
             backgroundColor: 'rgba(255, 205, 86, 0.2)',
             borderColor: 'rgb(255, 205, 86)',
             borderWidth: 1,
