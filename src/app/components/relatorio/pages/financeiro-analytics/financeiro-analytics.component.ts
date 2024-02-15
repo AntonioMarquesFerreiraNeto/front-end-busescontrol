@@ -43,7 +43,7 @@ export class FinanceiroAnalyticsComponent implements OnInit {
     this.myChart = new Chart(htmlRef, {
       type: 'line',
       data: {
-        labels: (Object.keys(groupDataDespesa).length > Object.keys(groupDataReceita).length) ? Object.keys(groupDataDespesa) : Object.keys(groupDataReceita),
+        labels: Object.keys(groupDataReceita),
         datasets: [
           {
             label: 'Receita mensal',
