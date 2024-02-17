@@ -52,6 +52,7 @@ export class GraficoMoneycontratoComponent implements OnInit {
       },
       options: {
         responsive: true,
+        aspectRatio: 1.8,
         plugins: {
           legend: {
             position: 'top'

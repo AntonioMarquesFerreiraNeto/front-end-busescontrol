@@ -16,51 +16,49 @@ export class FinanceiroAnalyticsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.gerarGrafico();
   }
 
   gerarGrafico() {
     let htmlRef = this.elementRef.nativeElement.querySelector('#myChartId');
-    const groupDataReceita: { [key: string]: number } = {};
-    const groupDataDespesa: { [key: string]: number } = {};
-    this.relatorioInput.simpleAnalytics.forEach((item) => {
-      const monthYear = this.ReturnDateFormat(item.dataEmissao)!;
-      if (item.despesaReceita == 1) {
-        if (!groupDataReceita[monthYear]) {
-          groupDataReceita[monthYear] = item.valorTotDR;
-        } else {
-          groupDataReceita[monthYear] += item.valorTotDR;
-        }
-      } else {
-        if (!groupDataDespesa[monthYear]) {
-          groupDataDespesa[monthYear] = item.valorTotDR;
-        } else {
-          groupDataDespesa[monthYear] += item.valorTotDR;
-        }
+    let labesDatas = this.relatorioInput.simpleAnalytics.LabelsDates;
+    let datasReceitas = this.relatorioInput.simpleAnalytics.simpleReceitasList.map((item) => {
+      return {
+        x: item.dateMothYear,
+        y: item.valTotMothYear
       }
     });
-
+    let datasDespesas = this.relatorioInput.simpleAnalytics.simpleDespesasList.map((item) => {
+      return {
+        x: item.dateMothYear,
+        y: item.valTotMothYear
+      }
+    });
     this.myChart = new Chart(htmlRef, {
       type: 'line',
       data: {
-        labels: Object.keys(groupDataReceita),
+        labels: labesDatas,
         datasets: [
           {
             label: 'Receita mensal',
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgb(54, 162, 235)',
             borderWidth: 1,
-            data: Object.values(groupDataReceita)
+            data: datasReceitas,
+            cubicInterpolationMode: 'monotone',
+            fill: true
           },
           {
             label: 'Despesa mensal',
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgb(255, 99, 132)',
             borderWidth: 1,
-            data: Object.values(groupDataDespesa)
+            data: datasDespesas,
+            cubicInterpolationMode: 'monotone',
+            fill: true
           }
         ]
-
       },
       options: {
         responsive: true,
@@ -76,9 +74,5 @@ export class FinanceiroAnalyticsComponent implements OnInit {
         },
       }
     });
-  }
-
-  ReturnDateFormat(value: string) {
-    return this.datePipe.transform(value, "MM/yyyy");
   }
 }

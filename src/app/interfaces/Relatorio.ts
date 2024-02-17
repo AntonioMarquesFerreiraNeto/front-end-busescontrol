@@ -25,5 +25,5 @@ export interface Relatorio {
     percentQtContratos: string;
     percentValorContratoAprovado: string;
     percentCliente: string;
-    simpleAnalytics: SimpleAnalytics[];
+    simpleAnalytics: SimpleAnalytics;
 }

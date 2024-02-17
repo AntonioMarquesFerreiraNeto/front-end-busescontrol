@@ -21,42 +21,33 @@ export class GraficoPercentualclienteComponent implements OnInit {
   graficoCliente(){
     let htmlRef = this.elementRef.nativeElement.querySelector("#myChartId");
     this.myChart = new Chart(htmlRef, {
-      type: 'bar',
+      type: 'doughnut',
       data: {
-        labels: ['Clientes em percentual'],
+        labels: ['Percentual adimplentes', 'Percentual inadimplentes'],
         datasets: [
           {
             label: 'Adimplentes %',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgb(54, 162, 235)',
+            backgroundColor: [
+              'rgba(54, 162, 235, 0.3)',
+              'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+              'rgb(54, 162, 235)',
+              'rgb(255, 99, 132)'
+            ],
             borderWidth: 1,
-            data: [this.ReturnPercentualClient(this.relatorioInput.qtClientesAdimplente)]
-          },
-          {
-            label: 'Inadimplentes %',
-            backgroundColor: 'rgba(255, 205, 86, 0.2)',
-            borderColor: 'rgb(255, 205, 86)',
-            borderWidth: 1,
-            data: [this.ReturnPercentualClient(this.relatorioInput.qtClientesInadimplente)]
+            data: [this.ReturnPercentualClient(this.relatorioInput.qtClientesAdimplente), this.ReturnPercentualClient(this.relatorioInput.qtClientesInadimplente)]
           }
         ]
       },
       options: {
         responsive: true,
+        aspectRatio: 1.9,
         plugins: {
           legend: {
             position: 'top'
           }   
         },
-        scales: {
-          y: {
-            ticks: {
-              callback: function(value) {
-                return value + '%';
-              }
-            }
-          }
-        }
       }
     });
   }
