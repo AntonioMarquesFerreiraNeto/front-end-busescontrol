@@ -42,18 +42,18 @@ export class FinanceiroAnalyticsComponent implements OnInit {
         datasets: [
           {
             label: 'Receita mensal',
-            backgroundColor: 'rgba(80, 80, 196, 0.2)',
+            backgroundColor: 'rgba(80, 80, 196, 0.1)',
             borderColor: 'rgb(80, 80, 196)',
-            borderWidth: 0.5,
+            borderWidth: 1.5,
             data: datasReceitas,
             cubicInterpolationMode: 'monotone',
             fill: true
           },
           {
             label: 'Despesa mensal',
-            backgroundColor: 'rgba(241, 60, 90, 0.2)',
-            borderColor: 'rgb(297, 69, 93)',
-            borderWidth: 0.5,
+            backgroundColor: 'rgba(241, 60, 90, 0.1)',
+            borderColor: 'rgb(241, 60, 90)',
+            borderWidth: 1.5,
             data: datasDespesas,
             cubicInterpolationMode: 'monotone',
             fill: true

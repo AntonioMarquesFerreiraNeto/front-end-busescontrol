@@ -28,8 +28,8 @@ export class GraficoPercentualclienteComponent implements OnInit {
           {
             label: 'Percentual',
             backgroundColor: [
-              'rgba(40, 40, 146, 0.3)',
-              'rgba(255, 0, 0, 0.3)'
+              'rgb(80, 80, 196)',
+              'rgba(241, 60, 90)'
             ],
             borderWidth: 0,
             data: [this.ReturnPercentualClient(this.relatorioInput.qtClientesAdimplente), this.ReturnPercentualClient(this.relatorioInput.qtClientesInadimplente)]
