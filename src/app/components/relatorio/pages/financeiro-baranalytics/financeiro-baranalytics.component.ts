@@ -28,30 +28,22 @@ export class FinanceiroBaranalyticsComponent implements OnInit{
         datasets: [
           {
             label: 'Receitas',
-            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-            borderColor: 'rgb(153, 102, 255)',
-            borderWidth: 1,
+            backgroundColor: 'rgba(53, 102, 255, 0.3)',
             data: [this.relatorioInput.valorReceitasComuns]
           },
           {
             label: 'Despesas',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgb(54, 162, 235)',
-            borderWidth: 1,
+            backgroundColor: 'rgba(40, 40, 146, 0.3)',
             data: [this.relatorioInput.valTotDespesas]
           },
           {
             label: 'Receitas/contratos',
-            backgroundColor: 'rgba(0, 245, 0, 0.2)',
-            borderColor: 'rgba(0, 255, 0, 0.9)',
-            borderWidth: 1,
+            backgroundColor: 'rgba(40, 197, 166, 0.3)',
             data: [this.relatorioInput.valTotAprovados]
           },
           {
             label: 'Juros/multas',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgb(255, 99, 132)',
-            borderWidth: 1,
+            backgroundColor: 'rgba(255, 0, 0, 0.4)',
             data: [this.relatorioInput.valorJurosAndMultas]
           }
         ]

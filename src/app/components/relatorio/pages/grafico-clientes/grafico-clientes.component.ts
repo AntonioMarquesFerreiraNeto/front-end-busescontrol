@@ -26,23 +26,17 @@ export class GraficoClientesComponent implements OnInit{
         datasets: [
           {
             label: 'Com contratos aprovados',
-            backgroundColor: 'rgba(0, 245, 0, 0.2)',
-            borderColor: 'rgba(0, 255, 0, 0.9)',
-            borderWidth: 0.5,
+            backgroundColor: 'rgba(40, 197, 166, 0.4)',
             data: [this.relatorio.qtClientesVinculados]
           },
           {
             label: 'Clientes adimplentes',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgb(54, 162, 235)',
-            borderWidth: 0.5,
+            backgroundColor: 'rgba(40, 40, 146, 0.3)',
             data: [this.relatorio.qtClientesAdimplente]
           },
           {
             label: 'Clientes inadimplentes',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgb(255, 99, 132)',
-            borderWidth: 0.5,
+            backgroundColor: 'rgba(255, 0, 0, 0.3)',
             data: [this.relatorio.qtClientesInadimplente]
           }
         ]

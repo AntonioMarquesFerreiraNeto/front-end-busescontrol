@@ -20,8 +20,7 @@
     margin-bottom: 1px;
     margin-left: 3px;
     text-align: center;
-    color: #4646ab;
-    border-bottom: 1px solid rgba(0, 57, 171, 0.224) !important;
+    border-bottom: 1px solid rgba(0, 45, 134, 0.224) !important;
     border: none;
     padding: 0;
 }
@@ -75,21 +74,21 @@ body {
 }
 
 .bg-c-blue {
-    background: linear-gradient(45deg, #4099ff, #73b4ff);
+    background-color: rgb(80, 80, 196);
 }
 
 .bg-c-green {
-    background: linear-gradient(45deg, #2ed8b6, #59e0c5);
+    background-color: rgb(40, 197, 166);
 }
 
 .bg-c-pink {
-    background: linear-gradient(45deg, #FF5370, #ff869a);
+    background-color: rgb(241, 60, 90);
 }
 
 .card {
     position: relative;
-    border-radius: 8px;
-    box-shadow: 0px 0px 8px rgba(4, 26, 55, 0.119) !important;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px rgba(4, 26, 55, 0.275) !important;
     border: none;
     margin-bottom: 10px;
     -webkit-transition: all 0.3s ease-in-out;
@@ -102,11 +101,11 @@ body {
     position: absolute;
     z-index: 0;
     font-size: 72pt;
-    color: rgba(255, 255, 255, 0.14) !important;
+    color: rgba(255, 255, 255, 0.21) !important;
 }
 
 .card .card-block {
-    padding: 40px 13px;
+    padding: 43px 13px;
 }
 
 .order-card i {
@@ -156,7 +155,7 @@ body {
     align-items: center;
     height: 30px;
     min-width: 60px;
-    background-color: #8686c4;
+    background-color: rgb(93, 93, 206);
     color: #ffffff;
     border: none;
     border-radius: 7px;

@@ -23,19 +23,15 @@ export class GraficoPercentualclienteComponent implements OnInit {
     this.myChart = new Chart(htmlRef, {
       type: 'doughnut',
       data: {
-        labels: ['Percentual adimplentes', 'Percentual inadimplentes'],
+        labels: ['Adimplentes', 'Inadimplentes'],
         datasets: [
           {
-            label: 'Adimplentes %',
+            label: 'Percentual',
             backgroundColor: [
-              'rgba(54, 162, 235, 0.3)',
-              'rgba(255, 99, 132, 0.2)'
+              'rgba(40, 40, 146, 0.3)',
+              'rgba(255, 0, 0, 0.3)'
             ],
-            borderColor: [
-              'rgb(54, 162, 235)',
-              'rgb(255, 99, 132)'
-            ],
-            borderWidth: 1,
+            borderWidth: 0,
             data: [this.ReturnPercentualClient(this.relatorioInput.qtClientesAdimplente), this.ReturnPercentualClient(this.relatorioInput.qtClientesInadimplente)]
           }
         ]
@@ -43,12 +39,19 @@ export class GraficoPercentualclienteComponent implements OnInit {
       options: {
         responsive: true,
         aspectRatio: 1.9,
-        plugins: {
-          legend: {
-            position: 'top'
-          }   
-        },
+        scales: {
+          y: {
+            min: 0,
+            max: 100,
+            ticks: {
+              callback: function (value) {
+                return value + '%'; 
+              }
+            }
+          }
+        }
       }
+      
     });
   }
 
