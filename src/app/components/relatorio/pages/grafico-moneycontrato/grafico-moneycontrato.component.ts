@@ -29,17 +29,17 @@ export class GraficoMoneycontratoComponent implements OnInit {
         datasets: [
           {
             label: 'Aprovados R$',
-            backgroundColor: 'rgb(80, 80, 196)',
+            backgroundColor: 'rgb(80, 80, 196, 0.8)',
             data: [this.relatorioInput.valTotAprovados]
           },
           {
             label: 'Em análise R$',
-            backgroundColor: 'rgba(40, 197, 166)',
+            backgroundColor: 'rgba(40, 197, 166, 0.8)',
             data: [this.relatorioInput.valTotEmAnalise]
           },
           {
             label: 'Reprovados R$',
-            backgroundColor: 'rgba(255, 165, 0)',
+            backgroundColor: 'rgba(255, 165, 0, 0.8)',
             data: [this.relatorioInput.valTotReprovados]
           }
         ]

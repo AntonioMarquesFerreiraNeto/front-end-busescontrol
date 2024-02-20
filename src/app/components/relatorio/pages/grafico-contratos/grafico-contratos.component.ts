@@ -27,22 +27,22 @@ export class GraficoContratosComponent implements OnInit {
         datasets: [
           {
             label: 'Aprovados',
-            backgroundColor: 'rgb(80, 80, 196)',
+            backgroundColor: 'rgb(80, 80, 196, 0.8)',
             data: [this.relatorioInput.qtContratosAprovados]
           },
           {
             label: 'Em análise',
-            backgroundColor: 'rgba(40, 197, 166)',
+            backgroundColor: 'rgba(40, 197, 166, 0.8)',
             data: [this.relatorioInput.qtContratosEmAnalise]
           },
           {
             label: 'Reprovados',
-            backgroundColor: 'rgba(255, 165, 0)',
+            backgroundColor: 'rgba(255, 165, 0, 0.8)',
             data: [this.relatorioInput.qtContratosNegados]
           },
           {
             label: 'Encerrados',
-            backgroundColor: 'rgba(241, 60, 90)',
+            backgroundColor: 'rgba(241, 60, 90, 0.8)',
             data: [this.relatorioInput.qtContratosEncerrados]
           }
         ]
