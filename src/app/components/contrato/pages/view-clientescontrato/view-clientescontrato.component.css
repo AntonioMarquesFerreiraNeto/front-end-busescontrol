@@ -21,9 +21,20 @@
   font-size: 11pt;
   text-align: justify;
 }
+
 /* Barra de rolagem */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 5px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(68, 68, 168, 0.271) !important;
+  border: none !important;
+  border-radius: 80px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(68, 68, 168, 0.479) !important;
 }
 
 /* Botão de fechar */

@@ -28,21 +28,21 @@ export class GraficoClientesComponent implements OnInit{
             label: 'Com contratos aprovados',
             backgroundColor: 'rgba(0, 245, 0, 0.2)',
             borderColor: 'rgba(0, 255, 0, 0.9)',
-            borderWidth: 1,
+            borderWidth: 0.5,
             data: [this.relatorio.qtClientesVinculados]
           },
           {
             label: 'Clientes adimplentes',
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgb(54, 162, 235)',
-            borderWidth: 1,
+            borderWidth: 0.5,
             data: [this.relatorio.qtClientesAdimplente]
           },
           {
             label: 'Clientes inadimplentes',
-            backgroundColor: 'rgba(255, 205, 86, 0.2)',
-            borderColor: 'rgb(255, 205, 86)',
-            borderWidth: 1,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
+            borderWidth: 0.5,
             data: [this.relatorio.qtClientesInadimplente]
           }
         ]
