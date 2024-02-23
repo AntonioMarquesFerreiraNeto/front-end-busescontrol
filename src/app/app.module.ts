@@ -1,6 +1,6 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule, DatePipe, IMAGE_CONFIG } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,6 +11,7 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 import localePT from '@angular/common/locales/pt';
 registerLocaleData(localePT);
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { FrotaComponent } from './components/frota/frota.component';
@@ -143,6 +144,7 @@ import { FinanceiroBaranalyticsComponent } from './components/relatorio/pages/fi
     FinanceiroBaranalyticsComponent
   ],
   imports: [
+    MatSnackBarModule,
     NgSelectModule,
     BrowserModule,
     HttpClientModule,

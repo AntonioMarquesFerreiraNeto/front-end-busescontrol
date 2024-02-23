@@ -7,6 +7,7 @@ import { EnviadasComponent } from '../enviadas.component';
 import { Usuario } from 'src/app/interfaces/User';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-confirmexclusao',
@@ -16,7 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class ConfirmexclusaoComponent implements OnInit {
   @Input() lembrete!: Lembrete;
   @Input() userAuth!: Usuario;
-  constructor(public modalService: NgbActiveModal, private lembreteService: LembreteService, private datePipe: DatePipe, private modal: NgbModal, private mensagemService: MensagensService){
+  constructor(public modalService: NgbActiveModal, private lembreteService: LembreteService, private datePipe: DatePipe, private modal: NgbModal, private mensagemService: MensagensService, public snackBar: MatSnackBar){
 
   }
 
@@ -34,7 +35,10 @@ export class ConfirmexclusaoComponent implements OnInit {
         }, 2000);
       },
       error: (error: HttpErrorResponse) => {
-        window.alert(error.error);
+        this.snackBar.open(`${error.error}`, '', {
+          duration: 3000,
+          horizontalPosition: 'left'
+        });
       }
     });
   }

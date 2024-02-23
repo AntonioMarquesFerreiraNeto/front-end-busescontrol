@@ -4,6 +4,7 @@ import { PaletaCoresService } from 'src/app/services/paleta-cores.service';
 import {FormGroup, FormControl, Validators} from "@angular/forms"
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-modal-gerircores',
   templateUrl: './modal-gerircores.component.html',
@@ -14,7 +15,7 @@ export class ModalGerircoresComponent implements OnInit {
   paleta!: PaletaCores;
   paletas!: PaletaCores[];
   @Output() listaAtualizada = new EventEmitter<PaletaCores[]>();
-  constructor(private paletaService: PaletaCoresService, private modalService: NgbActiveModal){
+  constructor(private paletaService: PaletaCoresService, private modalService: NgbActiveModal, private snackBarService: MatSnackBar){
 
   }
   
@@ -51,7 +52,10 @@ export class ModalGerircoresComponent implements OnInit {
         this.paletaService.GetPaletas().subscribe((itens) => this.paletas = itens);
       },
       error: (error: HttpErrorResponse) => {
-        window.alert(error.error);
+        this.snackBarService.open(`${error.error}`, '', {
+          duration: 3000,
+          horizontalPosition: 'left'
+        });
       }
     });
   }
