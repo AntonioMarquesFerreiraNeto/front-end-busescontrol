@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ContratoService } from 'src/app/services/contrato.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -12,11 +12,15 @@ import { ClientesContrato } from 'src/app/interfaces/ClientesContrato';
 import { Contrato } from 'src/app/interfaces/Contrato';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-edit-contrato',
   templateUrl: './edit-contrato.component.html',
-  styleUrls: ['./edit-contrato.component.css']
+  styleUrls: ['./edit-contrato.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class EditContratoComponent implements OnInit {
   loudingActive = true;

@@ -1,4 +1,4 @@
-import { Component, IterableDiffers, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -6,13 +6,15 @@ import { Router } from '@angular/router';
 import { ClienteFisico } from 'src/app/interfaces/ClienteFisico';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
-import { end } from '@popperjs/core';
-import { formatCurrency } from '@angular/common';
 import { EstadoAndUF } from 'src/app/interfaces/EstadoAndUF';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 @Component({
   selector: 'app-new-cliente',
   templateUrl: './new-cliente.component.html',
-  styleUrls: ['./new-cliente.component.css']
+  styleUrls: ['./new-cliente.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class NewClienteComponent implements OnInit {
   clienteForm!: FormGroup;

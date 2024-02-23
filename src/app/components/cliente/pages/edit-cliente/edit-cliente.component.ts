@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 import { ClienteFisico } from 'src/app/interfaces/ClienteFisico';
 import { EstadoAndUF } from 'src/app/interfaces/EstadoAndUF';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -12,7 +13,10 @@ import { MensagensService } from 'src/app/services/mensagens.service';
 @Component({
   selector: 'app-edit-cliente',
   templateUrl: './edit-cliente.component.html',
-  styleUrls: ['./edit-cliente.component.css']
+  styleUrls: ['./edit-cliente.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class EditClienteComponent implements OnInit {
   clienteForm!: FormGroup;

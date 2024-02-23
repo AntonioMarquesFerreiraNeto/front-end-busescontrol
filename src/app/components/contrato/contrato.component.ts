@@ -13,11 +13,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Usuario } from 'src/app/interfaces/User';
 import { Title } from '@angular/platform-browser';
 import { SubstituicoesComponent } from './pages/substituicoes/substituicoes.component';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-contrato',
   templateUrl: './contrato.component.html',
-  styleUrls: ['./contrato.component.css']
+  styleUrls: ['./contrato.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 
 export class ContratoComponent implements OnInit {

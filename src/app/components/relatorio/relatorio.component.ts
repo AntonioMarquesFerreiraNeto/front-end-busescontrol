@@ -7,11 +7,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-relatorio',
   templateUrl: './relatorio.component.html',
-  styleUrls: ['./relatorio.component.css']
+  styleUrls: ['./relatorio.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class RelatorioComponent implements OnInit {
   relatorio!: Relatorio;

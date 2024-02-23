@@ -7,11 +7,15 @@ import { CompartilharListService } from 'src/app/services/compartilhar-list.serv
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { GerirClientepjComponent } from './pages/gerir-clientepj/gerir-clientepj.component';
 import { Title } from '@angular/platform-browser';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-cliente-juridico',
   templateUrl: './cliente-juridico.component.html',
-  styleUrls: ['./cliente-juridico.component.css']
+  styleUrls: ['./cliente-juridico.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class ClienteJuridicoComponent implements OnInit {
   clienteList!: ClienteJuridico[];

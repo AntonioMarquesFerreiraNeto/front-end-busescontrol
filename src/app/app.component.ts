@@ -5,11 +5,16 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { UserauthService } from './services/userauth.service';
 import { Usuario } from './interfaces/User';
+import {  } from '@angular/animations'
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class AppComponent implements OnInit {
   classMenu!: string;

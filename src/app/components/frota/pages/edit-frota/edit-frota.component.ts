@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Onibus } from 'src/app/interfaces/Onibus';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OnibusService } from 'src/app/services/onibus.service';
@@ -10,11 +10,15 @@ import { PaletaCoresService } from 'src/app/services/paleta-cores.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ModalGerircoresComponent } from '../modal-gerircores/modal-gerircores.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-edit-frota',
   templateUrl: './edit-frota.component.html',
-  styleUrls: ['./edit-frota.component.css']
+  styleUrls: ['./edit-frota.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class EditFrotaComponent implements OnInit {
   onibusForm!: FormGroup;

@@ -1,4 +1,4 @@
-<div class="container-components" *ngIf="!loudingActive else louding">
+<div class="container-components" *ngIf="!loudingActive else louding" [@fadeInOnEnter]>
     <app-mensagens></app-mensagens>
     <div class="header">
         <h3><i class="fa fa-user-gear"></i> Atualizar funcionário</h3>
@@ -286,7 +286,7 @@
     </div>
 </div>
 <ng-template #louding>  
-    <div class="container-components">
+    <div class="container-components" [@fadeInOnEnter]>
         <div class="main-louding">
             <div class="louding">
                 <img src="assets/Imagens/logobus.png" alt="espere..." class="logoLouding">

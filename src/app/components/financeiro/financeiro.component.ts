@@ -10,11 +10,15 @@ import { DatePipe, Location } from '@angular/common';
 import { GerirFinanceiroComponent } from './pages/gerir-financeiro/gerir-financeiro.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-financeiro',
   templateUrl: './financeiro.component.html',
-  styleUrls: ['./financeiro.component.css']
+  styleUrls: ['./financeiro.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class FinanceiroComponent implements OnInit {
   tituloPag: string = "Financeiro";

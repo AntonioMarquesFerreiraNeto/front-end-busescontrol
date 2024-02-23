@@ -10,12 +10,16 @@ import { CompartilharListService } from 'src/app/services/compartilhar-list.serv
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalGerircoresComponent } from '../modal-gerircores/modal-gerircores.component';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 
 @Component({
   selector: 'app-new-frota',
   templateUrl: './new-frota.component.html',
-  styleUrls: ['./new-frota.component.css']
+  styleUrls: ['./new-frota.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class NewFrotaComponent implements OnInit {
 

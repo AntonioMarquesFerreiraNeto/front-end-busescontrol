@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
-import { combineAll } from 'rxjs';
+import { Component, OnInit, HostListener, } from '@angular/core';
 import { Funcionario } from 'src/app/interfaces/Funcionario';
 import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
 import { FuncionarioService } from 'src/app/services/funcionario.service';
@@ -9,11 +8,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GerirFuncionarioComponent } from './pages/gerir-funcionario/gerir-funcionario.component';
 import { GerirUsuarioComponent } from './pages/gerir-usuario/gerir-usuario.component';
 import { Title } from '@angular/platform-browser';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-funcionario',
   templateUrl: './funcionario.component.html',
-  styleUrls: ['./funcionario.component.css']
+  styleUrls: ['./funcionario.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class FuncionarioComponent implements OnInit {
 

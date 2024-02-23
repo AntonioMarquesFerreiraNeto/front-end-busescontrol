@@ -1,8 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, HostListener, OnInit, Output } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 import { ConsultClienteComponent } from 'src/app/components/contrato/pages/consult-cliente/consult-cliente.component';
 import { Financeiro } from 'src/app/interfaces/Financeiro';
 import { Parcela } from 'src/app/interfaces/Parcela';
@@ -13,7 +14,10 @@ import { MensagensService } from 'src/app/services/mensagens.service';
 @Component({
   selector: 'app-contabilizacoes',
   templateUrl: './contabilizacoes.component.html',
-  styleUrls: ['./contabilizacoes.component.css']
+  styleUrls: ['./contabilizacoes.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class ContabilizacoesComponent implements OnInit {
   tituloPag!: string;

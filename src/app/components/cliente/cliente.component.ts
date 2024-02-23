@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { NgbModal, NgbModalConfig, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClienteFisico } from 'src/app/interfaces/ClienteFisico';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { GerirClienteComponent } from './pages/gerir-cliente/gerir-cliente.component';
@@ -8,11 +8,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { DatePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.component.html',
-  styleUrls: ['./cliente.component.css']
+  styleUrls: ['./cliente.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class ClienteComponent implements OnInit {
   tituloPag = "Clientes";

@@ -6,13 +6,16 @@ import { MensagensService } from 'src/app/services/mensagens.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Funcionario } from 'src/app/interfaces/Funcionario';
 import { DatePipe } from '@angular/common';
-import { combineAll } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EstadoAndUF } from 'src/app/interfaces/EstadoAndUF';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 @Component({
   selector: 'app-edit-funcionario',
   templateUrl: './edit-funcionario.component.html',
-  styleUrls: ['./edit-funcionario.component.css']
+  styleUrls: ['./edit-funcionario.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class EditFuncionarioComponent implements OnInit {
   listEstadoUf!: EstadoAndUF[];

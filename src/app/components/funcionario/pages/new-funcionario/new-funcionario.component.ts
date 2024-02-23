@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, IterableDiffers, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 import { EstadoAndUF } from 'src/app/interfaces/EstadoAndUF';
 import { Funcionario } from 'src/app/interfaces/Funcionario';
 import { CompartilharListService } from 'src/app/services/compartilhar-list.service';
@@ -12,7 +13,10 @@ import { MensagensService } from 'src/app/services/mensagens.service';
 @Component({
   selector: 'app-new-funcionario',
   templateUrl: './new-funcionario.component.html',
-  styleUrls: ['./new-funcionario.component.css']
+  styleUrls: ['./new-funcionario.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class NewFuncionarioComponent implements OnInit {
 

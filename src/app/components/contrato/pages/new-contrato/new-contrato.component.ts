@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClienteFisico } from 'src/app/interfaces/ClienteFisico';
@@ -10,15 +10,18 @@ import { Onibus } from 'src/app/interfaces/Onibus';
 import { ContratoService } from 'src/app/services/contrato.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConsultClienteComponent } from '../consult-cliente/consult-cliente.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { LembreteService } from 'src/app/services/lembrete.service';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-new-contrato',
   templateUrl: './new-contrato.component.html',
-  styleUrls: ['./new-contrato.component.css']
+  styleUrls: ['./new-contrato.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class NewContratoComponent implements OnInit {
   contratoForm!: FormGroup;

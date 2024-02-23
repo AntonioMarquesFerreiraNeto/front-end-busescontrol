@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 import { ClienteJuridico } from 'src/app/interfaces/ClienteJuridico';
 import { EstadoAndUF } from 'src/app/interfaces/EstadoAndUF';
 import { ClientePjService } from 'src/app/services/cliente-pj.service';
@@ -11,7 +12,10 @@ import { MensagensService } from 'src/app/services/mensagens.service';
 @Component({
   selector: 'app-new-clientepj',
   templateUrl: './new-clientepj.component.html',
-  styleUrls: ['./new-clientepj.component.css']
+  styleUrls: ['./new-clientepj.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class NewClientepjComponent implements OnInit {
   clienteForm!: FormGroup;

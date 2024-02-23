@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^16.0.0",
+    "@angular/animations": "^16.2.12",
     "@angular/cdk": "^16.2.14",
     "@angular/common": "^16.0.0",
     "@angular/compiler": "^16.0.0",
@@ -25,6 +25,7 @@
     "@ng-select/ng-select": "^11.2.0",
     "@popperjs/core": "^2.11.7",
     "@syncfusion/ej2-angular-dropdowns": "^23.1.41",
+    "angular-animations": "^0.11.0",
     "angular-input-mask": "^0.0.7",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.4.1",

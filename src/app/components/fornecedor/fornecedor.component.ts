@@ -9,11 +9,15 @@ import { NewFornecedorComponent } from './pages/new-fornecedor/new-fornecedor.co
 import { EditFornecedorComponent } from './pages/edit-fornecedor/edit-fornecedor.component';
 import { GerirFornecedorComponent } from './pages/gerir-fornecedor/gerir-fornecedor.component';
 import { Title } from '@angular/platform-browser';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-fornecedor',
   templateUrl: './fornecedor.component.html',
-  styleUrls: ['./fornecedor.component.css']
+  styleUrls: ['./fornecedor.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class FornecedorComponent implements OnInit {
 

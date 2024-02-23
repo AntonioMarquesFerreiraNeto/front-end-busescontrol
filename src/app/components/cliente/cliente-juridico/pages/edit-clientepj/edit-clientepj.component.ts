@@ -7,11 +7,15 @@ import { CompartilharListService } from 'src/app/services/compartilhar-list.serv
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { ClienteJuridico } from 'src/app/interfaces/ClienteJuridico';
 import { EstadoAndUF } from 'src/app/interfaces/EstadoAndUF';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-edit-clientepj',
   templateUrl: './edit-clientepj.component.html',
-  styleUrls: ['./edit-clientepj.component.css']
+  styleUrls: ['./edit-clientepj.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class EditClientepjComponent implements OnInit {
   clienteForm!: FormGroup;

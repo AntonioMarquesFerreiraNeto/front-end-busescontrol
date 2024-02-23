@@ -9,11 +9,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { GerirdisponibilidadeComponent } from './pages/gerirdisponibilidade/gerirdisponibilidade.component';
+import { fadeInOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-frota',
   templateUrl: './frota.component.html',
-  styleUrls: ['./frota.component.css']
+  styleUrls: ['./frota.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class FrotaComponent implements OnInit {
   onibus: Onibus[] = [];

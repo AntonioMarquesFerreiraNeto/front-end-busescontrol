@@ -6,11 +6,15 @@ import { ModalmensagensComponent } from './modais/modalmensagens/modalmensagens.
 import { EnviarMensagemComponent } from './modais/enviar-mensagem/enviar-mensagem.component';
 import { LembreteService } from 'src/app/services/lembrete.service';
 import { EnviadasComponent } from './modais/enviadas/enviadas.component';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-dropdown-user',
   templateUrl: './dropdown-user.component.html',
-  styleUrls: ['./dropdown-user.component.css']
+  styleUrls: ['./dropdown-user.component.css'],
+  animations: [
+    fadeInOnEnterAnimation()
+  ]
 })
 export class DropdownUserComponent implements OnInit {
   @Input() display_dropdown!: boolean;

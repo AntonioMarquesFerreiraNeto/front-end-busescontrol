@@ -1,4 +1,4 @@
-<div class="container-components" *ngIf="financeiro else louding">
+<div class="container-components" *ngIf="financeiro else louding" [@fadeInOnEnter]>
     <app-mensagens></app-mensagens>
     <div class="header">
         <h3>
@@ -154,7 +154,7 @@
     </div>
 </div>
 <ng-template #louding>
-    <div class="container-components">
+    <div class="container-components" [@fadeInOnEnter]>
         <div class="main-louding">
             <div class="louding">
                 <img src="assets/Imagens/logobus.png" alt="espere..." class="logoLouding">
