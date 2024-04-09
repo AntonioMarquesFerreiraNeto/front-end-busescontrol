@@ -41,7 +41,7 @@ export class FinanceiroAnalyticsComponent implements OnInit {
         labels: labesDatas,
         datasets: [
           {
-            label: 'Receita mensal',
+            label: 'Receita projetada',
             backgroundColor: 'rgba(80, 80, 196, 0.1)',
             borderColor: 'rgb(80, 80, 196)',
             borderWidth: 1.5,
@@ -50,7 +50,7 @@ export class FinanceiroAnalyticsComponent implements OnInit {
             fill: true
           },
           {
-            label: 'Despesa mensal',
+            label: 'Despesa projetada',
             backgroundColor: 'rgba(241, 60, 90, 0.1)',
             borderColor: 'rgb(241, 60, 90)',
             borderWidth: 1.5,
