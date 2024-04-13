@@ -56,5 +56,6 @@ export class LoginComponent implements OnInit {
     this.loudingActive = true;
     const data: Login = this.loginForm.value;
     this.userAuthService.Autenticar(data);
+    this.userAuthService.NotificarAuth().subscribe();
   }
 }

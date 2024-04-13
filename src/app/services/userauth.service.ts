@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/User';
+import { NotificacaoAdmin } from '../interfaces/NotificacaoAdmin';
 import { Login } from '../interfaces/Login';
 import { Router } from '@angular/router';
 import { MensagensService } from './mensagens.service';
@@ -10,6 +11,7 @@ import { RedefinirSenha } from '../interfaces/redefinirSenha';
 import { AlterSenha } from '../interfaces/AlterarSenha';
 import { environments } from '../environments/environments';
 import { environments_prod } from '../environments/environments_prod';
+import { DatePipe } from '@angular/common';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
@@ -21,8 +23,9 @@ const httpOptions = {
 })
 export class UserauthService {
   private apiURL = (environments.production) ? `${environments.baseApiURL}/Usuario` : `${environments_prod.baseApiURL}/Usuario`;
+  private notificationAPI = environments_prod.notificationApi;
   private emitRequestFinish = new Subject<void>();
-  constructor(private http: HttpClient, private router: Router, private mensagemService: MensagensService) {
+  constructor(private http: HttpClient, private router: Router, private mensagemService: MensagensService, private datePipe: DatePipe) {
   }
 
   Autenticar(login: Login) {
@@ -45,7 +48,8 @@ export class UserauthService {
       }
     });
   }
-  GetAuthRequestFinish(){
+
+  GetAuthRequestFinish() {
     return this.emitRequestFinish.asObservable();
   }
 
@@ -74,19 +78,28 @@ export class UserauthService {
     window.location.href = "/login";
   }
 
-  EsqueceuSenha(esqueceuSenha: EsqueceuSenha): Observable<any>{
+  EsqueceuSenha(esqueceuSenha: EsqueceuSenha): Observable<any> {
     return this.http.post<any>(`${this.apiURL}/EsqueceuSenha`, esqueceuSenha, httpOptions);
   }
-  RedefinirSenha(redefinirSenha: RedefinirSenha): Observable<any>{
+  RedefinirSenha(redefinirSenha: RedefinirSenha): Observable<any> {
     return this.http.put<RedefinirSenha>(`${this.apiURL}/RedefinirSenha`, redefinirSenha, httpOptions);
   }
 
-  ConsultChaveRedefinition(chave: string): Observable<any>{
+  ConsultChaveRedefinition(chave: string): Observable<any> {
     return this.http.get<any>(`${this.apiURL}/ConsultChaveRedefinition/${chave}`);
   }
 
-  AlterarPassword(alterarSenha: AlterSenha): Observable<any>{
+  AlterarPassword(alterarSenha: AlterSenha): Observable<any> {
     return this.http.put<any>(`${this.apiURL}/AlterarSenha`, alterarSenha, httpOptions);
   }
 
+
+  NotificarAuth(): Observable<any> {
+    const dataAtual = Date();
+    const notificacao: NotificacaoAdmin = {
+      mensagem: "Antonio, informamos que foi realizado uma tentativa de autenticação no seu sistema.",
+      dataPublication: this.datePipe.transform(dataAtual, 'dd \'de\' LLLL \'de\' YYYY \'às\' HH:mm\'.\'')!.toString()
+    }
+    return this.http.post<any>(this.notificationAPI, notificacao);
+  }
 }
